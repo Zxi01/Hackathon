@@ -1,3 +1,36 @@
+//add dpad
+window.onload = function () {
+    board = document.getElementById("snake-canvas");
+    board.height = GAME_CONFIG.rows * GAME_CONFIG.blockSize;
+    board.width = GAME_CONFIG.cols * GAME_CONFIG.blockSize;
+    context = board.getContext("2d");
+
+    placeFood();
+    document.addEventListener("keydown", changeDirection);
+
+    // D-pad button event listeners
+    document
+        .getElementById("dpad-up")
+        .addEventListener("click", () => moveUp());
+    document
+        .getElementById("dpad-down")
+        .addEventListener("click", () => moveDown());
+    document
+        .getElementById("dpad-left")
+        .addEventListener("click", () => moveLeft);
+    document
+        .getElementById("dpad-right")
+        .addEventListener("click", () => moveRight());
+
+    setInterval(update, 1000 / GAME_CONFIG.fps);
+    updateScore();
+};
+
+function updateScore() {
+    const el = document.getElementById("score");
+    if (el) el.textContent = String(score);
+}
+
 // Make grid and score global so all functions can access them
 let grid = null;
 let score = 0;
@@ -67,7 +100,7 @@ document.addEventListener("keydown", function (event) {
     if (
         ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
     ) {
-        event.preventDefault(); // 🚫 stop the browser from scrolling
+        event.preventDefault();
     }
 });
 
@@ -102,6 +135,7 @@ function moveLeft() {
         addRandomTile(grid);
         if (typeof displayGrid === "function") displayGrid(grid);
     }
+    updateScore();
 }
 
 // FUNCTION slideAndMerge(row)
