@@ -1,3 +1,53 @@
+// init D-pad (replace old snake window.onload block)
+document.addEventListener("DOMContentLoaded", () => {
+    const up = document.getElementById("dpad-up");
+    const down = document.getElementById("dpad-down");
+    const left = document.getElementById("dpad-left");
+    const right = document.getElementById("dpad-right");
+
+    const handleMove = (fn) => {
+        return (e) => {
+            e && e.preventDefault && e.preventDefault();
+            if (typeof fn === "function") {
+                fn();
+                if (typeof displayGrid === "function") displayGrid(grid);
+                updateScore();
+                if (checkGameOver()) displayGameOver();
+            }
+        };
+    };
+
+    if (up) {
+        up.addEventListener("click", handleMove(moveUp));
+        up.addEventListener("touchstart", handleMove(moveUp), {
+            passive: false,
+        });
+    }
+    if (down) {
+        down.addEventListener("click", handleMove(moveDown));
+        down.addEventListener("touchstart", handleMove(moveDown), {
+            passive: false,
+        });
+    }
+    if (left) {
+        left.addEventListener("click", handleMove(moveLeft));
+        left.addEventListener("touchstart", handleMove(moveLeft), {
+            passive: false,
+        });
+    }
+    if (right) {
+        right.addEventListener("click", handleMove(moveRight));
+        right.addEventListener("touchstart", handleMove(moveRight), {
+            passive: false,
+        });
+    }
+});
+
+function updateScore() {
+    const el = document.getElementById("score");
+    if (el) el.textContent = String(score);
+}
+
 // Make grid and score global so all functions can access them
 let grid = null;
 let score = 0;
@@ -64,6 +114,11 @@ document.addEventListener("keydown", function (event) {
     // update view and check game over after each move
     if (typeof displayGrid === "function") displayGrid(grid);
     if (checkGameOver()) displayGameOver();
+    if (
+        ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
+    ) {
+        event.preventDefault();
+    }
 });
 
 // FUNCTION moveLeft
@@ -97,6 +152,7 @@ function moveLeft() {
         addRandomTile(grid);
         if (typeof displayGrid === "function") displayGrid(grid);
     }
+    updateScore();
 }
 
 // FUNCTION slideAndMerge(row)
@@ -233,7 +289,19 @@ function checkGameOver() {
 }
 
 function displayGameOver() {
-    alert("Game Over! Score: " + score);
+    const modal = document.getElementById("game-over-modal");
+    const scoreEl = document.getElementById("final-score");
+    scoreEl.textContent = score;
+    modal.classList.remove("hidden");
+
+    document.getElementById("restart-btn").onclick = () => {
+        modal.classList.add("hidden");
+        setupGame();
+    };
+
+    document.getElementById("home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
     // TODO: show a nicer overlay or restart button
 }
 
