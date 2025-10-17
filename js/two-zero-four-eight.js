@@ -64,6 +64,11 @@ document.addEventListener("keydown", function (event) {
     // update view and check game over after each move
     if (typeof displayGrid === "function") displayGrid(grid);
     if (checkGameOver()) displayGameOver();
+    if (
+        ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)
+    ) {
+        event.preventDefault(); // 🚫 stop the browser from scrolling
+    }
 });
 
 // FUNCTION moveLeft
