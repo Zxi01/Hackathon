@@ -1,0 +1,49 @@
+/* board = 4x4 grid, cells are tiles */
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    background-color: #bbada0;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(238, 228, 218, 0.35);
+    font-weight: 700;
+    font-size: 24px;
+    border-radius: 6px;
+    color: #776e65;
+}
+
+/* example tile colors; add more as you like */
+.cell.tile-2 {
+    background: #eee4da;
+}
+.cell.tile-4 {
+    background: #ede0c8;
+}
+.cell.tile-8 {
+    background: #f2b179;
+    color: #fff;
+}
+.cell.tile-16 {
+    background: #f59563;
+    color: #fff;
+}
+.cell.tile-32 {
+    background: #f67c5f;
+    color: #fff;
+}
+.cell.tile-64 {
+    background: #f65e3b;
+    color: #fff;
+}
