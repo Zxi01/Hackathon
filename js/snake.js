@@ -193,11 +193,19 @@ function changeDirection(e) {
 }
 
 function handleGameOver() {
-    alert("Game Over! Your score: " + score);
-    const playAgain = confirm("Play again?");
-    if (playAgain) {
+    const modal = document.getElementById("game-over-modal");
+    const scoreEl = document.getElementById("final-score");
+    scoreEl.textContent = score;
+    modal.classList.remove("hidden");
+
+    document.getElementById("restart-btn").onclick = () => {
+        modal.classList.add("hidden");
         resetGame();
-    }
+    };
+
+    document.getElementById("home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
 }
 
 function placeFood() {
