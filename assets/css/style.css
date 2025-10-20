@@ -84,3 +84,148 @@ body {
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.02);
 }
+
+/* Force centering for main page container and game cards */
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments for different screen sizes */
+
+/* Large screens (1200px and up) */
+@media (min-width: 1200px) {
+    .games-section {
+        padding: 3rem;
+        gap: 2.5rem;
+    }
+
+    .game-card {
+        max-width: 380px;
+        min-height: 400px;
+    }
+
+    .game-card .game-image {
+        height: 250px;
+    }
+}
+
+/* Medium screens (768px to 1199px) - Tablets */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .retro-title {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+        margin-bottom: 1.5rem;
+    }
+
+    .games-section {
+        gap: 1.5rem;
+        max-width: 900px;
+    }
+
+    .game-card {
+        flex: 1 1 280px;
+        max-width: 320px;
+        min-width: 260px;
+        min-height: 340px;
+    }
+
+    .game-card .game-image {
+        height: 200px;
+    }
+}
+
+/* Small tablets and large phones (481px to 767px) */
+@media (max-width: 767px) and (min-width: 481px) {
+    .retro-title {
+        font-size: 2rem;
+        letter-spacing: 2px;
+        margin-bottom: 1.2rem;
+    }
+
+    .games-section {
+        gap: 1.2rem;
+    }
+
+    .game-card {
+        flex: 1 1 220px;
+        max-width: 240px;
+        min-width: 200px;
+        min-height: 280px;
+        padding: 0.8rem;
+    }
+
+    .game-card .game-image {
+        height: 150px;
+    }
+}
+
+/* Mobile phones (480px and below) */
+@media (max-width: 480px) {
+    .retro-title {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+    }
+
+    .games-section {
+        gap: 0.8rem;
+    }
+
+    .game-card {
+        flex: 1 1 180px;
+        max-width: 200px;
+        min-width: 160px;
+        min-height: 240px;
+        padding: 0.6rem;
+    }
+
+    .game-card .game-image {
+        height: 120px;
+    }
+
+    .game-card h2 {
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* Extra small phones (360px and below) */
+@media (max-width: 360px) {
+    .retro-title {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        margin-bottom: 0.8rem;
+    }
+
+    .page-container {
+        padding: 1rem 0;
+    }
+
+    .games-section {
+        gap: 0.6rem;
+    }
+
+    .game-card {
+        flex: 1 1 140px;
+        max-width: 160px;
+        min-width: 130px;
+        min-height: 200px;
+        padding: 0.5rem;
+    }
+
+    .game-card .game-image {
+        height: 100px;
+    }
+
+    .game-card h2 {
+        font-size: 0.7rem;
+        margin: 0.5rem 0 0 0;
+        letter-spacing: 0.5px;
+    }
+}
