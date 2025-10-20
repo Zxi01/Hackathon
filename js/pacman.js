@@ -310,7 +310,67 @@ function move() {
         pacman.velocityY = 0;
     }
 
- // Handle pellet collection
+    // Ghost movement
+    for (let ghost of ghosts.values()) {
+        // Calculate new position
+        let newGhostX = ghost.x + ghost.velocityX;
+        let newGhostY = ghost.y + ghost.velocityY;
+        
+        // Check if ghost would hit a wall
+        let ghostWouldCollide = false;
+        for (let wall of walls.values()) {
+            if (ghostWallCollision(newGhostX, newGhostY, ghost.width, ghost.height, wall)) {
+                ghostWouldCollide = true;
+                break;
+            }
+        }
+
+    // If ghost would hit wall or randomly change direction (5% chance per frame)
+        if (ghostWouldCollide || Math.random() < 0.05) {
+            // Try different directions until we find a valid one
+            const availableDirections = [];
+            
+            for (let direction of directions) {
+                let testX = ghost.x;
+                let testY = ghost.y;
+                
+                switch (direction) {
+                    case "U": testY -= tileSize/4; break;
+                    case "D": testY += tileSize/4; break;
+                    case "L": testX -= tileSize/4; break;
+                    case "R": testX += tileSize/4; break;
+                }
+                
+                let canMoveThisWay = true;
+                for (let wall of walls.values()) {
+                    if (ghostWallCollision(testX, testY, ghost.width, ghost.height, wall)) {
+                        canMoveThisWay = false;
+                        break;
+                    }
+                }
+                
+                if (canMoveThisWay) {
+                    availableDirections.push(direction);
+                }
+            }
+
+        // Choose a random valid direction
+            if (availableDirections.length > 0) {
+                const newDirection = availableDirections[Math.floor(Math.random() * availableDirections.length)];
+                ghost.direction = newDirection;
+                ghost.updateVelocity();
+            }
+        }
+        
+        // Move ghost if no collision
+        if (!ghostWouldCollide) {
+            ghost.x = newGhostX;
+            ghost.y = newGhostY;
+        }
+    }
+
+
+    // Handle pellet collection
     for (let pellet of pellets.values()) {
         const scoreEl = document.getElementById("scoreEl");
         if (pacmanPelletCollision(pacman, pellet)) {
@@ -363,6 +423,21 @@ function move() {
     
     // Collision occurs if distance is less than pacman radius
     return distance < pacman.radius;
+    }
+
+    // Collision detection between ghosts (rectangles) and walls (rectangles)
+    function ghostWallCollision(ghostX, ghostY, ghostWidth, ghostHeight, wall) {
+        return ghostX < wall.x + wall.width &&
+            ghostX + ghostWidth > wall.x &&
+            ghostY < wall.y + wall.height &&
+            ghostY + ghostHeight > wall.y;
+    }
+
+    function ghostCollision(a, b) {
+        return a.x < b.x + b.width &&
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y + a.height > b.y;
     }
 
 }
