@@ -176,3 +176,14 @@ class Block {
         this.y = this.startY;
     }
 }
+
+//update function
+function update() {
+    // Only continue updating if game is not over
+   //if () {
+        //move();
+        draw();
+        setTimeout(update, 50);
+   //}
+}
+
