@@ -138,6 +138,7 @@ window.onload = function() {
 
     update();
     document.addEventListener('keydown', function(e) {
+        e.preventDefault();
         if(e.code == 'ArrowUp' || e.code == "KeyW") {
             pacman.updateDirection("U");
         } else if(e.code == 'ArrowDown' || e.code == "KeyS") {
