@@ -94,6 +94,65 @@ window.onload = function() {
 
 }
 
+//move function
+function move() {
+
+    //pacman movement logic
+    // Check if we can change direction and have a queued direction
+    if (pacman.nextDirection && pacman.canChangeDirection()) {
+        // Test if the queued direction is valid
+        pacman.snapToGrid(); // Ensure we're centered
+        let testX = pacman.x;
+        let testY = pacman.y;
+        
+        // Calculate test position based on queued direction
+        switch (pacman.nextDirection) {
+            case "U": testY -= pacman.speed; break;
+            case "D": testY += pacman.speed; break;
+            case "L": testX -= pacman.speed; break;
+            case "R": testX += pacman.speed; break;
+        }
+        
+        // Check if queued direction is clear
+        let canMove = true;
+        for (let wall of walls.values()) {
+            if (pacmanWallCollision(testX, testY, wall)) {
+                canMove = false;
+                break;
+            }
+        }
+        
+        // If queued direction is clear, change to it
+        if (canMove) {
+            pacman.setDirection(pacman.nextDirection);
+            pacman.nextDirection = null;
+        }
+    }
+    
+    // Calculate new position
+    let newX = pacman.x + pacman.velocityX;
+    let newY = pacman.y + pacman.velocityY;
+    
+    // Check if new position would cause collision
+    let wouldCollide = false;
+    for (let wall of walls.values()) {
+        if (pacmanWallCollision(newX, newY, wall)) {
+            wouldCollide = true;
+            break;
+        }
+    }
+    
+    // Only move if no collision would occur
+    if (!wouldCollide) {
+        pacman.x = newX;
+        pacman.y = newY;
+    } else {
+        // Stop moving if hit a wall
+        pacman.velocityX = 0;
+        pacman.velocityY = 0;
+    }
+}
+
 //load images
 function loadImages() {
     wallImg = new Image();
