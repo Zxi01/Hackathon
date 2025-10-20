@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
 body {
+    background: url(../images/background.jpg) repeat center center fixed;
     animation: scrollBg 60s linear infinite;
     text-align: center;
     margin: 0;
@@ -17,6 +18,26 @@ body {
     justify-content: center;
     min-height: 100vh;
     padding: 2rem 0;
+}
+
+.retro-title {
+    font-family: "Press Start 2P", monospace;
+    font-size: 3rem;
+    color: #ffee00;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000, 0px 0px 15px #ffee00;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes scrollBg {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1000px 0;
+    }
 }
 
 .games-section {
