@@ -62,7 +62,36 @@ window.onload = function() {
     canvas.height = canvasHeight;
 
     loadImages();
-    loadMap();  
+    loadMap(); 
+    
+    // Initialize Pacman at position [1][1]
+    pacman = {
+        x: 1 * tileSize + tileSize/2, // Center in tile
+        y: 1 * tileSize + tileSize/2, // Center in tile
+        radius: 12.5,
+        radians: 0.75,
+        openRate: 0.12,
+        rotation: 0,
+        direction: "R",
+        nextDirection: null, // Queue for next direction
+        velocityX: 0,
+        velocityY: 0,
+        speed: 8, // Pixels per frame
+    };
+
+    update();
+    document.addEventListener('keydown', function(e) {
+        if(e.code == 'ArrowUp' || e.code == "KeyW") {
+            pacman.updateDirection("U");
+        } else if(e.code == 'ArrowDown' || e.code == "KeyS") {
+            pacman.updateDirection("D");
+        } else if(e.code == 'ArrowLeft' || e.code == "KeyA") {
+            pacman.updateDirection("L");
+        } else if(e.code == 'ArrowRight' || e.code == "KeyD") {
+            pacman.updateDirection("R");
+        }
+    });
+
 }
 
 //load images
@@ -102,6 +131,15 @@ function loadMap() {
             }
         }
     }
+    // Spawn ghosts in the center of the map
+    const centerRow = Math.floor(rows / 2);
+    const centerCol = Math.floor(cols / 2);
+    
+    // Position ghosts in a 1x4 formation horizontally across the center
+    ghosts.add(new Block(redGhostImg, (centerCol - 2) * tileSize, centerRow * tileSize, tileSize, tileSize));
+    ghosts.add(new Block(blueGhostImg, (centerCol - 1) * tileSize, centerRow * tileSize, tileSize, tileSize));
+    ghosts.add(new Block(orangeGhostImg, centerCol * tileSize, centerRow * tileSize, tileSize, tileSize));
+    ghosts.add(new Block(pinkGhostImg, (centerCol + 1) * tileSize, centerRow * tileSize, tileSize, tileSize));
 }
 
 //draw function
