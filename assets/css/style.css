@@ -119,6 +119,42 @@ body {
     background: rgba(255, 255, 255, 0.02);
 }
 
+/* Music button styling - positioned in top right corner */
+#music-toggle {
+    display: block;
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    padding: 0;
+    background: transparent;
+    border: 3px solid #ffee00;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+}
+
+#music-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    border-color: #7df9ff;
+}
+
+.music-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.music-label {
+    display: none;
+}
+
 /* Force centering for main page container and game cards */
 .page-container {
     display: flex;
@@ -197,6 +233,11 @@ body {
     .game-card .game-image {
         height: 150px;
     }
+
+    #music-toggle {
+        width: 55px;
+        height: 55px;
+    }
 }
 
 /* Mobile phones (480px and below) */
@@ -226,6 +267,14 @@ body {
     .game-card h2 {
         font-size: 0.8rem;
         letter-spacing: 1px;
+    }
+
+    /* Smaller music button on mobile */
+    #music-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 48px;
+        height: 48px;
     }
 }
 
@@ -261,5 +310,12 @@ body {
         font-size: 0.7rem;
         margin: 0.5rem 0 0 0;
         letter-spacing: 0.5px;
+    }
+
+    #music-toggle {
+        width: 40px;
+        height: 40px;
+        top: 0.5rem;
+        right: 0.5rem;
     }
 }
