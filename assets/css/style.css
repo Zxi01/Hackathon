@@ -1,0 +1,55 @@
+/* Import retro fonts */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
+
+body {
+    animation: scrollBg 60s linear infinite;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: "Orbitron", monospace;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.games-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.game-card {
+    flex: 1 1 300px; /* flexible width with 300px base */
+    max-width: 350px;
+    min-width: 280px;
+    background: #1a1a1a;
+    border: 3px dashed #7df9ff;
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 360px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.game-card h2 {
+    font-family: "Press Start 2P", monospace;
+    font-size: 1.2rem;
+    color: #ffee00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0.8rem 0 0 0;
+    text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
+    animation: glow 2s ease-in-out infinite alternate;
+}
