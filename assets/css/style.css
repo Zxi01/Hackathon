@@ -119,19 +119,15 @@ body {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* Music button styling - positioned in top right corner */
+/* Music button styling - now positioned within top-right-buttons container */
 #music-toggle {
     display: block;
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 50;
     padding: 0;
     background: transparent;
     border: 3px solid #ffee00;
     border-radius: 10px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 60px;
     height: 60px;
