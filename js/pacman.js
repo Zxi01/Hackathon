@@ -135,3 +135,44 @@ function draw() {
         ctx.drawImage(ghost.image, ghost.x, ghost.y, ghost.width, ghost.height);
     }
 }
+
+// Block class for walls, pellets, power-ups, and ghosts
+
+class Block {
+    constructor(image, x, y, width, height) {
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+
+        this.startX = x;
+        this.startY = y;
+
+        this.direction = directions[Math.floor(Math.random() * directions.length)]; // Random initial direction
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.updateVelocity(); // Set initial velocity
+    }
+
+    updateVelocity() {
+        if (this.direction === "U") {
+            this.velocityX = 0;
+            this.velocityY = -tileSize/4;
+        } else if (this.direction === "D") {
+            this.velocityX = 0;
+            this.velocityY = tileSize/4;
+        } else if (this.direction === "L") {
+            this.velocityX = -tileSize/4;
+            this.velocityY = 0;
+        } else if (this.direction === "R") {
+            this.velocityX = tileSize/4;
+            this.velocityY = 0;
+        }
+    }   
+
+    reset() {
+        this.x = this.startX;
+        this.y = this.startY;
+    }
+}
