@@ -473,6 +473,13 @@ function move() {
         }
     }
 
+    // Check win condition - if all pellets are collected
+    if (pellets.size === 0) {
+        gameOver = true;
+        handleWinGame();
+        return;
+    }
+
     // Update scared ghost timer
     updateScaredGhosts();
 
@@ -577,12 +584,29 @@ function handleGameOver() {
     scoreEl.textContent = score;
     modal.classList.remove("hidden");
 
-    document.getElementById("restart-btn").onclick = () => {
+    document.querySelector(".restart-btn").onclick = () => {
         modal.classList.add("hidden");
         resetGame();
     };
 
-    document.getElementById("home-btn").onclick = () => {
+    document.querySelector(".home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
+}
+
+//handle win game
+function handleWinGame() {
+    const modal = document.getElementById("win-game-modal");
+    const scoreEl = document.getElementById("win-score");
+    scoreEl.textContent = score;
+    modal.classList.remove("hidden");
+
+    document.querySelector(".restart-btn").onclick = () => {
+        modal.classList.add("hidden");
+        resetGame();
+    };
+
+    document.querySelector(".home-btn").onclick = () => {
         window.location.href = "index.html";
     };
 }
