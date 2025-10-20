@@ -134,6 +134,17 @@ function draw() {
     for (let ghost of ghosts.values()) {
         ctx.drawImage(ghost.image, ghost.x, ghost.y, ghost.width, ghost.height);
     }
+
+    //draw pacman
+    ctx.save();
+    ctx.translate(pacman.x, pacman.y);
+    ctx.rotate(pacman.rotation);
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(0, 0, pacman.radius, pacman.radians, Math.PI * 2 - pacman.radians);
+    ctx.lineTo(0, 0);
+    ctx.fill();
+    ctx.restore();
 }
 
 // Block class for walls, pellets, power-ups, and ghosts
