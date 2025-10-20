@@ -310,11 +310,31 @@ function move() {
         pacman.velocityY = 0;
     }
 
+ // Handle pellet collection
+    for (let pellet of pellets.values()) {
+        const scoreEl = document.getElementById("scoreEl");
+        if (pacmanPelletCollision(pacman, pellet)) {
+            pellets.delete(pellet);
+            score += 10; // Increment score
+            scoreEl.innerHTML = score; // Update score display
+        }
+    }
+
+    // Handle power-up collection
+    for (let powerUp of powerUps.values()) {
+        if (pacmanPelletCollision(pacman, powerUp)) {
+            powerUps.delete(powerUp);
+            // Add power-up effect here if needed
+        }
+    }
+
     //Handles the mouth opening and closing effect
     if (pacman.radians < 0 || pacman.radians > 0.75) {
         pacman.openRate = -pacman.openRate;
     }
     pacman.radians += pacman.openRate;
+
+    
 
     // Collision detection between Pacman (circle) and walls (rectangles)
     function pacmanWallCollision(pacmanX, pacmanY, wall) {
@@ -329,7 +349,21 @@ function move() {
     
     // Collision occurs if distance is less than circle radius
     return distance < pacman.radius;
-}
+    }
+
+    // Collision detection between Pacman and pellets/power-ups
+    function pacmanPelletCollision(pacman, pellet) {
+    // Calculate distance between centers
+    let pelletCenterX = pellet.x + pellet.width / 2;
+    let pelletCenterY = pellet.y + pellet.height / 2;
+    
+    let distanceX = pacman.x - pelletCenterX;
+    let distanceY = pacman.y - pelletCenterY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Collision occurs if distance is less than pacman radius
+    return distance < pacman.radius;
+    }
 
 }
 
