@@ -473,6 +473,31 @@ function move() {
 
 }
 
+//reset positions of pacman and ghosts
+function resetPositions() {
+    // Reset Pacman to starting position
+    pacman.x = 1 * tileSize + tileSize/2;
+    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.velocityX = 0;
+    pacman.velocityY = 0;
+    pacman.direction = "R";
+    pacman.nextDirection = null;
+
+    // Reset ghosts to their starting positions
+    const centerRow = Math.floor(rows / 2);
+    const centerCol = Math.floor(cols / 2);
+    
+    let ghostIndex = 0;
+    for (let ghost of ghosts.values()) {
+        ghost.reset();
+        // Give each ghost a new random direction
+        const newDirection = directions[Math.floor(Math.random() * directions.length)];
+        ghost.direction = newDirection;
+        ghost.updateVelocity();
+        ghostIndex++;
+    }
+}
+
 // Block class for walls, pellets, power-ups, and ghosts
 
 class Block {
