@@ -295,7 +295,6 @@ function displayGameOver() {
     modal.classList.remove("hidden");
 
     document.getElementById("restart-btn").onclick = () => {
-        S;
         modal.classList.add("hidden");
         setupGame();
     };
