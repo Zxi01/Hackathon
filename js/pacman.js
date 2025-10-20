@@ -17,6 +17,13 @@ let pinkGhostImg;
 let wallImg;
 let scaredGhostImg;
 
+//sounds
+let eatPelletSound;
+// let eatGhostSound;
+// let deathSound;
+// let powerUpSound;
+// let startUpSound;
+
 // Pacman object
 let pacman;
 
@@ -67,6 +74,7 @@ window.onload = function() {
     canvas.height = canvasHeight;
 
     loadImages();
+    loadSounds();
     loadMap(); 
     
     // Initialize Pacman at position [1][1]
@@ -171,6 +179,20 @@ function loadImages() {
     pinkGhostImg.src = "assets/images/pinkGhost.png";
     scaredGhostImg = new Image();
     scaredGhostImg.src = "assets/images/scaredGhost.png";
+}
+
+//load sounds
+function loadSounds() {
+    eatPelletSound = new Audio("assets/sounds/waka.wav");
+    eatPelletSound.volume = 0.5;
+    // eatGhostSound = new Audio("assets/sounds/eat_ghost.wav");
+    // eatGhostSound.volume = 0.5;
+    // deathSound = new Audio("assets/sounds/death.wav");
+    // deathSound.volume = 0.5;
+    // powerUpSound = new Audio("assets/sounds/power_up.wav");
+    // powerUpSound.volume = 0.5;
+    // startUpSound = new Audio("assets/sounds/start_up.wav");
+    // startUpSound.volume = 0.5;
 }
 
 //load map
@@ -459,6 +481,15 @@ function move() {
             pellets.delete(pellet);
             score += 10; // Increment score
             scoreEl.innerHTML = score; // Update score display
+
+            // Play eatPellet sound when eating pellet
+            if (eatPelletSound) {
+                eatPelletSound.currentTime = 0; // Reset sound to beginning for rapid playback
+                eatPelletSound.play().catch(e => {
+                    // Handle any audio play errors silently
+                    console.log("Audio play failed:", e);
+                });
+            }
         }
     }
 
@@ -584,14 +615,22 @@ function handleGameOver() {
     scoreEl.textContent = score;
     modal.classList.remove("hidden");
 
-    document.querySelector(".restart-btn").onclick = () => {
-        modal.classList.add("hidden");
-        resetGame();
-    };
+    // Target buttons specifically within the game-over modal
+    const restartBtn = modal.querySelector(".restart-btn");
+    const homeBtn = modal.querySelector(".home-btn");
 
-    document.querySelector(".home-btn").onclick = () => {
-        window.location.href = "index.html";
-    };
+    if (restartBtn) {
+        restartBtn.onclick = () => {
+            modal.classList.add("hidden");
+            resetGame();
+        };
+    }
+
+    if (homeBtn) {
+        homeBtn.onclick = () => {
+            window.location.href = "index.html";
+        };
+    }
 }
 
 //handle win game
@@ -601,14 +640,22 @@ function handleWinGame() {
     scoreEl.textContent = score;
     modal.classList.remove("hidden");
 
-    document.querySelector(".restart-btn").onclick = () => {
-        modal.classList.add("hidden");
-        resetGame();
-    };
+    // Target buttons specifically within the win-game modal
+    const restartBtn = modal.querySelector(".restart-btn");
+    const homeBtn = modal.querySelector(".home-btn");
 
-    document.querySelector(".home-btn").onclick = () => {
-        window.location.href = "index.html";
-    };
+    if (restartBtn) {
+        restartBtn.onclick = () => {
+            modal.classList.add("hidden");
+            resetGame();
+        };
+    }
+
+    if (homeBtn) {
+        homeBtn.onclick = () => {
+            window.location.href = "index.html";
+        };
+    }
 }
 
 //reset game
