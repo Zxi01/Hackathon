@@ -15,6 +15,7 @@ let redGhostImg;
 let orangeGhostImg;
 let pinkGhostImg;
 let wallImg;
+let scaredGhostImg;
 
 // Pacman object
 let pacman;
@@ -24,9 +25,13 @@ const walls = new Set();
 const pellets = new Set();
 const powerUps = new Set();
 const ghosts = new Set();
+const eatenGhosts = new Set(); // Track eaten ghosts for respawning
 let score = 0;
 let lives = 3;
 let gameOver = false;
+let ghostsScared = false;
+let scaredTimer = 0;
+const SCARED_DURATION = 5000; // 5 seconds in milliseconds
 
 const directions = ['U', 'D', 'L', 'R'];
 
@@ -164,6 +169,8 @@ function loadImages() {
     orangeGhostImg.src = "assets/images/orangeGhost.png";
     pinkGhostImg = new Image();
     pinkGhostImg.src = "assets/images/pinkGhost.png";
+    scaredGhostImg = new Image();
+    scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
 
 //load map
@@ -172,6 +179,7 @@ function loadMap() {
     pellets.clear();
     powerUps.clear();
     ghosts.clear();
+    eatenGhosts.clear();
 
     for(let r = 0; r < map.length; r++) {
         for(let c = 0; c < map[r].length; c++) {
@@ -251,6 +259,54 @@ function draw() {
     ctx.lineTo(0, 0);
     ctx.fill();
     ctx.restore();
+}
+
+// Add functions to handle scared ghosts
+function makeGhostsScared() {
+    ghostsScared = true;
+    scaredTimer = Date.now() + SCARED_DURATION;
+    
+    // Change all ghost images to scared ghost
+    for (let ghost of ghosts.values()) {
+        ghost.image = scaredGhostImg;
+    }
+}
+
+function updateScaredGhosts() {
+    if (ghostsScared && Date.now() >= scaredTimer) {
+        // Time's up, change ghosts back to normal and respawn eaten ghosts
+        ghostsScared = false;
+        
+        // Restore original images for existing ghosts
+        for (let ghost of ghosts.values()) {
+            ghost.image = ghost.originalImage;
+        }
+        
+        // Respawn eaten ghosts
+        for (let eatenGhost of eatenGhosts.values()) {
+            // Reset eaten ghost to original position and image
+            eatenGhost.reset();
+            eatenGhost.image = eatenGhost.originalImage;
+            // Give it a new random direction
+            const newDirection = directions[Math.floor(Math.random() * directions.length)];
+            eatenGhost.direction = newDirection;
+            eatenGhost.updateVelocity();
+            // Add back to active ghosts
+            ghosts.add(eatenGhost);
+        }
+        
+        // Clear eaten ghosts set
+        eatenGhosts.clear();
+    }
+}
+
+function eatGhost(ghost) {
+    // Remove from active ghosts and add to eaten ghosts
+    ghosts.delete(ghost);
+    eatenGhosts.add(ghost);
+    score += 100;
+    const scoreEl = document.getElementById("scoreEl");
+    scoreEl.innerHTML = score;
 }
 
 //move function
@@ -375,17 +431,24 @@ function move() {
     // Check for Pacman-Ghost collisions AFTER movement
     for(let ghost of ghosts.values()) {
         if(pacmanGhostCollision(pacman, ghost)) {
-            lives -= 1;
-            const livesEl = document.getElementById("livesEl");
-            livesEl.innerHTML = lives;
-            
-            if(lives <= 0) {
-                gameOver = true;
-                handleGameOver();
+            if (ghostsScared) {
+                // Pacman eats the scared ghost
+                eatGhost(ghost);
+                break; // Exit after eating one ghost
             } else {
-                resetPositions();
+                // Normal collision - Pacman loses a life
+                lives -= 1;
+                const livesEl = document.getElementById("livesEl");
+                livesEl.innerHTML = lives;
+                
+                if(lives <= 0) {
+                    gameOver = true;
+                    handleGameOver();
+                } else {
+                    resetPositions();
+                }
+                return; // Exit after first collision to avoid multiple life losses
             }
-            return; // Exit after first collision to avoid multiple life losses
         }
     }
 
@@ -403,9 +466,15 @@ function move() {
     for (let powerUp of powerUps.values()) {
         if (pacmanPelletCollision(pacman, powerUp)) {
             powerUps.delete(powerUp);
-            // Add power-up effect here if needed
+            makeGhostsScared(); // Make ghosts scared when power-up is collected
+            score += 50; // Add points for power-up
+            const scoreEl = document.getElementById("scoreEl");
+            scoreEl.innerHTML = score;
         }
     }
+
+    // Update scared ghost timer
+    updateScaredGhosts();
 
     //Handles the mouth opening and closing effect
     if (pacman.radians < 0 || pacman.radians > 0.75) {
@@ -523,6 +592,8 @@ function resetGame() {
     score = 0;
     lives = 3;
     gameOver = false;
+    ghostsScared = false; // Reset scared state
+    scaredTimer = 0;
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
@@ -542,6 +613,7 @@ function resetGame() {
 class Block {
     constructor(image, x, y, width, height) {
         this.image = image;
+        this.originalImage = image; // Store original image
         this.x = x;
         this.y = y;
         this.width = width;
@@ -575,6 +647,7 @@ class Block {
     reset() {
         this.x = this.startX;
         this.y = this.startY;
+        this.image = this.originalImage; // Reset to original image
     }
 }
 
