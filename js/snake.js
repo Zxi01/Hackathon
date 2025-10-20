@@ -34,10 +34,16 @@ let gameOverHandled = false;
 
 // score
 let score = 0;
+let highscore = localStorage.getItem("highscore") || 0;
 
 function updateScore() {
     const el = document.getElementById("score");
     if (el) el.textContent = String(score);
+}
+
+function updateHighscore() {
+    const el = document.getElementById("highscore");
+    if (el) el.textContent = String(highscore);
 }
 
 // Drawing functions
@@ -94,6 +100,7 @@ window.onload = function () {
 
     setInterval(update, 1000 / GAME_CONFIG.fps);
     updateScore();
+    updateHighscore();
 };
 
 function update() {
@@ -208,9 +215,16 @@ function changeDirection(e) {
 }
 
 function handleGameOver() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", highscore);
+        updateHighscore();
+    }
     const modal = document.getElementById("game-over-modal");
     const scoreEl = document.getElementById("final-score");
+    const highscoreEl = document.getElementById("highscore-final");
     scoreEl.textContent = score;
+    highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
 
     document.getElementById("restart-btn").onclick = () => {
@@ -232,7 +246,9 @@ function placeFood() {
         foodY =
             Math.floor(Math.random() * GAME_CONFIG.rows) *
             GAME_CONFIG.blockSize;
-        valid = !snakeBody.some(([x, y]) => x === foodX && y === foodY);
+        valid = !snakeBody.some(
+            (segment) => segment[0] === foodX && segment[1] === foodY
+        );
     }
 }
 
