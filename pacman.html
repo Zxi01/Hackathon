@@ -9,10 +9,22 @@
 </head>
 <body>
     <h1 class="retro-title">PACMAN</h1>
-    <p><span>Score:</span><span id="scoreEl">0</span></p>
-    <p><span>Lives:</span><span id="livesEl">3</span></p>
-    <div class="game-container">
-        <canvas id="pacman-canvas"></canvas>
+    <div class="game-wrapper"></div>
+        <div id="scoreboard" class="scoreboard">
+            <p><span>Score:</span><span id="scoreEl">0</span></p>
+            <p><span>Lives:</span><span id="livesEl">3</span></p>
+        </div>
+        <div class="game-container">
+            <canvas id="pacman-canvas"></canvas>
+        </div>
+        <!-- D-pad controls for mobile/tablet -->
+        <div class="dpad-container">
+            <button id="dpad-up" aria-label="Move Up">▲</button>
+            <button id="dpad-left" aria-label="Move Left">◀</button>
+            <button id="dpad-right" aria-label="Move Right">▶</button>
+            <button id="dpad-down" aria-label="Move Down">▼</button>
+        </div>
+        <a href="index.html" class="back-button">Main Menu</a>
     </div>
 
     <!-- Game Over Modal -->
@@ -23,7 +35,7 @@
             <button id="home-btn">Main Menu</button>
         </div>
     </div>
-    <!-- <script src="js/script.js"></script> -->
+    <script src="js/script.js"></script>
     <script src="js/pacman.js"></script>
 </body>
 </html>
