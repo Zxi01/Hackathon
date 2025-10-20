@@ -77,6 +77,63 @@ window.onload = function() {
         velocityX: 0,
         velocityY: 0,
         speed: 8, // Pixels per frame
+
+        updateDirection: function(direction) {
+            // Always queue the new direction
+            this.nextDirection = direction;
+            
+            // If not currently moving, start moving immediately
+            if (this.velocityX === 0 && this.velocityY === 0) {
+                this.setDirection(direction);
+            }
+        },
+        
+        setDirection: function(direction) {
+            this.direction = direction;
+            this.updateVelocity();
+        },
+        
+        updateVelocity: function() {
+            switch (this.direction) {
+                case "U":
+                    this.velocityX = 0;
+                    this.velocityY = -this.speed;
+                    this.rotation = Math.PI * 1.5; // 270 degrees
+                    break;
+                case "D":
+                    this.velocityX = 0;
+                    this.velocityY = this.speed;
+                    this.rotation = Math.PI * 0.5; // 90 degrees
+                    break;
+                case "L":
+                    this.velocityX = -this.speed;
+                    this.velocityY = 0;
+                    this.rotation = Math.PI; // 180 degrees
+                    break;
+                case "R":
+                    this.velocityX = this.speed;
+                    this.velocityY = 0;
+                    this.rotation = 0; // 0 degrees
+                    break;
+            }
+        },
+        
+        // Check if Pacman is close enough to center of a tile to change direction
+        canChangeDirection: function() {
+            const tolerance = 4; // Pixels tolerance from tile center
+            const tileX = Math.floor(this.x / tileSize) * tileSize + tileSize/2;
+            const tileY = Math.floor(this.y / tileSize) * tileSize + tileSize/2;
+            
+            return Math.abs(this.x - tileX) <= tolerance && Math.abs(this.y - tileY) <= tolerance;
+        },
+        
+        // Snap to the nearest tile center
+        snapToGrid: function() {
+            const tileX = Math.floor(this.x / tileSize) * tileSize + tileSize/2;
+            const tileY = Math.floor(this.y / tileSize) * tileSize + tileSize/2;
+            this.x = tileX;
+            this.y = tileY;
+        }
     };
 
     update();
@@ -142,6 +199,16 @@ function loadMap() {
     ghosts.add(new Block(pinkGhostImg, (centerCol + 1) * tileSize, centerRow * tileSize, tileSize, tileSize));
 }
 
+//update function
+function update() {
+    // Only continue updating if game is not over
+   if (!gameOver) {
+        move();
+        draw();
+        setTimeout(update, 50);
+   }
+}
+
 //draw function
 function draw() {
     //clear canvas
@@ -185,6 +252,290 @@ function draw() {
     ctx.restore();
 }
 
+//move function
+function move() {
+    // Don't process movement if game is over
+    if (gameOver) return;
+
+    //pacman movement logic
+    // Check if we can change direction and have a queued direction
+    if (pacman.nextDirection && pacman.canChangeDirection()) {
+        // Test if the queued direction is valid
+        pacman.snapToGrid(); // Ensure we're centered
+        let testX = pacman.x;
+        let testY = pacman.y;
+        
+        // Calculate test position based on queued direction
+        switch (pacman.nextDirection) {
+            case "U": testY -= pacman.speed; break;
+            case "D": testY += pacman.speed; break;
+            case "L": testX -= pacman.speed; break;
+            case "R": testX += pacman.speed; break;
+        }
+        
+        // Check if queued direction is clear
+        let canMove = true;
+        for (let wall of walls.values()) {
+            if (pacmanWallCollision(testX, testY, wall)) {
+                canMove = false;
+                break;
+            }
+        }
+        
+        // If queued direction is clear, change to it
+        if (canMove) {
+            pacman.setDirection(pacman.nextDirection);
+            pacman.nextDirection = null;
+        }
+    }
+    
+    // Calculate new position
+    let newX = pacman.x + pacman.velocityX;
+    let newY = pacman.y + pacman.velocityY;
+    
+    // Check if new position would cause collision
+    let wouldCollide = false;
+    for (let wall of walls.values()) {
+        if (pacmanWallCollision(newX, newY, wall)) {
+            wouldCollide = true;
+            break;
+        }
+    }
+    
+    // Only move if no collision would occur
+    if (!wouldCollide) {
+        pacman.x = newX;
+        pacman.y = newY;
+    } else {
+        // Stop moving if hit a wall
+        pacman.velocityX = 0;
+        pacman.velocityY = 0;
+    }
+
+    // Ghost movement
+    for (let ghost of ghosts.values()) {
+        // Calculate new position
+        let newGhostX = ghost.x + ghost.velocityX;
+        let newGhostY = ghost.y + ghost.velocityY;
+        
+        // Check if ghost would hit a wall
+        let ghostWouldCollide = false;
+        for (let wall of walls.values()) {
+            if (ghostWallCollision(newGhostX, newGhostY, ghost.width, ghost.height, wall)) {
+                ghostWouldCollide = true;
+                break;
+            }
+        }
+
+    // If ghost would hit wall or randomly change direction (5% chance per frame)
+        if (ghostWouldCollide || Math.random() < 0.05) {
+            // Try different directions until we find a valid one
+            const availableDirections = [];
+            
+            for (let direction of directions) {
+                let testX = ghost.x;
+                let testY = ghost.y;
+                
+                switch (direction) {
+                    case "U": testY -= tileSize/4; break;
+                    case "D": testY += tileSize/4; break;
+                    case "L": testX -= tileSize/4; break;
+                    case "R": testX += tileSize/4; break;
+                }
+                
+                let canMoveThisWay = true;
+                for (let wall of walls.values()) {
+                    if (ghostWallCollision(testX, testY, ghost.width, ghost.height, wall)) {
+                        canMoveThisWay = false;
+                        break;
+                    }
+                }
+                
+                if (canMoveThisWay) {
+                    availableDirections.push(direction);
+                }
+            }
+
+        // Choose a random valid direction
+            if (availableDirections.length > 0) {
+                const newDirection = availableDirections[Math.floor(Math.random() * availableDirections.length)];
+                ghost.direction = newDirection;
+                ghost.updateVelocity();
+            }
+        }
+        
+        // Move ghost if no collision
+        if (!ghostWouldCollide) {
+            ghost.x = newGhostX;
+            ghost.y = newGhostY;
+        }
+    }
+
+    // Check for Pacman-Ghost collisions AFTER movement
+    for(let ghost of ghosts.values()) {
+        if(pacmanGhostCollision(pacman, ghost)) {
+            lives -= 1;
+            const livesEl = document.getElementById("livesEl");
+            livesEl.innerHTML = lives;
+            
+            if(lives <= 0) {
+                gameOver = true;
+                handleGameOver();
+            } else {
+                resetPositions();
+            }
+            return; // Exit after first collision to avoid multiple life losses
+        }
+    }
+
+    // Handle pellet collection
+    for (let pellet of pellets.values()) {
+        const scoreEl = document.getElementById("scoreEl");
+        if (pacmanPelletCollision(pacman, pellet)) {
+            pellets.delete(pellet);
+            score += 10; // Increment score
+            scoreEl.innerHTML = score; // Update score display
+        }
+    }
+
+    // Handle power-up collection
+    for (let powerUp of powerUps.values()) {
+        if (pacmanPelletCollision(pacman, powerUp)) {
+            powerUps.delete(powerUp);
+            // Add power-up effect here if needed
+        }
+    }
+
+    //Handles the mouth opening and closing effect
+    if (pacman.radians < 0 || pacman.radians > 0.75) {
+        pacman.openRate = -pacman.openRate;
+    }
+    pacman.radians += pacman.openRate;
+
+    
+
+    // Collision detection between Pacman (circle) and walls (rectangles)
+    function pacmanWallCollision(pacmanX, pacmanY, wall) {
+    // Find the closest point on the rectangle to the circle center
+    let closestX = Math.max(wall.x, Math.min(pacmanX, wall.x + wall.width));
+    let closestY = Math.max(wall.y, Math.min(pacmanY, wall.y + wall.height));
+    
+    // Calculate distance between circle center and closest point
+    let distanceX = pacmanX - closestX;
+    let distanceY = pacmanY - closestY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Collision occurs if distance is less than circle radius
+    return distance < pacman.radius;
+    }
+
+    // Collision detection between Pacman (circle) and ghosts (rectangles)
+    function pacmanGhostCollision(pacman, ghost) {
+    // Find the closest point on the rectangle to the circle center
+    let closestX = Math.max(ghost.x, Math.min(pacman.x, ghost.x + ghost.width));
+    let closestY = Math.max(ghost.y, Math.min(pacman.y, ghost.y + ghost.height));
+    
+    // Calculate distance between circle center and closest point
+    let distanceX = pacman.x - closestX;
+    let distanceY = pacman.y - closestY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Collision occurs if distance is less than circle radius
+    return distance < pacman.radius;
+    }
+
+    // Collision detection between Pacman and pellets/power-ups
+    function pacmanPelletCollision(pacman, pellet) {
+    // Calculate distance between centers
+    let pelletCenterX = pellet.x + pellet.width / 2;
+    let pelletCenterY = pellet.y + pellet.height / 2;
+    
+    let distanceX = pacman.x - pelletCenterX;
+    let distanceY = pacman.y - pelletCenterY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Collision occurs if distance is less than pacman radius
+    return distance < pacman.radius;
+    }
+
+    // Collision detection between ghosts (rectangles) and walls (rectangles)
+    function ghostWallCollision(ghostX, ghostY, ghostWidth, ghostHeight, wall) {
+        return ghostX < wall.x + wall.width &&
+            ghostX + ghostWidth > wall.x &&
+            ghostY < wall.y + wall.height &&
+            ghostY + ghostHeight > wall.y;
+    }
+
+    function ghostCollision(a, b) {
+        return a.x < b.x + b.width &&
+            a.x + a.width > b.x &&
+            a.y < b.y + b.height &&
+            a.y + a.height > b.y;
+    }
+
+}
+
+//reset positions of pacman and ghosts
+function resetPositions() {
+    // Reset Pacman to starting position
+    pacman.x = 1 * tileSize + tileSize/2;
+    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.velocityX = 0;
+    pacman.velocityY = 0;
+    pacman.direction = "R";
+    pacman.nextDirection = null;
+
+    // Reset ghosts to their starting positions
+    const centerRow = Math.floor(rows / 2);
+    const centerCol = Math.floor(cols / 2);
+    
+    let ghostIndex = 0;
+    for (let ghost of ghosts.values()) {
+        ghost.reset();
+        // Give each ghost a new random direction
+        const newDirection = directions[Math.floor(Math.random() * directions.length)];
+        ghost.direction = newDirection;
+        ghost.updateVelocity();
+        ghostIndex++;
+    }
+}
+
+//handle game over
+function handleGameOver() {
+    const modal = document.getElementById("game-over-modal");
+    const scoreEl = document.getElementById("final-score");
+    scoreEl.textContent = score;
+    modal.classList.remove("hidden");
+
+    document.getElementById("restart-btn").onclick = () => {
+        modal.classList.add("hidden");
+        resetGame();
+    };
+
+    document.getElementById("home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
+}
+
+//reset game
+function resetGame() {
+    score = 0;
+    lives = 3;
+    gameOver = false;
+
+    const scoreEl = document.getElementById("scoreEl");
+    const livesEl = document.getElementById("livesEl");
+    scoreEl.innerHTML = score;
+    livesEl.innerHTML = lives;
+
+    // Reload the map to restore pellets and power-ups
+    loadMap();
+    resetPositions();
+    
+    // Restart the game loop
+    update();
+}
+
 // Block class for walls, pellets, power-ups, and ghosts
 
 class Block {
@@ -226,13 +577,5 @@ class Block {
     }
 }
 
-//update function
-function update() {
-    // Only continue updating if game is not over
-   //if () {
-        //move();
-        draw();
-        setTimeout(update, 50);
-   //}
-}
+
 
