@@ -369,6 +369,22 @@ function move() {
         }
     }
 
+    // Check for Pacman-Ghost collisions AFTER movement
+    for(let ghost of ghosts.values()) {
+        if(pacmanGhostCollision(pacman, ghost)) {
+            lives -= 1;
+            const livesEl = document.getElementById("livesEl");
+            livesEl.innerHTML = lives;
+            
+            if(lives <= 0) {
+                gameOver = true;
+                handleGameOver();
+            } else {
+                resetPositions();
+            }
+            return; // Exit after first collision to avoid multiple life losses
+        }
+    }
 
     // Handle pellet collection
     for (let pellet of pellets.values()) {
@@ -405,6 +421,21 @@ function move() {
     // Calculate distance between circle center and closest point
     let distanceX = pacmanX - closestX;
     let distanceY = pacmanY - closestY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    
+    // Collision occurs if distance is less than circle radius
+    return distance < pacman.radius;
+    }
+
+    // Collision detection between Pacman (circle) and ghosts (rectangles)
+    function pacmanGhostCollision(pacman, ghost) {
+    // Find the closest point on the rectangle to the circle center
+    let closestX = Math.max(ghost.x, Math.min(pacman.x, ghost.x + ghost.width));
+    let closestY = Math.max(ghost.y, Math.min(pacman.y, ghost.y + ghost.height));
+    
+    // Calculate distance between circle center and closest point
+    let distanceX = pacman.x - closestX;
+    let distanceY = pacman.y - closestY;
     let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     
     // Collision occurs if distance is less than circle radius
