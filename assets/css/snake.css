@@ -73,6 +73,7 @@
     min-height: auto;
 }
 
+/* Game over modal */
 .modal {
     position: fixed;
     top: 0;
@@ -113,6 +114,7 @@
     transform: translateY(-2px);
 }
 
+/* Hides game over modal  */
 .hidden {
     display: none;
 }
