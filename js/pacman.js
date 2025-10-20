@@ -202,11 +202,11 @@ function loadMap() {
 //update function
 function update() {
     // Only continue updating if game is not over
-   //if () {
+   if (!gameOver) {
         move();
         draw();
         setTimeout(update, 50);
-   //}
+   }
 }
 
 //draw function
@@ -254,6 +254,8 @@ function draw() {
 
 //move function
 function move() {
+    // Don't process movement if game is over
+    if (gameOver) return;
 
     //pacman movement logic
     // Check if we can change direction and have a queued direction
@@ -496,6 +498,42 @@ function resetPositions() {
         ghost.updateVelocity();
         ghostIndex++;
     }
+}
+
+//handle game over
+function handleGameOver() {
+    const modal = document.getElementById("game-over-modal");
+    const scoreEl = document.getElementById("final-score");
+    scoreEl.textContent = score;
+    modal.classList.remove("hidden");
+
+    document.getElementById("restart-btn").onclick = () => {
+        modal.classList.add("hidden");
+        resetGame();
+    };
+
+    document.getElementById("home-btn").onclick = () => {
+        window.location.href = "index.html";
+    };
+}
+
+//reset game
+function resetGame() {
+    score = 0;
+    lives = 3;
+    gameOver = false;
+
+    const scoreEl = document.getElementById("scoreEl");
+    const livesEl = document.getElementById("livesEl");
+    scoreEl.innerHTML = score;
+    livesEl.innerHTML = lives;
+
+    // Reload the map to restore pellets and power-ups
+    loadMap();
+    resetPositions();
+    
+    // Restart the game loop
+    update();
 }
 
 // Block class for walls, pellets, power-ups, and ghosts
