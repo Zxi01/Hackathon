@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/snake.css">
+</head>
+
+<body>
+    <h1 class="retro-title">SNAKE</h1>
+    <div class="game-wrapper">
+        <div id="scoreboard" class="scoreboard">
+            <span class="label">Score:</span> <span id="score" class="value">0</span>
+        </div>
+        <div class="game-container">
+            <canvas id="snake-canvas"></canvas>
+        </div>
+        <!-- D-pad controls for mobile/tablet -->
+        <div class="dpad-container">
+            <button id="dpad-up" aria-label="Move Up">▲</button>
+            <button id="dpad-left" aria-label="Move Left">◀</button>
+            <button id="dpad-right" aria-label="Move Right">▶</button>
+            <button id="dpad-down" aria-label="Move Down">▼</button>
+        </div>
+        <a href="index.html" class="back-button">Main Menu</a>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <p>Game Over! Your score: <span id="final-score"></span></p>
+            <button id="restart-btn">Restart</button>
+            <button id="home-btn">Main Menu</button>
+        </div>
+    </div>
+
+    <!-- Music toggle button -->
+    <button id="music-toggle" aria-label="Toggle background music">
+        <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
+        <span class="music-label"></span>
+    </button>
+
+    <script src="js/script.js" defer></script>
+    <script src="js/snake.js" defer></script>
+</body>
+
+</html>
