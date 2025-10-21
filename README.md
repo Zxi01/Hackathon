@@ -40,13 +40,16 @@ Our project is designed for casual gamers, nostalgia enthusiasts, and anyone see
 
 ## Wireframes
 
+![Wireframe](assets/images/Wireframe1.PNG)
+
+![Wireframe](assets/images/Wireframe2.PNG)
+
+![Wireframe](assets/images/Wireframe3.PNG)
+
 The design features:
 
--   **Hero Section:**
--   **Information Cards:**
--   **Resource Links:**
--   **Experiences:**
--   **Colour palette:**![Colour Palette]()
+-   **Colour palette:**
+    ![Colour Palette](assets/images/RetroColours.PNG)
 
 ### Accessibility Considerations
 
@@ -115,15 +118,23 @@ Tested across multiple devices with Chrome DevTools for responsiveness. I used t
 
 ### Lighthouse
 
-![Lighthouse Performance Report]
+![Lighthouse Performance Report](assets/images/HomepageLighthouse.PNG)
+
+![Lighthouse Performance Report](assets/images/SnakeLighthouse.PNG)
 
 ### Validation
 
 HTML and CSS passed W3C validation with no errors:
 
-![HTML Validation Results]
+![HTML Validation Results](assets/images/HTMLValidation.PNG)
 
-![CSS Validation Results]
+![CSS Validation Results](assets/images/CSSValidation.PNG)
+
+![Contrast Validation Results](assets/images/ContrastChecker1.PNG)
+
+![Contrast Validation Results](assets/images/ContrastChecker2.PNG)
+
+![Contrast Validation Results](assets/images/ContrastChecker3.PNG)
 
 ## Deployment
 
@@ -150,7 +161,17 @@ Deployed via GitHub Pages. Resolved broken links to ensure all external links op
 
 ### Icons:
 
+![Pixel Mute](assets/images/pixel-mute.jpg)
+
+![Pixel Unmute](assets/images/pixel-unmuted.jpg)
+
 ### External Resources:
+
+https://youtu.be/baBq5GAL0_U?si=C7W8RKKrdUZKZG8n
+
+https://www.youtube.com/watch?v=5IMXpp3rohQ
+
+https://www.youtube.com/watch?v=WxeTMsaSOaA&list=WL&index=10&t=849s
 
 ### Image Attribution:
 
