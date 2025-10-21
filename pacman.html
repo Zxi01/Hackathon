@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1 class="retro-title">PACMAN</h1>
-    <div class="game-wrapper"></div>
+    <div class="game-wrapper">
         <div id="scoreboard" class="scoreboard">
             <p><span>Score:</span><span id="scoreEl">0</span></p>
             <p><span>Lives:</span><span id="livesEl">3</span></p>
@@ -27,15 +27,44 @@
         <a href="index.html" class="back-button">Main Menu</a>
     </div>
 
+    <!-- Start playing modal -->
+    <div id="start-game-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Welcome to Pacman!</h2>
+            <details>
+                <summary>How to Play</summary>
+                <ul>
+                    <li>Use arrow keys or on-screen D-pad to navigate Pac-man around the maze</li>
+                    <li>You have 3 lives</li>
+                    <li>Avoid the ghosts to stay alive</li>
+                    <li>Eat power pellets to turn the ghosts blue for 5 seconds and eat them for extra points</li>
+                    <li>Eat all the dots to win the game</li>
+                </ul>
+            </details>
+            <button id="start-btn">Start Game</button>
+            <button class="home-btn">Main Menu</button>
+        </div>
+    </div>
+ 
+
     <!-- Game Over Modal -->
     <div id="game-over-modal" class="modal hidden">
         <div class="modal-content">
             <p>Game Over! Your score: <span id="final-score"></span></p>
-            <button id="restart-btn">Restart</button>
-            <button id="home-btn">Main Menu</button>
+            <button class="restart-btn">Restart</button>
+            <button class="home-btn">Main Menu</button>
         </div>
     </div>
-    <script src="js/script.js"></script>
-    <script src="js/pacman.js"></script>
+
+    <!-- Win Game Modal -->
+    <div id="win-game-modal" class="modal hidden">
+        <div class="modal-content">
+            <p>Congratulations! You won! Your score: <span id="win-score"></span></p>
+            <button class="restart-btn">Restart</button>
+            <button class="home-btn">Main Menu</button>
+        </div>
+    </div>
+    <script src="js/script.js" defer></script>
+    <script src="js/pacman.js" defer></script>
 </body>
 </html>
