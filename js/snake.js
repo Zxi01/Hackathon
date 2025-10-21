@@ -135,6 +135,7 @@ window.onload = function () {
 
     // Background toggle logic
     function applyBackgroundFromStorage() {
+        const body = document.body;
         const savedMode = localStorage.getItem("bgMode");
         body.classList.remove("static-bg", "scrolling-bg");
         if (savedMode === "static") {

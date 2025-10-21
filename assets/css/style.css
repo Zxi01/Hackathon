@@ -627,19 +627,27 @@ body.static-bg {
 @media screen and (max-width: 1024px) {
     #dpad-up {
         -ms-grid-row: 1;
+        grid-row: 1;
         -ms-grid-column: 3;
+        grid-column: 3;
     }
     #dpad-down {
         -ms-grid-row: 5;
+        grid-row: 5;
         -ms-grid-column: 3;
+        grid-column: 3;
     }
     #dpad-left {
         -ms-grid-row: 3;
+        grid-row: 3;
         -ms-grid-column: 1;
+        grid-column: 1;
     }
     #dpad-right {
         -ms-grid-row: 3;
+        grid-row: 3;
         -ms-grid-column: 5;
+        grid-column: 5;
     }
 }
 
