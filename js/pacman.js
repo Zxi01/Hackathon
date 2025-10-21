@@ -797,7 +797,7 @@ function resetGame() {
     score = 0;
     lives = 3;
     gameOver = false;
-    gameStarted = true; // Set to true for immediate play
+    gameStarted = false; // Set to false initially to prevent movement
     ghostsScared = false;
     scaredTimer = 0;
     isProcessingCollision = false; // Reset collision state
@@ -822,8 +822,26 @@ function resetGame() {
     loadMap();
     resetPositions();
     
-    // Start the game immediately (no modal)
-    update();
+    // Draw the initial state (static)
+    draw();
+    
+    // Play start game sound and wait for it to finish before starting
+    if (startGameSound) {
+        startGameSound.currentTime = 0;
+        startGameSound.play().catch(e => {
+            console.log("Start game sound play failed:", e);
+        });
+        
+        // Wait for sound to finish before starting game
+        startGameSound.addEventListener('ended', () => {
+            gameStarted = true;
+            update(); // Start the game loop after sound ends
+        }, { once: true });
+    } else {
+        // If no sound, start immediately
+        gameStarted = true;
+        update();
+    }
 }
 
 //reset to menu - for going back to start screen
