@@ -12,81 +12,94 @@
 </head>
 
 <body>
-    <h1 class="retro-title">PACMAN</h1>
-    <div class="game-wrapper">
-        <div id="scoreboard" class="scoreboard">
-            <p><span>Score:</span><span id="scoreEl">0</span></p>
-            <p><span>Lives:</span><span id="livesEl">3</span></p>
+    <header>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid header-bar">
+                <a class="navbar-brand" href="index.html">Retro Arcade</a>
+                <h1 class="retro-title">PACMAN</h1>
+                <button id="music-toggle" aria-label="Toggle background music">
+                    <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
+                    <span class="music-label"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="game-wrapper">
+            <div id="scoreboard" class="scoreboard">
+                <p><span class="label">Score:</span><span id="scoreEl">0</span></p>
+                <p><span>Lives:</span><span id="livesEl">3</span></p>
+            </div>
+            <div class="game-container">
+                <canvas id="pacman-canvas"></canvas>
+            </div>
+            <!-- D-pad controls for mobile/tablet -->
+            <div class="dpad-container">
+                <button id="dpad-up" aria-label="Move Up">▲</button>
+                <button id="dpad-left" aria-label="Move Left">◀</button>
+                <button id="dpad-right" aria-label="Move Right">▶</button>
+                <button id="dpad-down" aria-label="Move Down">▼</button>
+            </div>
+            <a href="index.html" class="back-button">Main Menu</a>
         </div>
-        <div class="game-container">
-            <canvas id="pacman-canvas"></canvas>
+
+        <!-- Start playing modal -->
+        <div id="start-game-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>Welcome to Pacman!</h2>
+                <details>
+                    <summary>How to Play</summary>
+                        <p>Use arrow keys or on-screen D-pad to navigate Pac-man around the maze</p>
+                        <p>You have 3 lives</p>
+                        <p>Avoid the ghosts to stay alive</p>
+                        <p>Eat power pellets to turn the ghosts blue for 5 seconds and eat them for extra points</p>
+                        <p>Eat all the dots to win the game</p>
+                </details>
+                <button id="start-btn">Start Game</button>
+                <button class="home-btn">Main Menu</button>
+            </div>
         </div>
-        <!-- D-pad controls for mobile/tablet -->
-        <div class="dpad-container">
-            <button id="dpad-up" aria-label="Move Up">▲</button>
-            <button id="dpad-left" aria-label="Move Left">◀</button>
-            <button id="dpad-right" aria-label="Move Right">▶</button>
-            <button id="dpad-down" aria-label="Move Down">▼</button>
+
+
+        <!-- Game Over Modal -->
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <p>Game Over! Your score: <span id="final-score"></span></p>
+                <button class="restart-btn">Restart</button>
+                <button class="home-btn">Main Menu</button>
+            </div>
         </div>
-        <a href="index.html" class="back-button">Main Menu</a>
-    </div>
 
-    <!-- Start playing modal -->
-    <div id="start-game-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Welcome to Pacman!</h2>
-            <details>
-                <summary>How to Play</summary>
-                    <p>Use arrow keys or on-screen D-pad to navigate Pac-man around the maze</p>
-                    <p>You have 3 lives</p>
-                    <p>Avoid the ghosts to stay alive</p>
-                    <p>Eat power pellets to turn the ghosts blue for 5 seconds and eat them for extra points</p>
-                    <p>Eat all the dots to win the game</p>
-            </details>
-            <button id="start-btn">Start Game</button>
-            <button class="home-btn">Main Menu</button>
+        <!-- Win Game Modal -->
+        <div id="win-game-modal" class="modal hidden">
+            <div class="modal-content">
+                <p>Congratulations! You won! Your score: <span id="win-score"></span></p>
+                <button class="restart-btn">Restart</button>
+                <button class="home-btn">Main Menu</button>
+            </div>
         </div>
-    </div>
 
-
-    <!-- Game Over Modal -->
-    <div id="game-over-modal" class="modal hidden">
-        <div class="modal-content">
-            <p>Game Over! Your score: <span id="final-score"></span></p>
-            <button class="restart-btn">Restart</button>
-            <button class="home-btn">Main Menu</button>
-        </div>
-    </div>
-
-    <!-- Win Game Modal -->
-    <div id="win-game-modal" class="modal hidden">
-        <div class="modal-content">
-            <p>Congratulations! You won! Your score: <span id="win-score"></span></p>
-            <button class="restart-btn">Restart</button>
-            <button class="home-btn">Main Menu</button>
-        </div>
-    </div>
-
-    <!-- Mobile burger menu button -->
-    <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle menu">
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-        <span class="burger-line"></span>
-    </button>
-
-    <!-- Mobile dropdown menu -->
-    <div id="mobile-menu-dropdown" class="mobile-menu-dropdown hidden">
-        <button id="mobile-toggle-background-btn" class="mobile-menu-item">Toggle Background</button>
-    </div>
-
-    <!-- Top right buttons -->
-    <div class="top-right-buttons">
-        <button id="toggle-background-btn" class="info-button">Toggle Background</button>
-        <button id="music-toggle" aria-label="Toggle background music">
-            <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
-            <span class="music-label"></span>
+        <!-- Mobile burger menu button -->
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle menu">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
         </button>
-    </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobile-menu-dropdown" class="mobile-menu-dropdown hidden">
+            <button id="mobile-toggle-background-btn" class="mobile-menu-item">Toggle Background</button>
+        </div>
+
+        <!-- Top right buttons -->
+        <div class="top-right-buttons">
+            <button id="toggle-background-btn" class="info-button">Toggle Background</button>
+            <button id="music-toggle" aria-label="Toggle background music">
+                <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
+                <span class="music-label"></span>
+            </button>
+        </div>
+    </main>
 
 <footer class="mt-auto">
     <div class="container-fluid">
