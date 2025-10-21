@@ -22,7 +22,7 @@ let eatPelletSound;
 let eatGhostSound;
 let gameOverSound;
 let startGameSound;
-// let powerUpSound;
+let powerUpSound;
 
 // Pacman object
 let pacman;
@@ -695,8 +695,8 @@ function loadSounds() {
     eatGhostSound.volume = 0.5;
     gameOverSound = new Audio("assets/sounds/gameOver.wav");
     gameOverSound.volume = 0.5;
-    // powerUpSound = new Audio("assets/sounds/power_dot.wav");
-    // powerUpSound.volume = 0.5;
+    powerUpSound = new Audio("assets/sounds/power_dot.wav");
+    powerUpSound.volume = 0.5;
     startGameSound = new Audio("assets/sounds/gameStart.wav");
     startGameSound.volume = 0.5;
 }
@@ -1181,6 +1181,15 @@ function move() {
             score += 50; // Add points for power-up
             const scoreEl = document.getElementById("scoreEl");
             scoreEl.innerHTML = score;
+
+            // Play eatPowerUp sound when eating power-up
+            if (powerUpSound) {
+                powerUpSound.currentTime = 0; // Reset sound to beginning for rapid playback
+                powerUpSound.play().catch((e) => {
+                    // Handle any audio play errors silently
+                    console.log("Audio play failed:", e);
+                });
+            }
         }
     }
 
