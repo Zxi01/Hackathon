@@ -21,8 +21,9 @@ let scaredGhostImg;
 let eatPelletSound;
 let eatGhostSound;
 let gameOverSound;
+let startGameSound;
 // let powerUpSound;
-// let startUpSound;
+
 
 // Pacman object
 let pacman;
@@ -36,6 +37,7 @@ const eatenGhosts = new Set(); // Track eaten ghosts for respawning
 let score = 0;
 let lives = 3;
 let gameOver = false;
+let gameStarted = false;
 let ghostsScared = false;
 let scaredTimer = 0;
 let isProcessingCollision = false; // Prevent multiple collisions during sound
@@ -77,9 +79,70 @@ window.onload = function() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    loadImages();
+    // Load images first, then load map and initialize game
+    loadImagesAndInitialize();
+
+}
+
+//load images
+function loadImages() {
+    wallImg = new Image();
+    wallImg.src = "assets/images/wall.png";
+    blueGhostImg = new Image();
+    blueGhostImg.src = "assets/images/blueGhost.png";
+    redGhostImg = new Image();
+    redGhostImg.src = "assets/images/redGhost.png";
+    orangeGhostImg = new Image();
+    orangeGhostImg.src = "assets/images/orangeGhost.png";
+    pinkGhostImg = new Image();
+    pinkGhostImg.src = "assets/images/pinkGhost.png";
+    scaredGhostImg = new Image();
+    scaredGhostImg.src = "assets/images/scaredGhost.png";
+}
+
+//load images and initialize game
+function loadImagesAndInitialize() {
+    let imagesToLoad = 6;
+    let imagesLoaded = 0;
+    
+    function imageLoaded() {
+        imagesLoaded++;
+        if (imagesLoaded === imagesToLoad) {
+            // All images loaded, now initialize the game
+            initializeGame();
+        }
+    }
+    
+    // Load all images with onload callbacks
+    wallImg = new Image();
+    wallImg.onload = imageLoaded;
+    wallImg.src = "assets/images/wall.png";
+    
+    blueGhostImg = new Image();
+    blueGhostImg.onload = imageLoaded;
+    blueGhostImg.src = "assets/images/blueGhost.png";
+    
+    redGhostImg = new Image();
+    redGhostImg.onload = imageLoaded;
+    redGhostImg.src = "assets/images/redGhost.png";
+    
+    orangeGhostImg = new Image();
+    orangeGhostImg.onload = imageLoaded;
+    orangeGhostImg.src = "assets/images/orangeGhost.png";
+    
+    pinkGhostImg = new Image();
+    pinkGhostImg.onload = imageLoaded;
+    pinkGhostImg.src = "assets/images/pinkGhost.png";
+    
+    scaredGhostImg = new Image();
+    scaredGhostImg.onload = imageLoaded;
+    scaredGhostImg.src = "assets/images/scaredGhost.png";
+}
+
+//initialize game after images are loaded
+function initializeGame() {
     loadSounds();
-    loadMap(); 
+    loadMap(); // Load the map with walls, pellets, etc.
     
     // Initialize Pacman at position [1][1]
     pacman = {
@@ -153,8 +216,15 @@ window.onload = function() {
         }
     };
 
-    update();
+    // Show start game modal and draw initial state
+    showStartGameModal();
+    draw(); // Draw the initial game state with walls visible
+
+    // Set up keyboard event listener
     document.addEventListener('keydown', function(e) {
+        // Only process keyboard input if game has started
+        if (!gameStarted) return;
+        
         e.preventDefault();
         if(e.code == 'ArrowUp' || e.code == "KeyW") {
             pacman.updateDirection("U");
@@ -166,23 +236,6 @@ window.onload = function() {
             pacman.updateDirection("R");
         }
     });
-
-}
-
-//load images
-function loadImages() {
-    wallImg = new Image();
-    wallImg.src = "assets/images/wall.png";
-    blueGhostImg = new Image();
-    blueGhostImg.src = "assets/images/blueGhost.png";
-    redGhostImg = new Image();
-    redGhostImg.src = "assets/images/redGhost.png";
-    orangeGhostImg = new Image();
-    orangeGhostImg.src = "assets/images/orangeGhost.png";
-    pinkGhostImg = new Image();
-    pinkGhostImg.src = "assets/images/pinkGhost.png";
-    scaredGhostImg = new Image();
-    scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
 
 //load sounds
@@ -195,8 +248,8 @@ function loadSounds() {
     gameOverSound.volume = 0.5;
     // powerUpSound = new Audio("assets/sounds/power_dot.wav");
     // powerUpSound.volume = 0.5;
-    // startUpSound = new Audio("assets/sounds/gameWin.wav");
-    // startUpSound.volume = 0.5;
+    startGameSound = new Audio("assets/sounds/gameStart.wav");
+    startGameSound.volume = 0.5;
 }
 
 //load map
@@ -236,12 +289,12 @@ function loadMap() {
 
 //update function
 function update() {
-    // Only continue updating if game is not over
-   if (!gameOver) {
+    // Only continue updating if game has started and is not over
+    if (gameStarted && !gameOver) {
         move();
         draw();
         setTimeout(update, 50);
-   }
+    }
 }
 
 //draw function
@@ -366,8 +419,8 @@ function eatGhost(ghost) {
 
 //move function
 function move() {
-    // Don't process movement if game is over
-    if (gameOver) return;
+    // Don't process movement if game hasn't started or is over
+    if (!gameStarted || gameOver) return;
 
     //pacman movement logic
     // Check if we can change direction and have a queued direction
@@ -744,7 +797,8 @@ function resetGame() {
     score = 0;
     lives = 3;
     gameOver = false;
-    ghostsScared = false; // Reset scared state
+    gameStarted = true; // Set to true for immediate play
+    ghostsScared = false;
     scaredTimer = 0;
     isProcessingCollision = false; // Reset collision state
     pacmanDisappearing = false; // Reset animation state
@@ -768,8 +822,43 @@ function resetGame() {
     loadMap();
     resetPositions();
     
-    // Restart the game loop
+    // Start the game immediately (no modal)
     update();
+}
+
+//reset to menu - for going back to start screen
+function resetToMenu() {
+    score = 0;
+    lives = 3;
+    gameOver = false;
+    gameStarted = false; // Set to false to show start modal
+    ghostsScared = false;
+    scaredTimer = 0;
+    isProcessingCollision = false;
+    pacmanDisappearing = false;
+    pacmanOpacity = 1.0;
+
+    const scoreEl = document.getElementById("scoreEl");
+    const livesEl = document.getElementById("livesEl");
+    scoreEl.innerHTML = score;
+    livesEl.innerHTML = lives;
+
+    // Reset Pacman to original state
+    pacman.x = 1 * tileSize + tileSize/2;
+    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.velocityX = 0;
+    pacman.velocityY = 0;
+    pacman.direction = "R";
+    pacman.rotation = 0;
+    pacman.nextDirection = null;
+
+    // Reload the map to restore pellets and power-ups
+    loadMap();
+    resetPositions();
+    
+    // Show start modal
+    showStartGameModal();
+    draw();
 }
 
 // Block class for walls, pellets, power-ups, and ghosts
@@ -812,6 +901,50 @@ class Block {
         this.x = this.startX;
         this.y = this.startY;
         this.image = this.originalImage; // Reset to original image
+    }
+}
+
+// Add this function after the loadMap function
+function showStartGameModal() {
+    const modal = document.getElementById("start-game-modal");
+    modal.classList.remove("hidden");
+
+    // Handle start button click
+    const startBtn = document.getElementById("start-btn");
+    const homeBtn = modal.querySelector(".home-btn");
+
+    if (startBtn) {
+        startBtn.onclick = () => {
+            modal.classList.add("hidden");
+            startGame();
+        };
+    }
+
+    if (homeBtn) {
+        homeBtn.onclick = () => {
+            window.location.href = "index.html";
+        };
+    }
+}
+
+// Add this function to start the game
+function startGame() {
+    // Play start game sound
+    if (startGameSound) {
+        startGameSound.currentTime = 0;
+        startGameSound.play().catch(e => {
+            console.log("Start game sound play failed:", e);
+        });
+        
+        // Wait for sound to finish before starting game
+        startGameSound.addEventListener('ended', () => {
+            gameStarted = true;
+            update(); // Start the game loop
+        }, { once: true });
+    } else {
+        // If no sound, start immediately
+        gameStarted = true;
+        update(); // Start the game loop
     }
 }
 
