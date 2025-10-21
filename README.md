@@ -66,7 +66,9 @@ Tested across multiple devices with Chrome DevTools for responsiveness. I used t
 
 ### Lighthouse
 
-![Lighthouse Performance Report]
+![Lighthouse Performance Report](assets/images/HomepageLighthouse.PNG)
+
+![Lighthouse Performance Report](assets/images/SnakeLighthouse.PNG)
 
 ### Validation
 
