@@ -323,7 +323,7 @@ main {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    min-height: 100vh;
+    height: 100%;
     width: 100vw;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -611,6 +611,40 @@ main {
     display: none; /* Hidden by default on desktop */
 }
 
+/* footer */
+html,
+body {
+    height: 100%; /* Ensure body takes full viewport height */
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    min-height: 100vh; /* Make sure body is at least full viewport */
+}
+
+main {
+    flex: 1; /* takes remaining height between header and footer */
+    padding-top: var(--header-height);
+    box-sizing: border-box; /* ensures padding is included in height */
+}
+
+footer {
+    background-color: black;
+    color: #ffffff83;
+    font-family: "press start 2p", sans-serif;
+    font-size: 0.75rem;
+    padding: 0.5rem 0rem 2rem 0rem;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #ffffff83;
+}
 /* Responsive adjustments for different screen sizes */
 
 /* Large screens (1200px and up) */

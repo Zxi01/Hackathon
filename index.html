@@ -25,22 +25,25 @@
             </div>
         </nav>
     </header>
-    <div class="page-container">
-        <main class="games-section">
-            <div class="game-card" onclick="window.location.href=`pacman.html`">
-                <img src="assets/images/pacman.jpg" alt="An image of retro styled pacman" class="game-image">
-                <h2>Pacman</h2>
+    <main>
+        <div class="page-container">
+            <div class="games-section">
+                <div class="game-card" onclick="window.location.href=`pacman.html`">
+                    <img src="assets/images/pacman.jpg" alt="An image of retro styled pacman" class="game-image">
+                    <h2>Pacman</h2>
+                </div>
+                <div class="game-card" onclick="window.location.href=`snake.html`">
+                    <img src="assets/images/snake.jpg" alt="An image of retro styled snake" class="game-image">
+                    <h2>Snake</h2>
+                </div>
+                <div class="game-card" onclick="window.location.href=`two-zero-four-eight.html`">
+                    <img src="assets/images/2048.jpg" alt="An image of retro styled 2048" class="game-image">
+                    <h2>2048</h2>
+                </div>
             </div>
-            <div class="game-card" onclick="window.location.href=`snake.html`">
-                <img src="assets/images/snake.jpg" alt="An image of retro styled snake" class="game-image">
-                <h2>Snake</h2>
-            </div>
-            <div class="game-card" onclick="window.location.href=`two-zero-four-eight.html`">
-                <img src="assets/images/2048.jpg" alt="An image of retro styled 2048" class="game-image">
-                <h2>2048</h2>
-            </div>
-        </main>
-    </div>
+        </div>
+
+    </main>
 
     <!-- Mobile burger menu button -->
     <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Toggle menu">
@@ -48,6 +51,7 @@
         <span class="burger-line"></span>
         <span class="burger-line"></span>
     </button>
+
 
     <!-- Mobile dropdown menu 
     <div id="mobile-menu-dropdown" class="mobile-menu-dropdown hidden">
@@ -64,6 +68,29 @@
     </div>
 -->
 
+    <footer class="mt-auto">
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <!-- Column 1: Page Links -->
+                <div class="col-12 col-md-6 mb-3 mb-md-0 text-md-start">
+                    <ul class="list-unstyled">
+                        <li><a href="#privacy" class=" text-decoration-none">Background Toggle: On</a></li>
+                        <li><a href="#accessibility" class=" text-decoration-none">Accessibility Statement</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- Column 2: Legal / Policy -->
+                <div class="col-12 col-md-6 text-md-end">
+                    <ul class="list-unstyled">
+                        <li> <a class=" text-decoration-none" href="index.html">Contact us</a></li>
+                        <li> &copy; 2025 RETRO ARCADE. </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
