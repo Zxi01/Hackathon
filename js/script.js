@@ -80,4 +80,45 @@ function setupBackgroundToggle() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", setupBackgroundToggle);
+// Mobile burger menu functionality (shared for all pages)
+function setupMobileBurgerMenu() {
+    const howToBtn = document.getElementById("how-to-play-btn");
+    const howToModal = document.getElementById("how-to-play-modal");
+    const closeHowTo = document.getElementById("close-how-to-play");
+    if (howToBtn && howToModal) {
+        howToBtn.onclick = () => howToModal.classList.remove("hidden");
+    }
+    if (closeHowTo && howToModal) {
+        closeHowTo.onclick = () => howToModal.classList.add("hidden");
+    }
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenuDropdown = document.getElementById("mobile-menu-dropdown");
+    const mobileHowToBtn = document.getElementById("mobile-how-to-play-btn");
+    if (mobileMenuToggle && mobileMenuDropdown) {
+        mobileMenuToggle.onclick = () => {
+            mobileMenuDropdown.classList.toggle("hidden");
+        };
+    }
+    if (mobileHowToBtn && howToModal && mobileMenuDropdown) {
+        mobileHowToBtn.onclick = () => {
+            howToModal.classList.remove("hidden");
+            mobileMenuDropdown.classList.add("hidden");
+        };
+    }
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (
+            mobileMenuToggle &&
+            mobileMenuDropdown &&
+            !mobileMenuToggle.contains(e.target) &&
+            !mobileMenuDropdown.contains(e.target)
+        ) {
+            mobileMenuDropdown.classList.add("hidden");
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupBackgroundToggle();
+    setupMobileBurgerMenu();
+});
