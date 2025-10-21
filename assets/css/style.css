@@ -1,9 +1,19 @@
 /* Import retro fonts */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
-body {
+body.scrolling-bg {
     background: url(../images/background.jpg) repeat center center fixed;
     animation: scrollBg 60s linear infinite;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: "Orbitron", monospace;
+}
+
+body.static-bg {
+    background: black;
+    animation: none;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -227,7 +237,8 @@ body {
 }
 
 /* How to play button - updated for top right positioning */
-#how-to-play-btn {
+#how-to-play-btn,
+#toggle-background-btn {
     display: inline-block;
     padding: 0.5rem 0.75rem;
     background: #1a1a1a;
@@ -444,7 +455,8 @@ body {
     }
 
     /* Hide desktop How to Play button on mobile */
-    #how-to-play-btn {
+    #how-to-play-btn,
+    #toggle-background-btn {
         display: none;
     }
 
