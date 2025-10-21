@@ -1,25 +1,24 @@
+    
 const musicToggleBtn = document.getElementById("music-toggle");
-const musicIcon = musicToggleBtn.querySelector(".music-icon");
-let isMusicPlaying = true; // Initially set to true since the music will start playing when the page loads
+const musicIcon = document.querySelector(".music-icon");
+let isMusicPlaying = false; // Initially set to false since the music will not play until user interaction
 const backgroundMusic = new Audio("assets/audio/retro-music.mp3");
 
 // Preload the audio and loop it for continuous play
 backgroundMusic.loop = true;
-
-// Play the background music as soon as the page loads
 backgroundMusic.volume = 0.3;
-backgroundMusic.play();
 
-// Set initial icon to unmuted since music starts playing
-musicIcon.src = "assets/images/pixel-unmuted.jpg";
+// Set initial icon to muted since music is not playing
+musicIcon.src = "assets/images/pixel-mute.jpg";
 
 musicToggleBtn.addEventListener("click", () => {
-    if (isMusicPlaying) {
-        backgroundMusic.pause();
-        musicIcon.src = "assets/images/pixel-mute.jpg";
-    } else {
-        backgroundMusic.play();
-        musicIcon.src = "assets/images/pixel-unmuted.jpg";
-    }
-    isMusicPlaying = !isMusicPlaying;
+  if (isMusicPlaying) {
+    backgroundMusic.pause();
+    musicIcon.src = "assets/images/pixel-mute.jpg";
+  } else {
+    // Play the background music only on user interaction
+    backgroundMusic.play();
+    musicIcon.src = "assets/images/pixel-unmuted.jpg";
+  }
+  isMusicPlaying = !isMusicPlaying;
 });
