@@ -1,8 +1,16 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* Import retro fonts */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
 body.scrolling-bg {
     background: url(../images/background.jpg) repeat center center fixed;
+    -webkit-animation: scrollBg 60s linear infinite;
     animation: scrollBg 60s linear infinite;
     text-align: center;
     margin: 0;
@@ -13,6 +21,7 @@ body.scrolling-bg {
 
 body.static-bg {
     background: black;
+    -webkit-animation: none;
     animation: none;
     text-align: center;
     margin: 0;
@@ -22,9 +31,18 @@ body.static-bg {
 }
 
 .game-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     min-height: 100vh;
     padding: 2rem 0;
@@ -38,7 +56,19 @@ body.static-bg {
     letter-spacing: 4px;
     margin-bottom: 2rem;
     text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000, 0px 0px 15px #ffee00;
+    -webkit-animation: titleGlow 3s ease-in-out infinite alternate;
     animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes titleGlow {
+    from {
+        text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
+    }
+    to {
+        text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 25px #ffee00, 0px 0px 35px #ffee00, 0px 0px 50px #ffee00;
+    }
 }
 
 @keyframes titleGlow {
@@ -52,6 +82,15 @@ body.static-bg {
     }
 }
 
+@-webkit-keyframes scrollBg {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -1000px 0;
+    }
+}
+
 @keyframes scrollBg {
     from {
         background-position: 0 0;
@@ -62,9 +101,16 @@ body.static-bg {
 }
 
 .games-section {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 2rem;
     max-width: 1200px;
@@ -73,6 +119,8 @@ body.static-bg {
 }
 
 .game-card {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 300px;
     flex: 1 1 300px; /* flexible width with 300px base */
     max-width: 350px;
     min-width: 280px;
@@ -81,7 +129,11 @@ body.static-bg {
     border-radius: 10px;
     padding: 1rem;
     min-height: 360px;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    -o-transition: transform 0.3s;
     transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
     cursor: pointer;
 }
 
@@ -93,7 +145,19 @@ body.static-bg {
     letter-spacing: 2px;
     margin: 0.8rem 0 0 0;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
+    -webkit-animation: glow 2s ease-in-out infinite alternate;
     animation: glow 2s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000,
+            0px 0px 10px #ffee00, 0px 0px 20px #ffee00;
+    }
+    to {
+        text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000,
+            0px 0px 20px #ffee00, 0px 0px 30px #ffee00, 0px 0px 40px #ffee00;
+    }
 }
 
 @keyframes glow {
@@ -108,14 +172,19 @@ body.static-bg {
 }
 
 .game-card:hover {
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
     transform: translateY(-5px);
     border-color: #ff6b35;
+    -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 238, 0, 0.3);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
         0px 0px 20px rgba(255, 238, 0, 0.3);
 }
 
 .game-card:hover h2 {
     color: #ff6b35;
+    -webkit-animation-duration: 0.5s;
     animation-duration: 0.5s;
 }
 
@@ -123,6 +192,7 @@ body.static-bg {
     display: block;
     width: 100%;
     height: 220px;
+    -o-object-fit: contain;
     object-fit: contain;
     margin-bottom: 0.75rem;
     border-radius: 6px;
@@ -137,7 +207,15 @@ body.static-bg {
     border: 3px solid #ffee00;
     border-radius: 10px;
     cursor: pointer;
+    -webkit-transition: border-color 0.3s, -webkit-transform 0.3s,
+        -webkit-box-shadow 0.3s;
+    transition: border-color 0.3s, -webkit-transform 0.3s,
+        -webkit-box-shadow 0.3s;
+    -o-transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s,
+        -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     width: 60px;
     height: 60px;
@@ -145,7 +223,10 @@ body.static-bg {
 }
 
 #music-toggle:hover {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
     transform: translateY(-2px);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     border-color: #7df9ff;
 }
@@ -153,6 +234,7 @@ body.static-bg {
 .music-icon {
     width: 100%;
     height: 100%;
+    -o-object-fit: cover;
     object-fit: cover;
     display: block;
 }
@@ -163,12 +245,22 @@ body.static-bg {
 
 /* Force centering for main page container and game cards */
 .page-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     min-height: 100vh;
     width: 100vw;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -180,6 +272,8 @@ body.static-bg {
     background: #1a1a1a;
     border: 3px dashed #7df9ff;
     border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 238, 0, 0.3);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
         0px 0px 20px rgba(255, 238, 0, 0.3);
     color: #ffee00;
@@ -192,9 +286,18 @@ body.static-bg {
 
 /* Wrapper alignment */
 .game-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     gap: 1rem;
     padding: 1rem;
@@ -208,6 +311,8 @@ body.static-bg {
     background: #1a1a1a;
     border: 3px dashed #7df9ff;
     border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 238, 0, 0.3);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
         0px 0px 20px rgba(255, 238, 0, 0.3);
     color: #ffee00;
@@ -220,6 +325,8 @@ body.static-bg {
 
 .back-button:hover {
     border-color: #ff6b35;
+    -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 107, 53, 0.3);
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
         0px 0px 20px rgba(255, 107, 53, 0.3);
     color: #ff6b35;
@@ -231,8 +338,12 @@ body.static-bg {
     top: 1.5rem;
     right: 1.5rem;
     z-index: 50;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 1rem;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -244,6 +355,7 @@ body.static-bg {
     background: #1a1a1a;
     border: 3px dashed #7df9ff;
     border-radius: 10px;
+    -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     color: #ffee00;
     font-family: "Press Start 2P", monospace;
@@ -252,11 +364,21 @@ body.static-bg {
     letter-spacing: 1px;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     cursor: pointer;
+    -webkit-transition: border-color 0.3s, -webkit-transform 0.3s,
+        -webkit-box-shadow 0.3s;
+    transition: border-color 0.3s, -webkit-transform 0.3s,
+        -webkit-box-shadow 0.3s;
+    -o-transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s,
+        -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
 }
 
 #how-to-play-btn:hover {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
     transform: translateY(-2px);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     border-color: #ff6b35;
 }
@@ -274,16 +396,30 @@ body.static-bg {
     border: 3px solid #7df9ff;
     border-radius: 8px;
     cursor: pointer;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 5px;
     padding: 8px;
+    -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    -webkit-transition: border-color 0.3s, -webkit-transform 0.3s;
+    transition: border-color 0.3s, -webkit-transform 0.3s;
+    -o-transition: transform 0.3s, border-color 0.3s;
     transition: transform 0.3s, border-color 0.3s;
+    transition: transform 0.3s, border-color 0.3s, -webkit-transform 0.3s;
 }
 
 .mobile-menu-btn:hover {
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
     transform: translateY(-2px);
     border-color: #ff6b35;
 }
@@ -293,7 +429,10 @@ body.static-bg {
     height: 3px;
     background: #ffee00;
     border-radius: 2px;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
     transition: all 0.3s;
+    -webkit-box-shadow: 0 0 5px #ffee00;
     box-shadow: 0 0 5px #ffee00;
 }
 
@@ -308,6 +447,7 @@ body.static-bg {
     border: 3px dashed #7df9ff;
     border-radius: 10px;
     padding: 0.5rem;
+    -webkit-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
     min-width: 130px;
 }
@@ -353,8 +493,14 @@ body.static-bg {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     z-index: 999;
 }
@@ -377,12 +523,16 @@ body.static-bg {
     color: #ffee00;
     font-family: "Press Start 2P", monospace;
     cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
 .modal-content button:hover {
     border-color: #ff6b35;
     color: #ff6b35;
+    -webkit-transform: translateY(-2px);
+    -ms-transform: translateY(-2px);
     transform: translateY(-2px);
 }
 
@@ -418,6 +568,7 @@ body.static-bg {
 /* Show D-pad only on tablet/mobile */
 @media screen and (max-width: 1024px) {
     .dpad-container {
+        display: -ms-grid;
         display: grid;
         grid-template-areas:
             ". up ."
@@ -436,7 +587,9 @@ body.static-bg {
         border: 2px solid #7df9ff;
         border-radius: 8px;
         font-family: "Press Start 2P", monospace;
+        -webkit-box-shadow: 0px 4px 12px rgba(0, 255, 255, 0.3);
         box-shadow: 0px 4px 12px rgba(0, 255, 255, 0.3);
+        -ms-touch-action: manipulation;
         touch-action: manipulation;
         cursor: pointer;
     }
@@ -462,11 +615,31 @@ body.static-bg {
 
     /* Show mobile burger menu on mobile */
     .mobile-menu-btn {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
     }
 
     .mobile-menu-dropdown {
         display: block;
+    }
+}
+@media screen and (max-width: 1024px) {
+    #dpad-up {
+        -ms-grid-row: 1;
+        -ms-grid-column: 3;
+    }
+    #dpad-down {
+        -ms-grid-row: 5;
+        -ms-grid-column: 3;
+    }
+    #dpad-left {
+        -ms-grid-row: 3;
+        -ms-grid-column: 1;
+    }
+    #dpad-right {
+        -ms-grid-row: 3;
+        -ms-grid-column: 5;
     }
 }
 
@@ -484,6 +657,8 @@ body.static-bg {
     }
 
     .game-card {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 280px;
         flex: 1 1 280px;
         max-width: 320px;
         min-width: 260px;
@@ -508,6 +683,8 @@ body.static-bg {
     }
 
     .game-card {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 220px;
         flex: 1 1 220px;
         max-width: 240px;
         min-width: 200px;
@@ -538,6 +715,8 @@ body.static-bg {
     }
 
     .game-card {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 180px;
         flex: 1 1 180px;
         max-width: 200px;
         min-width: 160px;
@@ -580,6 +759,8 @@ body.static-bg {
     }
 
     .game-card {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 140px;
         flex: 1 1 140px;
         max-width: 160px;
         min-width: 130px;

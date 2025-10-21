@@ -104,6 +104,10 @@ Deployed via GitHub Pages. Resolved broken links to ensure all external links op
 
 ### External Resources:
 
+https://youtu.be/baBq5GAL0_U?si=C7W8RKKrdUZKZG8n
+https://www.youtube.com/watch?v=5IMXpp3rohQ
+https://www.youtube.com/watch?v=WxeTMsaSOaA&list=WL&index=10&t=849s
+
 ### Image Attribution:
 
 The images for the game cards and in the background, were generated using Google Gemini
