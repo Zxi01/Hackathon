@@ -24,7 +24,6 @@ let gameOverSound;
 let startGameSound;
 // let powerUpSound;
 
-
 // Pacman object
 let pacman;
 
@@ -46,34 +45,414 @@ let pacmanOpacity = 1.0; // Pacman's opacity for disappearing animation
 let disappearStartTime = 0; // When the disappearing animation started
 const SCARED_DURATION = 5000; // 5 seconds in milliseconds
 
-const directions = ['U', 'D', 'L', 'R'];
+const directions = ["U", "D", "L", "R"];
 
 // Create the map using a 2D array
 const map = [
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-    ['-', ' ', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'p', '-'],
-    ['-', '.', '-', '-', '-', '-', '.', '-', '-', '-', '-', '-', '.', '-', '-', '-', '-', '.', '-'],
-    ['-', '.', '-', '.', '.', '.', '.', '.', '.', '-', '.', '.', '.', '.', '.', '.', '-', '.', '-'],
-    ['-', '.', '.', '.', '-', '-', '-', '-', '.', '-', '.', '-', '-', '-', '-', '.', '.', '.', '-'],
-    ['-', '-', '.', '-', '-', '.', '.', '.', '.', '.', '.', '.', '.', '.', '-', '-', '.', '-', '-'],
-    ['-', '.', '.', '.', '.', '.', '-', '-', '.', '-', '.', '-', '-', '.', '.', '.', '.', '.', '-'],
-    ['-', '.', '-', '-', '-', '.', '.', '.', '.', '-', '.', '.', '.', '.', '-', '-', '-', '.', '-'],
-    ['-', '.', '.', '.', '.', '.', '-', '.', '-', '-', '-', '.', '-', '.', '.', '.', '.', '.', '-'],
-    ['-', '-', '-', '.', '-', '-', '-', '.', '.', 'p', '.', '.', '-', '-', '-', '.', '-', '-', '-'],
-    ['-', '.', '.', '.', '.', '.', '-', '.', '-', '-', '-', '.', '-', '.', '.', '.', '.', '.', '-'],
-    ['-', '.', '-', '-', '-', '.', '.', '.', '.', '-', '.', '.', '.', '.', '-', '-', '-', '.', '-'],
-    ['-', '.', '.', '.', '.', '.', '-', '-', '.', '-', '.', '-', '-', '.', '.', '.', '.', '.', '-'],
-    ['-', '-', '.', '-', '-', '.', '.', '.', '.', '.', '.', '.', '.', '.', '-', '-', '.', '-', '-'],
-    ['-', '.', '.', '.', '-', '-', '-', '-', '.', '-', '.', '-', '-', '-', '-', '.', '.', '.', '-'],
-    ['-', '.', '-', '.', '.', '.', '.', '.', '.', '-', '.', '.', '.', '.', '.', '.', '-', '.', '-'],
-    ['-', '.', '-', '-', '-', '-', '.', '-', '-', '-', '-', '-', '.', '-', '-', '-', '-', '.', '-'],
-    ['-', 'p', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '-'],
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        " ",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "p",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        "p",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "p",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ],
 ];
 
 //load canvas
 
-window.onload = function() {
+window.onload = function () {
     canvas = document.getElementById("pacman-canvas");
     ctx = canvas.getContext("2d");
     canvas.width = canvasWidth;
@@ -82,7 +461,70 @@ window.onload = function() {
     // Load images first, then load map and initialize game
     loadImagesAndInitialize();
 
-}
+    // Mobile burger menu functionality
+    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenuDropdown = document.getElementById("mobile-menu-dropdown");
+    const mobileHowToBtn = document.getElementById("mobile-how-to-play-btn");
+
+    mobileMenuToggle.onclick = () => {
+        mobileMenuDropdown.classList.toggle("hidden");
+    };
+
+    mobileHowToBtn.onclick = () => {
+        howToModal.classList.remove("hidden");
+        mobileMenuDropdown.classList.add("hidden");
+    };
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+        if (
+            !mobileMenuToggle.contains(e.target) &&
+            !mobileMenuDropdown.contains(e.target)
+        ) {
+            mobileMenuDropdown.classList.add("hidden");
+        }
+    });
+
+    // Background toggle logic
+    function applyBackgroundFromStorage() {
+        const savedMode = localStorage.getItem("bgMode");
+        body.classList.remove("static-bg", "scrolling-bg");
+        if (savedMode === "static") {
+            body.classList.add("static-bg");
+        } else {
+            body.classList.add("scrolling-bg");
+        }
+    }
+    applyBackgroundFromStorage();
+    const toggleBtn = document.getElementById("toggle-background-btn");
+    const mobileToggleBtn = document.getElementById(
+        "mobile-toggle-background-btn"
+    );
+    function toggleBackground() {
+        applyBackgroundFromStorage();
+        if (body.classList.contains("scrolling-bg")) {
+            body.classList.remove("scrolling-bg");
+            body.classList.add("static-bg");
+            localStorage.setItem("bgMode", "static");
+        } else {
+            body.classList.remove("static-bg");
+            body.classList.add("scrolling-bg");
+            localStorage.setItem("bgMode", "scrolling");
+        }
+        applyBackgroundFromStorage();
+    }
+    if (toggleBtn) {
+        toggleBtn.addEventListener("click", toggleBackground);
+        toggleBtn.addEventListener(
+            "touchstart",
+            function (e) {
+                e.preventDefault();
+                toggleBackground();
+            },
+            { passive: false }
+        );
+    }
+};
 
 //load images
 function loadImages() {
@@ -104,7 +546,7 @@ function loadImages() {
 function loadImagesAndInitialize() {
     let imagesToLoad = 6;
     let imagesLoaded = 0;
-    
+
     function imageLoaded() {
         imagesLoaded++;
         if (imagesLoaded === imagesToLoad) {
@@ -112,28 +554,28 @@ function loadImagesAndInitialize() {
             initializeGame();
         }
     }
-    
+
     // Load all images with onload callbacks
     wallImg = new Image();
     wallImg.onload = imageLoaded;
     wallImg.src = "assets/images/wall.png";
-    
+
     blueGhostImg = new Image();
     blueGhostImg.onload = imageLoaded;
     blueGhostImg.src = "assets/images/blueGhost.png";
-    
+
     redGhostImg = new Image();
     redGhostImg.onload = imageLoaded;
     redGhostImg.src = "assets/images/redGhost.png";
-    
+
     orangeGhostImg = new Image();
     orangeGhostImg.onload = imageLoaded;
     orangeGhostImg.src = "assets/images/orangeGhost.png";
-    
+
     pinkGhostImg = new Image();
     pinkGhostImg.onload = imageLoaded;
     pinkGhostImg.src = "assets/images/pinkGhost.png";
-    
+
     scaredGhostImg = new Image();
     scaredGhostImg.onload = imageLoaded;
     scaredGhostImg.src = "assets/images/scaredGhost.png";
@@ -143,11 +585,11 @@ function loadImagesAndInitialize() {
 function initializeGame() {
     loadSounds();
     loadMap(); // Load the map with walls, pellets, etc.
-    
+
     // Initialize Pacman at position [1][1]
     pacman = {
-        x: 1 * tileSize + tileSize/2, // Center in tile
-        y: 1 * tileSize + tileSize/2, // Center in tile
+        x: 1 * tileSize + tileSize / 2, // Center in tile
+        y: 1 * tileSize + tileSize / 2, // Center in tile
         radius: 12.5,
         radians: 0.75,
         openRate: 0.12,
@@ -158,22 +600,22 @@ function initializeGame() {
         velocityY: 0,
         speed: 8, // Pixels per frame
 
-        updateDirection: function(direction) {
+        updateDirection: function (direction) {
             // Always queue the new direction
             this.nextDirection = direction;
-            
+
             // If not currently moving, start moving immediately
             if (this.velocityX === 0 && this.velocityY === 0) {
                 this.setDirection(direction);
             }
         },
-        
-        setDirection: function(direction) {
+
+        setDirection: function (direction) {
             this.direction = direction;
             this.updateVelocity();
         },
-        
-        updateVelocity: function() {
+
+        updateVelocity: function () {
             switch (this.direction) {
                 case "U":
                     this.velocityX = 0;
@@ -197,23 +639,30 @@ function initializeGame() {
                     break;
             }
         },
-        
+
         // Check if Pacman is close enough to center of a tile to change direction
-        canChangeDirection: function() {
+        canChangeDirection: function () {
             const tolerance = 4; // Pixels tolerance from tile center
-            const tileX = Math.floor(this.x / tileSize) * tileSize + tileSize/2;
-            const tileY = Math.floor(this.y / tileSize) * tileSize + tileSize/2;
-            
-            return Math.abs(this.x - tileX) <= tolerance && Math.abs(this.y - tileY) <= tolerance;
+            const tileX =
+                Math.floor(this.x / tileSize) * tileSize + tileSize / 2;
+            const tileY =
+                Math.floor(this.y / tileSize) * tileSize + tileSize / 2;
+
+            return (
+                Math.abs(this.x - tileX) <= tolerance &&
+                Math.abs(this.y - tileY) <= tolerance
+            );
         },
-        
+
         // Snap to the nearest tile center
-        snapToGrid: function() {
-            const tileX = Math.floor(this.x / tileSize) * tileSize + tileSize/2;
-            const tileY = Math.floor(this.y / tileSize) * tileSize + tileSize/2;
+        snapToGrid: function () {
+            const tileX =
+                Math.floor(this.x / tileSize) * tileSize + tileSize / 2;
+            const tileY =
+                Math.floor(this.y / tileSize) * tileSize + tileSize / 2;
             this.x = tileX;
             this.y = tileY;
-        }
+        },
     };
 
     // Show start game modal and draw initial state
@@ -221,18 +670,18 @@ function initializeGame() {
     draw(); // Draw the initial game state with walls visible
 
     // Set up keyboard event listener
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener("keydown", function (e) {
         // Only process keyboard input if game has started
         if (!gameStarted) return;
-        
+
         e.preventDefault();
-        if(e.code == 'ArrowUp' || e.code == "KeyW") {
+        if (e.code == "ArrowUp" || e.code == "KeyW") {
             pacman.updateDirection("U");
-        } else if(e.code == 'ArrowDown' || e.code == "KeyS") {
+        } else if (e.code == "ArrowDown" || e.code == "KeyS") {
             pacman.updateDirection("D");
-        } else if(e.code == 'ArrowLeft' || e.code == "KeyA") {
+        } else if (e.code == "ArrowLeft" || e.code == "KeyA") {
             pacman.updateDirection("L");
-        } else if(e.code == 'ArrowRight' || e.code == "KeyD") {
+        } else if (e.code == "ArrowRight" || e.code == "KeyD") {
             pacman.updateDirection("R");
         }
     });
@@ -260,31 +709,78 @@ function loadMap() {
     ghosts.clear();
     eatenGhosts.clear();
 
-    for(let r = 0; r < map.length; r++) {
-        for(let c = 0; c < map[r].length; c++) {
+    for (let r = 0; r < map.length; r++) {
+        for (let c = 0; c < map[r].length; c++) {
             const tile = map[r][c];
             const x = c * tileSize;
             const y = r * tileSize;
 
-            if(tile === '-') {
+            if (tile === "-") {
                 walls.add(new Block(wallImg, x, y, tileSize, tileSize));
-            } else if(tile === '.') {
-                pellets.add(new Block(null, x + tileSize / 2.5, y + tileSize / 2.5, tileSize / 4, tileSize / 4));
-            }
-            else if(tile === 'p') {
-                powerUps.add(new Block(null, x + tileSize / 2.5, y + tileSize / 2.5, tileSize / 3, tileSize / 3));
+            } else if (tile === ".") {
+                pellets.add(
+                    new Block(
+                        null,
+                        x + tileSize / 2.5,
+                        y + tileSize / 2.5,
+                        tileSize / 4,
+                        tileSize / 4
+                    )
+                );
+            } else if (tile === "p") {
+                powerUps.add(
+                    new Block(
+                        null,
+                        x + tileSize / 2.5,
+                        y + tileSize / 2.5,
+                        tileSize / 3,
+                        tileSize / 3
+                    )
+                );
             }
         }
     }
     // Spawn ghosts in the center of the map
     const centerRow = Math.floor(rows / 2);
     const centerCol = Math.floor(cols / 2);
-    
+
     // Position ghosts in a 1x4 formation horizontally across the center
-    ghosts.add(new Block(redGhostImg, (centerCol - 2) * tileSize, centerRow * tileSize, tileSize, tileSize));
-    ghosts.add(new Block(blueGhostImg, (centerCol - 1) * tileSize, centerRow * tileSize, tileSize, tileSize));
-    ghosts.add(new Block(orangeGhostImg, centerCol * tileSize, centerRow * tileSize, tileSize, tileSize));
-    ghosts.add(new Block(pinkGhostImg, (centerCol + 1) * tileSize, centerRow * tileSize, tileSize, tileSize));
+    ghosts.add(
+        new Block(
+            redGhostImg,
+            (centerCol - 2) * tileSize,
+            centerRow * tileSize,
+            tileSize,
+            tileSize
+        )
+    );
+    ghosts.add(
+        new Block(
+            blueGhostImg,
+            (centerCol - 1) * tileSize,
+            centerRow * tileSize,
+            tileSize,
+            tileSize
+        )
+    );
+    ghosts.add(
+        new Block(
+            orangeGhostImg,
+            centerCol * tileSize,
+            centerRow * tileSize,
+            tileSize,
+            tileSize
+        )
+    );
+    ghosts.add(
+        new Block(
+            pinkGhostImg,
+            (centerCol + 1) * tileSize,
+            centerRow * tileSize,
+            tileSize,
+            tileSize
+        )
+    );
 }
 
 //update function
@@ -306,12 +802,18 @@ function draw() {
     for (let wall of walls.values()) {
         ctx.drawImage(wall.image, wall.x, wall.y, wall.width, wall.height);
     }
-    
+
     //draw pellets
     ctx.fillStyle = "white";
     for (let pellet of pellets.values()) {
         ctx.beginPath();
-        ctx.arc(pellet.x + pellet.width / 2, pellet.y + pellet.height / 2, pellet.width / 2, 0, Math.PI * 2);
+        ctx.arc(
+            pellet.x + pellet.width / 2,
+            pellet.y + pellet.height / 2,
+            pellet.width / 2,
+            0,
+            Math.PI * 2
+        );
         ctx.fill();
     }
 
@@ -319,7 +821,13 @@ function draw() {
     ctx.fillStyle = "white";
     for (let powerUp of powerUps.values()) {
         ctx.beginPath();
-        ctx.arc(powerUp.x + powerUp.width / 3, powerUp.y + powerUp.height / 3, powerUp.width / 1.5, 0, Math.PI * 2);
+        ctx.arc(
+            powerUp.x + powerUp.width / 3,
+            powerUp.y + powerUp.height / 3,
+            powerUp.width / 1.5,
+            0,
+            Math.PI * 2
+        );
         ctx.fill();
     }
 
@@ -332,17 +840,20 @@ function draw() {
     ctx.save();
     ctx.translate(pacman.x, pacman.y);
     ctx.rotate(pacman.rotation);
-    
+
     // Handle disappearing animation
     if (pacmanDisappearing) {
         const currentTime = Date.now();
         const elapsed = currentTime - disappearStartTime;
-        const soundDuration = gameOverSound && gameOverSound.duration ? gameOverSound.duration * 1000 : 2000; // Default 2 seconds
-        
+        const soundDuration =
+            gameOverSound && gameOverSound.duration
+                ? gameOverSound.duration * 1000
+                : 2000; // Default 2 seconds
+
         // Calculate opacity based on time elapsed
-        pacmanOpacity = Math.max(0, 1 - (elapsed / soundDuration));
+        pacmanOpacity = Math.max(0, 1 - elapsed / soundDuration);
         ctx.globalAlpha = pacmanOpacity;
-        
+
         // Optional: Add scaling effect for more dramatic disappearing
         const scale = pacmanOpacity;
         ctx.scale(scale, scale);
@@ -350,7 +861,7 @@ function draw() {
         ctx.globalAlpha = 1.0;
         pacmanOpacity = 1.0;
     }
-    
+
     ctx.fillStyle = "yellow";
     ctx.beginPath();
     ctx.arc(0, 0, pacman.radius, pacman.radians, Math.PI * 2 - pacman.radians);
@@ -363,7 +874,7 @@ function draw() {
 function makeGhostsScared() {
     ghostsScared = true;
     scaredTimer = Date.now() + SCARED_DURATION;
-    
+
     // Change all ghost images to scared ghost
     for (let ghost of ghosts.values()) {
         ghost.image = scaredGhostImg;
@@ -374,25 +885,26 @@ function updateScaredGhosts() {
     if (ghostsScared && Date.now() >= scaredTimer) {
         // Time's up, change ghosts back to normal and respawn eaten ghosts
         ghostsScared = false;
-        
+
         // Restore original images for existing ghosts
         for (let ghost of ghosts.values()) {
             ghost.image = ghost.originalImage;
         }
-        
+
         // Respawn eaten ghosts
         for (let eatenGhost of eatenGhosts.values()) {
             // Reset eaten ghost to original position and image
             eatenGhost.reset();
             eatenGhost.image = eatenGhost.originalImage;
             // Give it a new random direction
-            const newDirection = directions[Math.floor(Math.random() * directions.length)];
+            const newDirection =
+                directions[Math.floor(Math.random() * directions.length)];
             eatenGhost.direction = newDirection;
             eatenGhost.updateVelocity();
             // Add back to active ghosts
             ghosts.add(eatenGhost);
         }
-        
+
         // Clear eaten ghosts set
         eatenGhosts.clear();
     }
@@ -406,11 +918,11 @@ function eatGhost(ghost) {
     score += 100;
     const scoreEl = document.getElementById("scoreEl");
     scoreEl.innerHTML = score;
-    
+
     // Play eatGhost sound when eating a scared ghost
     if (eatGhostSound) {
         eatGhostSound.currentTime = 0; // Reset sound to beginning for rapid playback
-        eatGhostSound.play().catch(e => {
+        eatGhostSound.play().catch((e) => {
             // Handle any audio play errors silently
             console.log("Ghost eat audio play failed:", e);
         });
@@ -429,15 +941,23 @@ function move() {
         pacman.snapToGrid(); // Ensure we're centered
         let testX = pacman.x;
         let testY = pacman.y;
-        
+
         // Calculate test position based on queued direction
         switch (pacman.nextDirection) {
-            case "U": testY -= pacman.speed; break;
-            case "D": testY += pacman.speed; break;
-            case "L": testX -= pacman.speed; break;
-            case "R": testX += pacman.speed; break;
+            case "U":
+                testY -= pacman.speed;
+                break;
+            case "D":
+                testY += pacman.speed;
+                break;
+            case "L":
+                testX -= pacman.speed;
+                break;
+            case "R":
+                testX += pacman.speed;
+                break;
         }
-        
+
         // Check if queued direction is clear
         let canMove = true;
         for (let wall of walls.values()) {
@@ -446,18 +966,18 @@ function move() {
                 break;
             }
         }
-        
+
         // If queued direction is clear, change to it
         if (canMove) {
             pacman.setDirection(pacman.nextDirection);
             pacman.nextDirection = null;
         }
     }
-    
+
     // Calculate new position
     let newX = pacman.x + pacman.velocityX;
     let newY = pacman.y + pacman.velocityY;
-    
+
     // Check if new position would cause collision
     let wouldCollide = false;
     for (let wall of walls.values()) {
@@ -466,7 +986,7 @@ function move() {
             break;
         }
     }
-    
+
     // Only move if no collision would occur
     if (!wouldCollide) {
         pacman.x = newX;
@@ -482,53 +1002,80 @@ function move() {
         // Calculate new position
         let newGhostX = ghost.x + ghost.velocityX;
         let newGhostY = ghost.y + ghost.velocityY;
-        
+
         // Check if ghost would hit a wall
         let ghostWouldCollide = false;
         for (let wall of walls.values()) {
-            if (ghostWallCollision(newGhostX, newGhostY, ghost.width, ghost.height, wall)) {
+            if (
+                ghostWallCollision(
+                    newGhostX,
+                    newGhostY,
+                    ghost.width,
+                    ghost.height,
+                    wall
+                )
+            ) {
                 ghostWouldCollide = true;
                 break;
             }
         }
 
-    // If ghost would hit wall or randomly change direction (5% chance per frame)
+        // If ghost would hit wall or randomly change direction (5% chance per frame)
         if (ghostWouldCollide || Math.random() < 0.05) {
             // Try different directions until we find a valid one
             const availableDirections = [];
-            
+
             for (let direction of directions) {
                 let testX = ghost.x;
                 let testY = ghost.y;
-                
+
                 switch (direction) {
-                    case "U": testY -= tileSize/4; break;
-                    case "D": testY += tileSize/4; break;
-                    case "L": testX -= tileSize/4; break;
-                    case "R": testX += tileSize/4; break;
+                    case "U":
+                        testY -= tileSize / 4;
+                        break;
+                    case "D":
+                        testY += tileSize / 4;
+                        break;
+                    case "L":
+                        testX -= tileSize / 4;
+                        break;
+                    case "R":
+                        testX += tileSize / 4;
+                        break;
                 }
-                
+
                 let canMoveThisWay = true;
                 for (let wall of walls.values()) {
-                    if (ghostWallCollision(testX, testY, ghost.width, ghost.height, wall)) {
+                    if (
+                        ghostWallCollision(
+                            testX,
+                            testY,
+                            ghost.width,
+                            ghost.height,
+                            wall
+                        )
+                    ) {
                         canMoveThisWay = false;
                         break;
                     }
                 }
-                
+
                 if (canMoveThisWay) {
                     availableDirections.push(direction);
                 }
             }
 
-        // Choose a random valid direction
+            // Choose a random valid direction
             if (availableDirections.length > 0) {
-                const newDirection = availableDirections[Math.floor(Math.random() * availableDirections.length)];
+                const newDirection =
+                    availableDirections[
+                        Math.floor(Math.random() * availableDirections.length)
+                    ];
                 ghost.direction = newDirection;
                 ghost.updateVelocity();
             }
         }
-        
+
         // Move ghost if no collision
         if (!ghostWouldCollide) {
             ghost.x = newGhostX;
@@ -538,13 +1085,13 @@ function move() {
 
     // Check for Pacman-Ghost collisions AFTER movement
     if (!isProcessingCollision) {
-        for(let ghost of ghosts.values()) {
-            if(pacmanGhostCollision(pacman, ghost)) {
+        for (let ghost of ghosts.values()) {
+            if (pacmanGhostCollision(pacman, ghost)) {
                 // Always stop Pacman movement on ghost collision
                 pacman.velocityX = 0;
                 pacman.velocityY = 0;
                 pacman.nextDirection = null;
-                
+
                 if (ghostsScared) {
                     // Pacman eats the scared ghost and can continue moving
                     eatGhost(ghost);
@@ -554,32 +1101,36 @@ function move() {
                     isProcessingCollision = true;
                     pacmanDisappearing = true;
                     disappearStartTime = Date.now();
-                    
+
                     lives -= 1;
                     const livesEl = document.getElementById("livesEl");
                     livesEl.innerHTML = lives;
-                    
+
                     // Play game over sound when losing a life
                     if (gameOverSound) {
                         gameOverSound.currentTime = 0; // Reset sound to beginning
-                        gameOverSound.play().catch(e => {
+                        gameOverSound.play().catch((e) => {
                             console.log("Game over sound play failed:", e);
                         });
-                        
+
                         // Wait for sound to finish before taking action
-                        gameOverSound.addEventListener('ended', () => {
-                            // Reset animation state
-                            pacmanDisappearing = false;
-                            pacmanOpacity = 1.0;
-                            
-                            if(lives <= 0) {
-                                gameOver = true;
-                                handleGameOver();
-                            } else {
-                                resetPositions();
-                                isProcessingCollision = false; // Allow collisions again
-                            }
-                        }, { once: true });
+                        gameOverSound.addEventListener(
+                            "ended",
+                            () => {
+                                // Reset animation state
+                                pacmanDisappearing = false;
+                                pacmanOpacity = 1.0;
+
+                                if (lives <= 0) {
+                                    gameOver = true;
+                                    handleGameOver();
+                                } else {
+                                    resetPositions();
+                                    isProcessingCollision = false; // Allow collisions again
+                                }
+                            },
+                            { once: true }
+                        );
                     } else {
                         // If no sound, use timeout for delay with animation
                         const animationDuration = 2000; // 2 seconds
@@ -587,8 +1138,8 @@ function move() {
                             // Reset animation state
                             pacmanDisappearing = false;
                             pacmanOpacity = 1.0;
-                            
-                            if(lives <= 0) {
+
+                            if (lives <= 0) {
                                 gameOver = true;
                                 handleGameOver();
                             } else {
@@ -614,7 +1165,7 @@ function move() {
             // Play eatPellet sound when eating pellet
             if (eatPelletSound) {
                 eatPelletSound.currentTime = 0; // Reset sound to beginning for rapid playback
-                eatPelletSound.play().catch(e => {
+                eatPelletSound.play().catch((e) => {
                     // Handle any audio play errors silently
                     console.log("Audio play failed:", e);
                 });
@@ -649,80 +1200,90 @@ function move() {
     }
     pacman.radians += pacman.openRate;
 
-    
-
     // Collision detection between Pacman (circle) and walls (rectangles)
     function pacmanWallCollision(pacmanX, pacmanY, wall) {
-    // Find the closest point on the rectangle to the circle center
-    let closestX = Math.max(wall.x, Math.min(pacmanX, wall.x + wall.width));
-    let closestY = Math.max(wall.y, Math.min(pacmanY, wall.y + wall.height));
-    
-    // Calculate distance between circle center and closest point
-    let distanceX = pacmanX - closestX;
-    let distanceY = pacmanY - closestY;
-    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    
-    // Collision occurs if distance is less than circle radius
-    return distance < pacman.radius;
+        // Find the closest point on the rectangle to the circle center
+        let closestX = Math.max(wall.x, Math.min(pacmanX, wall.x + wall.width));
+        let closestY = Math.max(
+            wall.y,
+            Math.min(pacmanY, wall.y + wall.height)
+        );
+
+        // Calculate distance between circle center and closest point
+        let distanceX = pacmanX - closestX;
+        let distanceY = pacmanY - closestY;
+        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        // Collision occurs if distance is less than circle radius
+        return distance < pacman.radius;
     }
 
     // Collision detection between Pacman (circle) and ghosts (rectangles)
     function pacmanGhostCollision(pacman, ghost) {
-    // Find the closest point on the rectangle to the circle center
-    let closestX = Math.max(ghost.x, Math.min(pacman.x, ghost.x + ghost.width));
-    let closestY = Math.max(ghost.y, Math.min(pacman.y, ghost.y + ghost.height));
-    
-    // Calculate distance between circle center and closest point
-    let distanceX = pacman.x - closestX;
-    let distanceY = pacman.y - closestY;
-    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    
-    // Collision occurs if distance is less than circle radius
-    return distance < pacman.radius;
+        // Find the closest point on the rectangle to the circle center
+        let closestX = Math.max(
+            ghost.x,
+            Math.min(pacman.x, ghost.x + ghost.width)
+        );
+        let closestY = Math.max(
+            ghost.y,
+            Math.min(pacman.y, ghost.y + ghost.height)
+        );
+
+        // Calculate distance between circle center and closest point
+        let distanceX = pacman.x - closestX;
+        let distanceY = pacman.y - closestY;
+        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        // Collision occurs if distance is less than circle radius
+        return distance < pacman.radius;
     }
 
     // Collision detection between Pacman and pellets/power-ups
     function pacmanPelletCollision(pacman, pellet) {
-    // Calculate distance between centers
-    let pelletCenterX = pellet.x + pellet.width / 2;
-    let pelletCenterY = pellet.y + pellet.height / 2;
-    
-    let distanceX = pacman.x - pelletCenterX;
-    let distanceY = pacman.y - pelletCenterY;
-    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-    
-    // Collision occurs if distance is less than pacman radius
-    return distance < pacman.radius;
+        // Calculate distance between centers
+        let pelletCenterX = pellet.x + pellet.width / 2;
+        let pelletCenterY = pellet.y + pellet.height / 2;
+
+        let distanceX = pacman.x - pelletCenterX;
+        let distanceY = pacman.y - pelletCenterY;
+        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+        // Collision occurs if distance is less than pacman radius
+        return distance < pacman.radius;
     }
 
     // Collision detection between ghosts (rectangles) and walls (rectangles)
     function ghostWallCollision(ghostX, ghostY, ghostWidth, ghostHeight, wall) {
-        return ghostX < wall.x + wall.width &&
+        return (
+            ghostX < wall.x + wall.width &&
             ghostX + ghostWidth > wall.x &&
             ghostY < wall.y + wall.height &&
-            ghostY + ghostHeight > wall.y;
+            ghostY + ghostHeight > wall.y
+        );
     }
 
     function ghostCollision(a, b) {
-        return a.x < b.x + b.width &&
+        return (
+            a.x < b.x + b.width &&
             a.x + a.width > b.x &&
             a.y < b.y + b.height &&
-            a.y + a.height > b.y;
+            a.y + a.height > b.y
+        );
     }
-
 }
 
 //reset positions of pacman and ghosts
 function resetPositions() {
     // Reset Pacman to starting position and original direction
-    pacman.x = 1 * tileSize + tileSize/2;
-    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.x = 1 * tileSize + tileSize / 2;
+    pacman.y = 1 * tileSize + tileSize / 2;
     pacman.velocityX = 0;
     pacman.velocityY = 0;
     pacman.direction = "R"; // Reset to original direction (right)
     pacman.rotation = 0; // Reset to original rotation (facing right)
     pacman.nextDirection = null;
-    
+
     // Reset animation state
     pacmanDisappearing = false;
     pacmanOpacity = 1.0;
@@ -730,12 +1291,13 @@ function resetPositions() {
     // Reset ghosts to their starting positions
     const centerRow = Math.floor(rows / 2);
     const centerCol = Math.floor(cols / 2);
-    
+
     let ghostIndex = 0;
     for (let ghost of ghosts.values()) {
         ghost.reset();
         // Give each ghost a new random direction
-        const newDirection = directions[Math.floor(Math.random() * directions.length)];
+        const newDirection =
+            directions[Math.floor(Math.random() * directions.length)];
         ghost.direction = newDirection;
         ghost.updateVelocity();
         ghostIndex++;
@@ -810,8 +1372,8 @@ function resetGame() {
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
-    pacman.x = 1 * tileSize + tileSize/2;
-    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.x = 1 * tileSize + tileSize / 2;
+    pacman.y = 1 * tileSize + tileSize / 2;
     pacman.velocityX = 0;
     pacman.velocityY = 0;
     pacman.direction = "R"; // Reset to original direction (right)
@@ -821,22 +1383,26 @@ function resetGame() {
     // Reload the map to restore pellets and power-ups
     loadMap();
     resetPositions();
-    
+
     // Draw the initial state (static)
     draw();
-    
+
     // Play start game sound and wait for it to finish before starting
     if (startGameSound) {
         startGameSound.currentTime = 0;
-        startGameSound.play().catch(e => {
+        startGameSound.play().catch((e) => {
             console.log("Start game sound play failed:", e);
         });
-        
+
         // Wait for sound to finish before starting game
-        startGameSound.addEventListener('ended', () => {
-            gameStarted = true;
-            update(); // Start the game loop after sound ends
-        }, { once: true });
+        startGameSound.addEventListener(
+            "ended",
+            () => {
+                gameStarted = true;
+                update(); // Start the game loop after sound ends
+            },
+            { once: true }
+        );
     } else {
         // If no sound, start immediately
         gameStarted = true;
@@ -862,8 +1428,8 @@ function resetToMenu() {
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
-    pacman.x = 1 * tileSize + tileSize/2;
-    pacman.y = 1 * tileSize + tileSize/2;
+    pacman.x = 1 * tileSize + tileSize / 2;
+    pacman.y = 1 * tileSize + tileSize / 2;
     pacman.velocityX = 0;
     pacman.velocityY = 0;
     pacman.direction = "R";
@@ -873,7 +1439,7 @@ function resetToMenu() {
     // Reload the map to restore pellets and power-ups
     loadMap();
     resetPositions();
-    
+
     // Show start modal
     showStartGameModal();
     draw();
@@ -893,7 +1459,8 @@ class Block {
         this.startX = x;
         this.startY = y;
 
-        this.direction = directions[Math.floor(Math.random() * directions.length)]; // Random initial direction
+        this.direction =
+            directions[Math.floor(Math.random() * directions.length)]; // Random initial direction
         this.velocityX = 0;
         this.velocityY = 0;
         this.updateVelocity(); // Set initial velocity
@@ -902,18 +1469,18 @@ class Block {
     updateVelocity() {
         if (this.direction === "U") {
             this.velocityX = 0;
-            this.velocityY = -tileSize/4;
+            this.velocityY = -tileSize / 4;
         } else if (this.direction === "D") {
             this.velocityX = 0;
-            this.velocityY = tileSize/4;
+            this.velocityY = tileSize / 4;
         } else if (this.direction === "L") {
-            this.velocityX = -tileSize/4;
+            this.velocityX = -tileSize / 4;
             this.velocityY = 0;
         } else if (this.direction === "R") {
-            this.velocityX = tileSize/4;
+            this.velocityX = tileSize / 4;
             this.velocityY = 0;
         }
-    }   
+    }
 
     reset() {
         this.x = this.startX;
@@ -950,21 +1517,22 @@ function startGame() {
     // Play start game sound
     if (startGameSound) {
         startGameSound.currentTime = 0;
-        startGameSound.play().catch(e => {
+        startGameSound.play().catch((e) => {
             console.log("Start game sound play failed:", e);
         });
-        
+
         // Wait for sound to finish before starting game
-        startGameSound.addEventListener('ended', () => {
-            gameStarted = true;
-            update(); // Start the game loop
-        }, { once: true });
+        startGameSound.addEventListener(
+            "ended",
+            () => {
+                gameStarted = true;
+                update(); // Start the game loop
+            },
+            { once: true }
+        );
     } else {
         // If no sound, start immediately
         gameStarted = true;
         update(); // Start the game loop
     }
 }
-
-
-
