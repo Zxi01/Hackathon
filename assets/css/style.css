@@ -8,6 +8,11 @@
 /* Import retro fonts */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
+/* variables */
+:root {
+    --header-height: 100px;
+}
+
 body.scrolling-bg {
     background: url(../images/background.jpg) repeat center center fixed;
     -webkit-animation: scrollBg 60s linear infinite;
@@ -98,6 +103,66 @@ body.static-bg {
     to {
         background-position: -1000px 0;
     }
+}
+
+/* heading */
+header {
+    --header-height: 100px;
+    height: var(--header-height);
+    background: linear-gradient(to bottom, black 50%, transparent 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+main {
+    padding-top: var(--header-height);
+}
+
+.navbar {
+    background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
+}
+
+.header-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem 2rem;
+}
+
+.retro-title.retro-title {
+    position: absolute;
+    align-items: flex-end; /* being overidden by bootstrap */
+    left: 50%;
+    transform: translateX(-50%) translateY(40%);
+    margin: 0;
+    font-family: "Press Start 2P", cursive;
+    text-transform: uppercase;
+}
+
+.navbar-brand {
+    font-family: "Press Start 2P", cursive;
+    transform: translateY(-40%);
+    font-size: 1rem;
+    color: #fff;
+}
+.navbar-brand:hover {
+    color: #ffffff83;
+    text-decoration: none;
+}
+
+#music-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.music-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .games-section {
