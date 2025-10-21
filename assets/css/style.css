@@ -8,6 +8,11 @@
 /* Import retro fonts */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&display=swap");
 
+/* variables */
+:root {
+    --header-height: 100px;
+}
+
 body.scrolling-bg {
     background: url(../images/background.jpg) repeat center center fixed;
     -webkit-animation: scrollBg 60s linear infinite;
@@ -98,6 +103,66 @@ body.static-bg {
     to {
         background-position: -1000px 0;
     }
+}
+
+/* heading */
+header {
+    --header-height: 100px;
+    height: var(--header-height);
+    background: linear-gradient(to bottom, black 50%, transparent 100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+main {
+    padding-top: var(--header-height);
+}
+
+.navbar {
+    background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
+}
+
+.header-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem 2rem;
+}
+
+.retro-title.retro-title {
+    position: absolute;
+    align-items: flex-end; /* being overidden by bootstrap */
+    left: 50%;
+    transform: translateX(-50%) translateY(40%);
+    margin: 0;
+    font-family: "Press Start 2P", cursive;
+    text-transform: uppercase;
+}
+
+.navbar-brand {
+    font-family: "Press Start 2P", cursive;
+    transform: translateY(-40%);
+    font-size: 1rem;
+    color: #fff;
+}
+.navbar-brand:hover {
+    color: #ffffff83;
+    text-decoration: none;
+}
+
+#music-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.music-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .games-section {
@@ -258,7 +323,7 @@ body.static-bg {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    min-height: 100vh;
+    height: 100%;
     width: 100vw;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -546,6 +611,40 @@ body.static-bg {
     display: none; /* Hidden by default on desktop */
 }
 
+/* footer */
+html,
+body {
+    height: 100%; /* Ensure body takes full viewport height */
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    min-height: 100vh; /* Make sure body is at least full viewport */
+}
+
+main {
+    flex: 1; /* takes remaining height between header and footer */
+    padding-top: var(--header-height);
+    box-sizing: border-box; /* ensures padding is included in height */
+}
+
+footer {
+    background-color: black;
+    color: #ffffff83;
+    font-family: "press start 2p", sans-serif;
+    font-size: 0.75rem;
+    padding: 0.5rem 0rem 2rem 0rem;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #ffffff83;
+}
 /* Responsive adjustments for different screen sizes */
 
 /* Large screens (1200px and up) */
