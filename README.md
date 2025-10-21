@@ -91,6 +91,8 @@ The design features:
 
 ## AI Tools Usage
 
+- We used AI Copilot both in the web browser and through Visual Studio Code to streamline development and enhance collaboration throughout our project. It was especially helpful for debugging tricky sections of code, suggesting fixes and improvements in real time. When we wanted to add extra features—like modals, score tracking, or canvas interactions—but weren’t sure how to integrate them smoothly, Copilot provided clear, context-aware suggestions that fit our existing structure. It also saved us time on smaller tasks like formatting, refactoring, and writing repetitive logic, allowing us to focus more on design, gameplay, and user experience. Importantly, every piece of AI-generated code was carefully read, tested, and understood before implementation to ensure compatibility with our existing codebase and prevent errors or unintended conflicts.
+
 ### Google Gemini
 
 ### GitHub Copilot
