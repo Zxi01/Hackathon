@@ -395,6 +395,7 @@ main {
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     text-decoration: none;
     font-size: 0.8rem;
+}
 
 #highscore-board {
     width: 90vw;
