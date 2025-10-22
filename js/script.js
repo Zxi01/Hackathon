@@ -56,13 +56,22 @@ function applyBackgroundFromStorage() {
 function setupBackgroundToggle() {
     applyBackgroundFromStorage();
     const body = document.body;
-    const toggleBtn = document.getElementById("toggle-background-btn");
-    const mobileToggleBtn = document.getElementById(
+    const toggleLink = document.getElementById("toggle-background-btn");
+    const mobileToggleLink = document.getElementById(
         "mobile-toggle-background-btn"
     );
-    function toggleBackground() {
-        // Always re-read localStorage before toggling
+
+    function updateToggleText() {
+        const mode = body.classList.contains("static-bg") ? "Off" : "On";
+        if (toggleLink) toggleLink.textContent = `Background Toggle: ${mode}`;
+        if (mobileToggleLink)
+            mobileToggleLink.textContent = `Background Toggle: ${mode}`;
+    }
+
+    function toggleBackground(e) {
+        if (e) e.preventDefault(); // Prevent default link behavior
         applyBackgroundFromStorage();
+
         if (body.classList.contains("scrolling-bg")) {
             body.classList.remove("scrolling-bg");
             body.classList.add("static-bg");
@@ -72,12 +81,18 @@ function setupBackgroundToggle() {
             body.classList.add("scrolling-bg");
             localStorage.setItem("bgMode", "scrolling");
         }
-        // Apply immediately for all open tabs/pages
+
+        updateToggleText();
         applyBackgroundFromStorage();
     }
-    if (toggleBtn) {
-        toggleBtn.addEventListener("click", toggleBackground);
-        toggleBtn.addEventListener(
+
+    // Initialize text on page load
+    updateToggleText();
+
+    // Event listeners
+    if (toggleLink) {
+        toggleLink.addEventListener("click", toggleBackground);
+        toggleLink.addEventListener(
             "touchstart",
             function (e) {
                 e.preventDefault();
@@ -86,9 +101,10 @@ function setupBackgroundToggle() {
             { passive: false }
         );
     }
-    if (mobileToggleBtn) {
-        mobileToggleBtn.addEventListener("click", toggleBackground);
-        mobileToggleBtn.addEventListener(
+
+    if (mobileToggleLink) {
+        mobileToggleLink.addEventListener("click", toggleBackground);
+        mobileToggleLink.addEventListener(
             "touchstart",
             function (e) {
                 e.preventDefault();
