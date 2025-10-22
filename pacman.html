@@ -26,16 +26,26 @@
     </header>
     <main>
         <div class="game-wrapper">
-            <div id="scoreboard" class="scoreboard">
-                <p><span class="label">Score:</span><span id="scoreEl">0</span></p>
-                <p><span>Lives:</span><span id="livesEl">3</span></p>
-            </div>
+            <!-- High Score - Full width above everything -->
             <div id="highscore-board" class="scoreboard">
                 <span class="label">High Score:</span> <span id="highscore" class="value">0</span>
             </div>
+
+            <!-- Game Info - Lives and Score side by side, aligned with canvas -->
+            <div class="game-info">
+                <div id="lives-board" class="scoreboard">
+                    <span>Lives: </span><span id="livesEl">3</span>
+                </div>
+                <div id="score-board" class="scoreboard">
+                    <span>Score: </span><span id="scoreEl">0</span>
+                </div>
+            </div>
+
+            <!-- Canvas -->
             <div class="game-container">
                 <canvas id="pacman-canvas"></canvas>
             </div>
+
             <!-- D-pad controls for mobile/tablet -->
             <div class="dpad-container">
                 <button id="dpad-up" aria-label="Move Up">▲</button>
