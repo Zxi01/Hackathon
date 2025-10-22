@@ -363,6 +363,7 @@ main {
     width: 100vw;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    padding: 0 1rem;
 }
 
 /* Reusable retro scoreboard style */
@@ -836,7 +837,7 @@ footer a:hover {
 }
 
 /* Small tablets and large phones (481px to 767px) */
-@media (max-width: 767px) and (min-width: 481px) {
+@media (max-width: 768px) and (min-width: 481px) {
     .retro-title {
         font-size: 2rem;
         letter-spacing: 2px;
@@ -859,6 +860,11 @@ footer a:hover {
 
     .game-card .game-image {
         height: 150px;
+    }
+
+    .page-container {
+        padding: 0 1rem;
+        margin-top: 50px;/* changes at 730 - needs sorting */
     }
 
     #music-toggle {
@@ -931,6 +937,11 @@ footer a:hover {
         letter-spacing: 1px;
     }
 
+    .page-container {
+        padding: 0 1rem;
+        margin-top: 30px;
+    }
+
     /* Smaller music button on mobile */
     #music-toggle {
         top: 1rem;
@@ -949,7 +960,8 @@ footer a:hover {
     }
 
     .page-container {
-        padding: 1rem 0;
+        padding: 0 1rem;
+        margin-top: 20px;
     }
 
     .games-section {
