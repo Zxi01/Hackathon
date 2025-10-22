@@ -43,14 +43,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function updateScore() {
-    const el = document.getElementById("score");
-    if (el) el.textContent = String(score);
-}
-
 // Make grid and score global so all functions can access them
 let grid = null;
 let score = 0;
+// parse stored highscore to number (was a string) and default to 0
+let highscore = parseInt(localStorage.getItem("highscore") || "0", 10);
+
+function updateScore() {
+    const el = document.getElementById("score");
+    if (el) el.textContent = String(score);
+
+    // update highscore if surpassed
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", String(highscore));
+        updateHighscore();
+    }
+}
+
+function updateHighscore() {
+    const el = document.getElementById("highs"); // target the number span
+    if (el) el.textContent = String(highscore);
+}
 
 // FUNCTION setupGame
 //     CREATE 4x4 grid filled with zeros
@@ -71,6 +85,10 @@ function setupGame() {
     addRandomTile(grid);
     // displayGrid is provided by your HTML renderer
     if (typeof displayGrid === "function") displayGrid(grid);
+
+    // initialize UI
+    updateScore();
+    updateHighscore();
 }
 
 // FUNCTION addRandomTile
@@ -153,6 +171,7 @@ function moveLeft() {
         if (typeof displayGrid === "function") displayGrid(grid);
     }
     updateScore();
+    updateHighscore(); // <-- call the function
 }
 
 // FUNCTION slideAndMerge(row)
@@ -289,6 +308,11 @@ function checkGameOver() {
 }
 
 function displayGameOver() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", highscore);
+        updateHighscore();
+    }
     const modal = document.getElementById("game-over-modal");
     const scoreEl = document.getElementById("final-score");
     scoreEl.textContent = score;
