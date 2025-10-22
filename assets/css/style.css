@@ -49,8 +49,9 @@ body.static-bg {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding-bottom: 20px;
     min-height: auto;
+    margin-bottom: 20px;
 }
 
 .retro-title {
@@ -700,6 +701,7 @@ footer {
     font-family: "press start 2p", sans-serif;
     font-size: 0.75rem;
     padding: 0.5rem 0rem 2rem 0rem;
+    margin-top: 40px;
 }
 
 footer a {
@@ -879,7 +881,7 @@ footer a:hover {
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .scoreboard {
         font-size: 0.7rem;
         padding: 0.4rem 0.6rem;
@@ -891,6 +893,10 @@ footer a:hover {
         padding: 0.5rem 0.8rem;
         letter-spacing: 1.5px;
     }
+
+     /* #accessibility {
+        display: none;
+    } */
 }
 
 @media screen and (max-width: 480px) {
