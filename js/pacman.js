@@ -86,14 +86,15 @@ window.onload = function () {
     const mobileMenuDropdown = document.getElementById("mobile-menu-dropdown");
     const mobileHowToBtn = document.getElementById("mobile-how-to-play-btn");
 
-    mobileMenuToggle.onclick = () => {
-        mobileMenuDropdown.classList.toggle("hidden");
-    };
+    // mobileMenuToggle.onclick = () => {
+    //     mobileMenuDropdown.classList.toggle("hidden");
+    // };
 
-    mobileHowToBtn.onclick = () => {
-        howToModal.classList.remove("hidden");
-        mobileMenuDropdown.classList.add("hidden");
-    };
+    // mobileHowToBtn.onclick = () => {
+    //     const howToModal = document.getElementById("how-to-modal");
+    //     howToModal.classList.remove("hidden");
+    //     mobileMenuDropdown.classList.add("hidden");
+    // };
 
     // Close dropdown when clicking outside
     document.addEventListener("click", (e) => {
@@ -107,6 +108,7 @@ window.onload = function () {
 
     // Background toggle logic
     function applyBackgroundFromStorage() {
+        const body = document.body;
         const savedMode = localStorage.getItem("bgMode");
         body.classList.remove("static-bg", "scrolling-bg");
         if (savedMode === "static") {
