@@ -772,12 +772,6 @@ footer a:hover {
         grid-area: right;
     }
 
-    /* Hide desktop How to Play button on mobile */
-    #how-to-play-btn,
-    #toggle-background-btn {
-        display: none;
-    }
-
     /* Show mobile burger menu on mobile */
     .mobile-menu-btn {
         display: -webkit-box;
@@ -894,9 +888,10 @@ footer a:hover {
         letter-spacing: 1.5px;
     }
 
-    #accessibility {
+    #toggle-background-btn, #accessibility {
         display: none;
     }
+
 }
 
 @media screen and (max-width: 480px) {
