@@ -35,6 +35,7 @@ const ghosts = new Set();
 const eatenGhosts = new Set(); // Track eaten ghosts for respawning
 let score = 0;
 let lives = 3;
+let highscore = localStorage.getItem("highscore") || 0;
 let gameOver = false;
 let gameStarted = false;
 let ghostsScared = false;
@@ -49,25 +50,405 @@ const directions = ["U", "D", "L", "R"];
 
 // Create the map using a 2D array
 const map = [
-    ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
-    ["-", " ", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "p", "-"],
-    ["-", ".", "-", "-", "-", "-", ".", "-", "-", "-", "-", "-", ".", "-", "-", "-", "-", ".", "-"],
-    ["-", ".", "-", ".", ".", ".", ".", ".", ".", "-", ".", ".", ".", ".", ".", ".", "-", ".", "-"],
-    ["-", ".", ".", ".", "-", "-", "-", "-", ".", "-", ".", "-", "-", "-", "-", ".", ".", ".", "-"],
-    ["-", "-", ".", "-", "-", ".", ".", ".", ".", ".", ".", ".", ".", ".", "-", "-", ".", "-", "-"],
-    ["-", ".", ".", ".", ".", ".", "-", "-", ".", "-", ".", "-", "-", ".", ".", ".", ".", ".", "-"],
-    ["-", ".", "-", "-", "-", ".", ".", ".", ".", "-", ".", ".", ".", ".", "-", "-", "-", ".", "-"],
-    ["-", ".", ".", ".", ".", ".", "-", ".", "-", "-", "-", ".", "-", ".", ".", ".", ".", ".", "-"],
-    ["-", "-", "-", ".", "-", "-", "-", ".", ".", "p", ".", ".", "-", "-", "-", ".", "-", "-", "-"],
-    ["-", ".", ".", ".", ".", ".", "-", ".", "-", "-", "-", ".", "-", ".", ".", ".", ".", ".", "-"],
-    ["-", ".", "-", "-", "-", ".", ".", ".", ".", "-", ".", ".", ".", ".", "-", "-", "-", ".", "-"],
-    ["-", ".", ".", ".", ".", ".", "-", "-", ".", "-", ".", "-", "-", ".", ".", ".", ".", ".", "-"],
-    ["-", "-", ".", "-", "-", ".", ".", ".", ".", ".", ".", ".", ".", ".", "-", "-", ".", "-", "-"],
-    ["-", ".", ".", ".", "-", "-", "-", "-", ".", "-", ".", "-", "-", "-", "-", ".", ".", ".", "-"],
-    ["-", ".", "-", ".", ".", ".", ".", ".", ".", "-", ".", ".", ".", ".", ".", ".", "-", ".", "-"],
-    ["-", ".", "-", "-", "-", "-", ".", "-", "-", "-", "-", "-", ".", "-", "-", "-", "-", ".", "-"],
-    ["-", "p", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", ".", "-"],
-    ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        " ",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "p",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        "p",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+        "-",
+        "-",
+        "-",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "p",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        ".",
+        "-",
+    ],
+    [
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ],
 ];
 
 //load canvas
@@ -164,6 +545,11 @@ function loadImages() {
     scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
 
+function updateHighscore() {
+    const el = document.getElementById("highscore");
+    if (el) el.textContent = String(highscore);
+}
+
 //load images and initialize game
 function loadImagesAndInitialize() {
     let imagesToLoad = 6;
@@ -207,7 +593,7 @@ function loadImagesAndInitialize() {
 function initializeGame() {
     loadSounds();
     loadMap(); // Load the map with walls, pellets, etc.
-
+    updateHighscore();
     // Initialize Pacman at position [1][1]
     pacman = {
         x: 1 * tileSize + tileSize / 2, // Center in tile
@@ -307,6 +693,45 @@ function initializeGame() {
             pacman.updateDirection("R");
         }
     });
+
+    // Attach D-pad handlers (mobile) after pacman object exists.
+    // This mirrors the pattern used in snake.js and two-zero-four-eight.js
+    const dpadUp = document.getElementById("dpad-up");
+    const dpadDown = document.getElementById("dpad-down");
+    const dpadLeft = document.getElementById("dpad-left");
+    const dpadRight = document.getElementById("dpad-right");
+
+    const makeHandler = (dir) => (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (!gameStarted) return;
+        // Use the pacman.updateDirection method which queues direction changes
+        pacman.updateDirection(dir);
+    };
+
+    if (dpadUp) {
+        dpadUp.addEventListener("click", makeHandler("U"));
+        dpadUp.addEventListener("touchstart", makeHandler("U"), {
+            passive: false,
+        });
+    }
+    if (dpadDown) {
+        dpadDown.addEventListener("click", makeHandler("D"));
+        dpadDown.addEventListener("touchstart", makeHandler("D"), {
+            passive: false,
+        });
+    }
+    if (dpadLeft) {
+        dpadLeft.addEventListener("click", makeHandler("L"));
+        dpadLeft.addEventListener("touchstart", makeHandler("L"), {
+            passive: false,
+        });
+    }
+    if (dpadRight) {
+        dpadRight.addEventListener("click", makeHandler("R"));
+        dpadRight.addEventListener("touchstart", makeHandler("R"), {
+            passive: false,
+        });
+    }
 }
 
 //load sounds
@@ -937,9 +1362,17 @@ function resetPositions() {
 
 //handle game over
 function handleGameOver() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", highscore);
+        updateHighscore();
+    }
+
     const modal = document.getElementById("game-over-modal");
     const scoreEl = document.getElementById("final-score");
+    const highscoreEl = document.getElementById("highscore");
     scoreEl.textContent = score;
+    highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
 
     // Target buttons specifically within the game-over modal
@@ -962,9 +1395,17 @@ function handleGameOver() {
 
 //handle win game
 function handleWinGame() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", highscore);
+        updateHighscore();
+    }
+
     const modal = document.getElementById("win-game-modal");
     const scoreEl = document.getElementById("win-score");
+    const highscoreEl = document.getElementById("highscore");
     scoreEl.textContent = score;
+    highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
 
     // Target buttons specifically within the win-game modal
