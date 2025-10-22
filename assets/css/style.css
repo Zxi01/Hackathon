@@ -330,8 +330,8 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
     -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     overflow: hidden;
 }
 
