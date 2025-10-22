@@ -367,10 +367,6 @@ main {
 .scoreboard {
     display: inline-block;
     margin: 0.5rem auto 0.5rem auto;
-    -webkit-box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
-        0px 0px 20px rgba(255, 238, 0, 0.3);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
-        0px 0px 20px rgba(255, 238, 0, 0.3);
     color: #ffee00;
     font-family: "Press Start 2P", monospace;
     text-transform: uppercase;
@@ -853,7 +849,7 @@ footer a:hover {
 
     .page-container {
         padding: 0 1rem;
-        margin-top: 50px;/* changes at 730 - needs sorting */
+        margin-top: 50px; /* changes at 730 - needs sorting */
     }
 
     #music-toggle {
@@ -869,7 +865,7 @@ footer a:hover {
         padding: 0.4rem 0.6rem;
         letter-spacing: 0.5px;
     }
-    
+
     #highscore-board {
         font-size: 0.8rem;
         padding: 0.5rem 0.8rem;
@@ -882,14 +878,14 @@ footer a:hover {
         font-size: 0.6rem;
         padding: 0.3rem 0.5rem;
     }
-    
+
     #highscore-board {
         font-size: 0.7rem;
         padding: 0.4rem 0.6rem;
         letter-spacing: 1px;
         margin-top: 0;
     }
-    
+
     .game-info {
         gap: 0.5rem;
     }
