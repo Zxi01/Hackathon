@@ -53,7 +53,7 @@ body.static-bg {
     min-height: auto;
 }
 
-.retro-title.retro-title {
+.retro-title {
     font-family: "Press Start 2P", monospace;
     font-size: 3rem;
     color: #ffee00;
@@ -330,8 +330,8 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
     -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 60px;
-    height: 60px;
+    width: 35px;
+    height: 35px;
     overflow: hidden;
 }
 
@@ -380,9 +380,31 @@ main {
 
 /* Reusable retro scoreboard style */
 .scoreboard {
-    display: inline-block;
-    margin: 0.5rem auto 0.5rem auto;
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    border: 3px dashed #7df9ff;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 238, 0, 0.3);
+    color: #ffee00;
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0 auto 1rem auto;
+}
+
+#highscore-board {
+    width: 90vw;
+    max-width: 500px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
 }
 
 /* Wrapper alignment */
