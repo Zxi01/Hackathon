@@ -35,6 +35,7 @@ const ghosts = new Set();
 const eatenGhosts = new Set(); // Track eaten ghosts for respawning
 let score = 0;
 let lives = 3;
+let highscore = localStorage.getItem("highscore") || 0;
 let gameOver = false;
 let gameStarted = false;
 let ghostsScared = false;
@@ -164,6 +165,12 @@ function loadImages() {
     scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
 
+function updateHighscore() {
+    const el = document.getElementById("highscore");
+    if (el) el.textContent = String(highscore);
+}
+
+
 //load images and initialize game
 function loadImagesAndInitialize() {
     let imagesToLoad = 6;
@@ -207,7 +214,7 @@ function loadImagesAndInitialize() {
 function initializeGame() {
     loadSounds();
     loadMap(); // Load the map with walls, pellets, etc.
-
+    updateHighscore();
     // Initialize Pacman at position [1][1]
     pacman = {
         x: 1 * tileSize + tileSize / 2, // Center in tile
@@ -937,10 +944,23 @@ function resetPositions() {
 
 //handle game over
 function handleGameOver() {
+    if (score > highscore) {
+            highscore = score;
+            localStorage.setItem("highscore", highscore);
+            updateHighscore();
+        }
+    
     const modal = document.getElementById("game-over-modal");
     const scoreEl = document.getElementById("final-score");
+    const highscoreEl = document.getElementById("highscore");
     scoreEl.textContent = score;
+    highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
+
+    // const modal = document.getElementById("game-over-modal");
+    // const scoreEl = document.getElementById("final-score");
+    // scoreEl.textContent = score;
+    // modal.classList.remove("hidden");
 
     // Target buttons specifically within the game-over modal
     const restartBtn = modal.querySelector(".restart-btn");
@@ -962,10 +982,23 @@ function handleGameOver() {
 
 //handle win game
 function handleWinGame() {
+    if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", highscore);
+        updateHighscore();
+        }
+    
     const modal = document.getElementById("win-game-modal");
     const scoreEl = document.getElementById("win-score");
+    const highscoreEl = document.getElementById("highscore");
     scoreEl.textContent = score;
+    highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
+
+    // const modal = document.getElementById("win-game-modal");
+    // const scoreEl = document.getElementById("win-score");
+    // scoreEl.textContent = score;
+    // modal.classList.remove("hidden");
 
     // Target buttons specifically within the win-game modal
     const restartBtn = modal.querySelector(".restart-btn");

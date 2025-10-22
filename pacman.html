@@ -7,8 +7,8 @@
     <title>Pac-man</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/pacman.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -29,6 +29,9 @@
             <div id="scoreboard" class="scoreboard">
                 <p><span class="label">Score:</span><span id="scoreEl">0</span></p>
                 <p><span>Lives:</span><span id="livesEl">3</span></p>
+            </div>
+            <div id="highscore-board" class="scoreboard">
+                <span class="label">High Score:</span> <span id="highscore" class="value">0</span>
             </div>
             <div class="game-container">
                 <canvas id="pacman-canvas"></canvas>
