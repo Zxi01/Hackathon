@@ -1,0 +1,17 @@
+/* Contact form styling to match Snake game's border */
+.contact-card {
+    background: #222;
+    border: 4px solid #7df9ff;
+    border-radius: 12px;
+    box-shadow: 0 0 24px #7df9ff44;
+}
+
+.contact-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Ensure modals on the contact page use the same site font (Orbitron) */
+#contact-success-modal .modal-content,
+.modal-content {
+    font-family: "Orbitron", monospace;
+}
