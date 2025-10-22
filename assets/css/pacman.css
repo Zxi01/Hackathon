@@ -23,7 +23,7 @@
 }
 
 /* Individual scoreboard styling for Lives and Score */
-.scoreboard {
+/* .scoreboard {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -42,17 +42,17 @@
     font-size: 0.8rem;
     flex: 1;
     min-width: 0;
-}
+} */
 
 /* Wrapper alignment */
-.game-wrapper {
+/* .game-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 1rem;
     padding: 1rem;
-}
+} */
 
 /* Main Menu button */
 .back-button {

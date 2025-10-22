@@ -135,12 +135,29 @@ main {
     background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
 .header-bar {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     position: relative;
     padding: 1rem 2rem;
+}
+
+.icon {
+    height: 1.8em; /* inherit font height */
+    width: auto; /* preserve aspect ratio */
+    margin-right: 0.25em;
+    vertical-align: middle; /* centers icon with text */
+    transform: translateY(-10%);
+}
+
+.icon .music-icon {
+    height: 1.9em;
 }
 
 .retro {
@@ -176,7 +193,8 @@ main {
     color: #fff;
 }
 .navbar-brand:hover {
-    color: #ffffff83;
+    color: #fff;
+    opacity: 50%;
     text-decoration: none;
 }
 
@@ -209,11 +227,6 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-}
-
-.music-icon {
-    width: 24px;
-    height: 24px;
 }
 
 .games-section {
@@ -316,7 +329,7 @@ main {
 }
 
 /* Music button styling - now positioned within top-right-buttons container */
-#music-toggle {
+/* #music-toggle {
     padding: 0;
     background: transparent;
     cursor: pointer;
@@ -330,8 +343,6 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
     -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 60px;
-    height: 60px;
     overflow: hidden;
 }
 
@@ -342,20 +353,7 @@ main {
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     border-color: #7df9ff;
-}
-
-.music-icon {
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    display: block;
-}
-
-.music-label {
-    display: none;
-}
-
+} */
 /* Force centering for main page container and game cards */
 .page-container {
     display: -webkit-box;
@@ -449,7 +447,7 @@ main {
 }
 
 /* High score board - full width above game info */
-#highscore-board {
+/* #highscore-board {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -461,7 +459,7 @@ main {
     border: 3px dashed #7df9ff;
     border-radius: 10px;
     font-size: 0.9rem;
-}
+} */
 
 /* How to play button - updated for top right positioning */
 /* #how-to-play-btn,
@@ -929,8 +927,6 @@ footer a:hover {
     #music-toggle {
         top: 1rem;
         right: 1rem;
-        width: 48px;
-        height: 48px;
     }
 }
 
@@ -972,8 +968,6 @@ footer a:hover {
     }
 
     #music-toggle {
-        width: 40px;
-        height: 40px;
         top: 0.5rem;
         right: 0.5rem;
     }
