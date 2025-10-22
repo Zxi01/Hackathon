@@ -14,59 +14,14 @@
 <body>
     <header>
         <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid header-bar d-flex align-items-center justify-content-between">
-                <!-- Left -->
-                <a class="navbar-brand d-none d-md-block" href="index.html">Retro Arcade</a>
-
-                <!-- Center -->
-                <h1 class="retro-title m-0">2048</h1>
-
-                <!-- Right -->
-                <div class="d-flex align-items-center justify-content-end">
-                    <!-- Music button (desktop only) -->
-                    <button id="music-toggle" class="d-none d-md-block" aria-label="Toggle background music">
-                        <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
-                        <span class="music-label"></span>
-                    </button>
-
-                    <!-- Burger menu (mobile only) -->
-                    <button id="mobile-menu-toggle" class="mobile-menu-btn d-block d-md-none" data-bs-toggle="offcanvas"
-                        href="#offcanvasExample" aria-controls="offcanvasExample" aria-label="Toggle menu">
-                        <span class="burger-line"></span>
-                        <span class="burger-line"></span>
-                        <span class="burger-line"></span>
-                    </button>
-
-                    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
-                        aria-labelledby="menuLabel">
-                        <div class="offcanvas-header">
-                            <div class="d-flex align-items-center gap-2">
-                                <!-- <img src="assets/images/8bitHouse.png" alt="Home Icon" class="offcanvas-icon"> -->
-                                <a href="index.html">
-                                    <h5 class="offcanvas-title m-0" id="menuLabel">RETRO ARCADE</h5>
-                                </a>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="justify-content-start list-unstyled">
-                                <li><a href="#privacy" class=" text-decoration-none">Sound Toggle: On</a></li>
-                                <li><a href="#privacy" class=" text-decoration-none">Background Toggle: On</a></li>
-
-                            </ul>
-                            <ul class="mt-auto list-unstyled">
-                                <li> <a class=" text-decoration-none" href="index.html">Contact us</a>
-                                <li><a href="#accessibility" class=" text-decoration-none">Accessibility Statement</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <div class="container-fluid header-bar">
+                <a class="navbar-brand" href="index.html">Retro Arcade</a>
+                <h1 class="retro-title">2048</h1>
+                <button id="music-toggle" aria-label="Toggle background music">
+                    <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
+                    <span class="music-label"></span>
+                </button>
             </div>
-            </div>
-
         </nav>
     </header>
     <main>
@@ -139,8 +94,6 @@
         <!-- Music toggle button -->
 
     </main>
-
-    <!-- copy ! -->
     <footer class="mt-auto">
         <div class="container-fluid">
             <div class="row mt-3">
@@ -157,8 +110,7 @@
                 <!-- Column 2: Legal / Policy -->
                 <div class="col-12 col-md-6 text-md-end">
                     <ul class="list-unstyled">
-                        <li class="d-none d-md-block"> <a class=" text-decoration-none" href="index.html">Contact us</a>
-                        </li>
+                        <li> <a class=" text-decoration-none" href="index.html">Contact us</a></li>
                         <li> &copy; 2025 RETRO ARCADE. </li>
                     </ul>
                 </div>
