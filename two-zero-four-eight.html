@@ -72,13 +72,19 @@
     </header>
     <main>
         <div class="game-wrapper">
-            <div class="game-container">
-                <!-- Score at the top -->
-                <div id="scoreboard" class="scoreboard retro">
+            <!-- Highscore at the top -->
+                <div id="highscore-board" class="scoreboard retro">
+                    <span class="label">Highscore:</span>
+                    <span id="highs">0</span>
+                </div>
+
+            <!-- Score -->
+                <div class="scoreboard retro">
                     <span class="label">Score:</span>
                     <span id="score" class="value">0</span>
                 </div>
 
+            <div class="game-container">
                 <!-- Game board in the middle -->
                 <div id="game-board" class="board">
                     <div class="cell" id="cell-0-0"></div>
@@ -101,24 +107,16 @@
                     <div class="cell" id="cell-3-2"></div>
                     <div class="cell" id="cell-3-3"></div>
                 </div>
+            </div>
 
-                <!-- Highscore at the bottom -->
-                <div id="highscore" class="scoreboard retro">
-                    <span class="label">Highscore:</span>
-                    <span id="highs">0</span>
-                </div>
+            <!-- D-pad controls for mobile/tablet -->
+            <div class="dpad-container">
+                <button id="dpad-up" aria-label="Move Up">▲</button>
+                <button id="dpad-left" aria-label="Move Left">◀</button>
+                <button id="dpad-right" aria-label="Move Right">▶</button>
+                <button id="dpad-down" aria-label="Move Down">▼</button>
             </div>
         </div>
-
-        <!-- D-pad controls for mobile/tablet -->
-        </div>
-        <div class="dpad-container">
-            <button id="dpad-up" aria-label="Move Up">▲</button>
-            <button id="dpad-left" aria-label="Move Left">◀</button>
-            <button id="dpad-right" aria-label="Move Right">▶</button>
-            <button id="dpad-down" aria-label="Move Down">▼</button>
-        </div>
-
 
         <!-- Start playing modal -->
         <div id="start-game-modal" class="modal hidden">
@@ -152,24 +150,24 @@
         <!-- Music toggle button -->
 
     </main>
-    <footer class="mt-auto">
+    <footer>
         <div class="container-fluid">
-            <div class="row mt-3">
+            <div class="row">
                 <!-- Column 1: Page Links -->
-                <div class="col-12 col-md-6 mb-3 mb-md-0 text-md-start">
+                <div class="col-12 col-md-6 pt-2 mb-md-0 text-md-start">
                     <ul class="list-unstyled">
                         <li><a id="toggle-background-btn" class=" text-decoration-none retro ">Background
                                 Toggle: On</a></li>
-                        <li><a href="#accessibility" class=" text-decoration-none retro ">Accessibility Statement</a>
+                        <li><a href="#accessibility" id="accessibility" class=" text-decoration-none retro ">Accessibility Statement</a>
                         </li>
 
                     </ul>
                 </div>
 
                 <!-- Column 2: Legal / Policy -->
-                <div class="col-12 col-md-6 text-md-end">
+                <div class="col-12 col-md-6 pt-2 text-md-end">
                     <ul class="list-unstyled">
-                        <li> <a class=" text-decoration-none retro" href="index.html">Contact us</a></li>
+                        <li> <a class=" text-decoration-none retro" href="contact.html">Contact us</a></li>
                         <li> &copy; 2025 RETRO ARCADE. </li>
                     </ul>
                 </div>

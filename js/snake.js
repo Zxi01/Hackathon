@@ -103,35 +103,7 @@ window.onload = function () {
     updateHighscore();
 
     const howToBtn = document.getElementById("how-to-play-btn");
-    const howToModal = document.getElementById("how-to-play-modal");
     const closeHowTo = document.getElementById("close-how-to-play");
-
-    howToBtn.onclick = () => howToModal.classList.remove("hidden");
-    closeHowTo.onclick = () => howToModal.classList.add("hidden");
-
-    // Mobile burger menu functionality
-    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-    const mobileMenuDropdown = document.getElementById("mobile-menu-dropdown");
-    const mobileHowToBtn = document.getElementById("mobile-how-to-play-btn");
-
-    mobileMenuToggle.onclick = () => {
-        mobileMenuDropdown.classList.toggle("hidden");
-    };
-
-    mobileHowToBtn.onclick = () => {
-        howToModal.classList.remove("hidden");
-        mobileMenuDropdown.classList.add("hidden");
-    };
-
-    // Close dropdown when clicking outside
-    document.addEventListener("click", (e) => {
-        if (
-            !mobileMenuToggle.contains(e.target) &&
-            !mobileMenuDropdown.contains(e.target)
-        ) {
-            mobileMenuDropdown.classList.add("hidden");
-        }
-    });
 
     // Background toggle logic
     function applyBackgroundFromStorage() {

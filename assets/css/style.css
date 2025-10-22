@@ -49,11 +49,12 @@ body.static-bg {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding-bottom: 20px;
     min-height: auto;
+    margin-bottom: 20px;
 }
 
-.retro-title.retro-title {
+.retro-title {
     font-family: "Press Start 2P", monospace;
     font-size: 3rem;
     color: #ffee00;
@@ -378,9 +379,31 @@ main {
 
 /* Reusable retro scoreboard style */
 .scoreboard {
-    display: inline-block;
-    margin: 0.5rem auto 0.5rem auto;
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    border: 3px dashed #7df9ff;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5),
+        0px 0px 20px rgba(255, 238, 0, 0.3);
+    color: #ffee00;
+    font-family: "Press Start 2P", monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0 auto 1rem auto;
+}
+
+#highscore-board {
+    width: 90vw;
+    max-width: 500px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
 }
 
 /* Wrapper alignment */
@@ -431,21 +454,6 @@ main {
     color: #ff6b35;
 }
 
-/* Top right buttons container */
-.top-right-buttons {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 50;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    gap: 1rem;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
 /* High score board - full width above game info */
 /* #highscore-board {
     display: inline-flex;
@@ -459,40 +467,6 @@ main {
     border: 3px dashed #7df9ff;
     border-radius: 10px;
     font-size: 0.9rem;
-} */
-
-/* How to play button - updated for top right positioning */
-/* #how-to-play-btn,
-#toggle-background-btn {
-    display: inline-block;
-    padding: 0.5rem 0.75rem;
-    background: #1a1a1a;
-    -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    color: #ffee00;
-    font-family: "Press Start 2P", monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
-    cursor: pointer;
-    -webkit-transition: border-color 0.3s, -webkit-transform 0.3s,
-        -webkit-box-shadow 0.3s;
-    transition: border-color 0.3s, -webkit-transform 0.3s,
-        -webkit-box-shadow 0.3s;
-    -o-transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s,
-        -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
-}
-
-#how-to-play-btn:hover {
-    -webkit-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    transform: translateY(-2px);
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    border-color: #ff6b35;
 } */
 
 /* Mobile burger menu - hidden by default */
@@ -547,45 +521,6 @@ main {
     box-shadow: 0 0 5px #ffee00;
     z-index: 100;
 }
-
-/* Dropdown menu */
-/* .mobile-menu-dropdown {
-    display: none;
-    top: 5rem;
-    left: 1.5rem;
-    z-index: 55;
-    background: #1a1a1a;
-    border: 3px dashed #7df9ff;
-    border-radius: 10px;
-    padding: 0.5rem;
-    -webkit-box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-    min-width: 130px;
-}
-
-.mobile-menu-dropdown.hidden {
-    display: none;
-}
-
-.mobile-menu-item {
-    display: block;
-    width: 100%;
-    padding: 0.75rem;
-    background: transparent;
-    border: none;
-    color: #ffee00;
-    font-family: "Press Start 2P", monospace;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    text-align: left;
-    cursor: pointer;
-    text-shadow: 2px 2px 0px #ff6b35, 0px 0px 10px #ffee00;
-}
-
-.mobile-menu-item:hover {
-    background: #ff6b3520;
-    color: #ff6b35;
-} */
 
 /* Game over modal */
 .modal {
@@ -675,7 +610,8 @@ footer {
     color: #ffffff83;
     font-family: "press start 2p", sans-serif;
     font-size: 0.75rem;
-    padding: 0.5rem 0rem 2rem 0rem;
+    /* padding: 0.5rem 0rem 2rem 0rem; */
+    margin-top: 40px;
 }
 
 footer a {
@@ -744,12 +680,6 @@ footer a:hover {
     }
     #dpad-right {
         grid-area: right;
-    }
-
-    /* Hide desktop How to Play button on mobile */
-    #how-to-play-btn,
-    #toggle-background-btn {
-        display: none;
     }
 
     /* Show mobile burger menu on mobile */
@@ -847,15 +777,10 @@ footer a:hover {
         padding: 0 1rem;
         margin-top: 50px; /* changes at 730 - needs sorting */
     }
-
-    /* #music-toggle {
-        width: 55px;
-        height: 55px;
-    } */
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .scoreboard {
         font-size: 0.7rem;
         padding: 0.4rem 0.6rem;
@@ -867,6 +792,11 @@ footer a:hover {
         padding: 0.5rem 0.8rem;
         letter-spacing: 1.5px;
     }
+
+    #toggle-background-btn, #accessibility {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 480px) {

@@ -461,72 +461,6 @@ window.onload = function () {
 
     // Load images first, then load map and initialize game
     loadImagesAndInitialize();
-
-    // Mobile burger menu functionality
-    const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
-    const mobileMenuDropdown = document.getElementById("mobile-menu-dropdown");
-    const mobileHowToBtn = document.getElementById("mobile-how-to-play-btn");
-
-    // mobileMenuToggle.onclick = () => {
-    //     mobileMenuDropdown.classList.toggle("hidden");
-    // };
-
-    // mobileHowToBtn.onclick = () => {
-    //     const howToModal = document.getElementById("how-to-modal");
-    //     howToModal.classList.remove("hidden");
-    //     mobileMenuDropdown.classList.add("hidden");
-    // };
-
-    // Close dropdown when clicking outside
-    document.addEventListener("click", (e) => {
-        if (
-            !mobileMenuToggle.contains(e.target) &&
-            !mobileMenuDropdown.contains(e.target)
-        ) {
-            mobileMenuDropdown.classList.add("hidden");
-        }
-    });
-
-    // Background toggle logic
-    function applyBackgroundFromStorage() {
-        const body = document.body;
-        const savedMode = localStorage.getItem("bgMode");
-        body.classList.remove("static-bg", "scrolling-bg");
-        if (savedMode === "static") {
-            body.classList.add("static-bg");
-        } else {
-            body.classList.add("scrolling-bg");
-        }
-    }
-    applyBackgroundFromStorage();
-    const toggleBtn = document.getElementById("toggle-background-btn");
-    const mobileToggleBtn = document.getElementById(
-        "mobile-toggle-background-btn"
-    );
-    function toggleBackground() {
-        applyBackgroundFromStorage();
-        if (body.classList.contains("scrolling-bg")) {
-            body.classList.remove("scrolling-bg");
-            body.classList.add("static-bg");
-            localStorage.setItem("bgMode", "static");
-        } else {
-            body.classList.remove("static-bg");
-            body.classList.add("scrolling-bg");
-            localStorage.setItem("bgMode", "scrolling");
-        }
-        applyBackgroundFromStorage();
-    }
-    if (toggleBtn) {
-        toggleBtn.addEventListener("click", toggleBackground);
-        toggleBtn.addEventListener(
-            "touchstart",
-            function (e) {
-                e.preventDefault();
-                toggleBackground();
-            },
-            { passive: false }
-        );
-    }
 };
 
 //load images
@@ -981,70 +915,78 @@ function move() {
     // Don't process movement if game hasn't started or is over
     if (!gameStarted || gameOver) return;
 
-    //pacman movement logic
-    // Check if we can change direction and have a queued direction
-    if (pacman.nextDirection && pacman.canChangeDirection()) {
-        // Test if the queued direction is valid
-        pacman.snapToGrid(); // Ensure we're centered
-        let testX = pacman.x;
-        let testY = pacman.y;
+    // ALWAYS handle mouth animation first, regardless of collisions
+    if (pacman.radians < 0 || pacman.radians > 0.75) {
+        pacman.openRate = -pacman.openRate;
+    }
+    pacman.radians += pacman.openRate;
 
-        // Calculate test position based on queued direction
-        switch (pacman.nextDirection) {
-            case "U":
-                testY -= pacman.speed;
-                break;
-            case "D":
-                testY += pacman.speed;
-                break;
-            case "L":
-                testX -= pacman.speed;
-                break;
-            case "R":
-                testX += pacman.speed;
-                break;
+    //pacman movement logic (only if not processing collision)
+    if (!isProcessingCollision) {
+        // Check if we can change direction and have a queued direction
+        if (pacman.nextDirection && pacman.canChangeDirection()) {
+            // Test if the queued direction is valid
+            pacman.snapToGrid(); // Ensure we're centered
+            let testX = pacman.x;
+            let testY = pacman.y;
+
+            // Calculate test position based on queued direction
+            switch (pacman.nextDirection) {
+                case "U":
+                    testY -= pacman.speed;
+                    break;
+                case "D":
+                    testY += pacman.speed;
+                    break;
+                case "L":
+                    testX -= pacman.speed;
+                    break;
+                case "R":
+                    testX += pacman.speed;
+                    break;
+            }
+
+            // Check if queued direction is clear
+            let canMove = true;
+            for (let wall of walls.values()) {
+                if (pacmanWallCollision(testX, testY, wall)) {
+                    canMove = false;
+                    break;
+                }
+            }
+
+            // If queued direction is clear, change to it
+            if (canMove) {
+                pacman.setDirection(pacman.nextDirection);
+                pacman.nextDirection = null;
+            }
         }
 
-        // Check if queued direction is clear
-        let canMove = true;
+        // Calculate new position
+        let newX = pacman.x + pacman.velocityX;
+        let newY = pacman.y + pacman.velocityY;
+
+        // Check if new position would cause collision
+        let wouldCollide = false;
         for (let wall of walls.values()) {
-            if (pacmanWallCollision(testX, testY, wall)) {
-                canMove = false;
+            if (pacmanWallCollision(newX, newY, wall)) {
+                wouldCollide = true;
                 break;
             }
         }
 
-        // If queued direction is clear, change to it
-        if (canMove) {
-            pacman.setDirection(pacman.nextDirection);
-            pacman.nextDirection = null;
+        // Only move if no collision would occur
+        if (!wouldCollide) {
+            pacman.x = newX;
+            pacman.y = newY;
+        } else {
+            // Stop moving if hit a wall
+            pacman.velocityX = 0;
+            pacman.velocityY = 0;
         }
     }
 
-    // Calculate new position
-    let newX = pacman.x + pacman.velocityX;
-    let newY = pacman.y + pacman.velocityY;
-
-    // Check if new position would cause collision
-    let wouldCollide = false;
-    for (let wall of walls.values()) {
-        if (pacmanWallCollision(newX, newY, wall)) {
-            wouldCollide = true;
-            break;
-        }
-    }
-
-    // Only move if no collision would occur
-    if (!wouldCollide) {
-        pacman.x = newX;
-        pacman.y = newY;
-    } else {
-        // Stop moving if hit a wall
-        pacman.velocityX = 0;
-        pacman.velocityY = 0;
-    }
-
-    // Ghost movement
+    // Ghost movement (always continues)
     for (let ghost of ghosts.values()) {
         // Calculate new position
         let newGhostX = ghost.x + ghost.velocityX;
@@ -1130,7 +1072,7 @@ function move() {
         }
     }
 
-    // Check for Pacman-Ghost collisions AFTER movement
+    // Check for Pacman-Ghost collisions AFTER movement (only if not already processing)
     if (!isProcessingCollision) {
         for (let ghost of ghosts.values()) {
             if (pacmanGhostCollision(pacman, ghost)) {
@@ -1155,16 +1097,14 @@ function move() {
 
                     // Play game over sound when losing a life
                     if (gameOverSound) {
-                        gameOverSound.currentTime = 0; // Reset sound to beginning
+                        gameOverSound.currentTime = 0;
                         gameOverSound.play().catch((e) => {
                             console.log("Game over sound play failed:", e);
                         });
 
-                        // Wait for sound to finish before taking action
                         gameOverSound.addEventListener(
                             "ended",
                             () => {
-                                // Reset animation state
                                 pacmanDisappearing = false;
                                 pacmanOpacity = 1.0;
 
@@ -1173,16 +1113,14 @@ function move() {
                                     handleGameOver();
                                 } else {
                                     resetPositions();
-                                    isProcessingCollision = false; // Allow collisions again
+                                    isProcessingCollision = false;
                                 }
                             },
                             { once: true }
                         );
                     } else {
-                        // If no sound, use timeout for delay with animation
-                        const animationDuration = 2000; // 2 seconds
+                        const animationDuration = 2000;
                         setTimeout(() => {
-                            // Reset animation state
                             pacmanDisappearing = false;
                             pacmanOpacity = 1.0;
 
@@ -1191,142 +1129,133 @@ function move() {
                                 handleGameOver();
                             } else {
                                 resetPositions();
-                                isProcessingCollision = false; // Allow collisions again
+                                isProcessingCollision = false;
                             }
                         }, animationDuration);
                     }
-                    return; // Exit after first collision
+                    break; // Exit after collision, but mouth animation already ran
                 }
             }
         }
     }
 
-    // Handle pellet collection
-    for (let pellet of pellets.values()) {
-        const scoreEl = document.getElementById("scoreEl");
-        if (pacmanPelletCollision(pacman, pellet)) {
-            pellets.delete(pellet);
-            score += 10; // Increment score
-            scoreEl.innerHTML = score; // Update score display
-
-            // Play eatPellet sound when eating pellet
-            if (eatPelletSound) {
-                eatPelletSound.currentTime = 0; // Reset sound to beginning for rapid playback
-                eatPelletSound.play().catch((e) => {
-                    // Handle any audio play errors silently
-                    console.log("Audio play failed:", e);
-                });
-            }
-        }
-    }
-
-    // Handle power-up collection
-    for (let powerUp of powerUps.values()) {
-        if (pacmanPelletCollision(pacman, powerUp)) {
-            powerUps.delete(powerUp);
-            makeGhostsScared(); // Make ghosts scared when power-up is collected
-            score += 50; // Add points for power-up
+    // Handle pellet collection (only if not processing collision)
+    if (!isProcessingCollision) {
+        for (let pellet of pellets.values()) {
             const scoreEl = document.getElementById("scoreEl");
-            scoreEl.innerHTML = score;
+            if (pacmanPelletCollision(pacman, pellet)) {
+                pellets.delete(pellet);
+                score += 10;
+                scoreEl.innerHTML = score;
 
-            // Play eatPowerUp sound when eating power-up
-            if (powerUpSound) {
-                powerUpSound.currentTime = 0; // Reset sound to beginning for rapid playback
-                powerUpSound.play().catch((e) => {
-                    // Handle any audio play errors silently
-                    console.log("Audio play failed:", e);
-                });
+                if (eatPelletSound) {
+                    eatPelletSound.currentTime = 0;
+                    eatPelletSound.play().catch((e) => {
+                        console.log("Audio play failed:", e);
+                    });
+                }
             }
+        }
+
+        // Handle power-up collection
+        for (let powerUp of powerUps.values()) {
+            if (pacmanPelletCollision(pacman, powerUp)) {
+                powerUps.delete(powerUp);
+                makeGhostsScared();
+                score += 50;
+                const scoreEl = document.getElementById("scoreEl");
+                scoreEl.innerHTML = score;
+
+                if (powerUpSound) {
+                    powerUpSound.currentTime = 0;
+                    powerUpSound.play().catch((e) => {
+                        console.log("Audio play failed:", e);
+                    });
+                }
+            }
+        }
+
+        // Check win condition
+        if (pellets.size === 0) {
+            gameOver = true;
+            handleWinGame();
         }
     }
 
-    // Check win condition - if all pellets are collected
-    if (pellets.size === 0) {
-        gameOver = true;
-        handleWinGame();
-        return;
-    }
-
-    // Update scared ghost timer
+    // Update scared ghost timer (always runs)
     updateScaredGhosts();
+}
 
-    //Handles the mouth opening and closing effect
-    if (pacman.radians < 0 || pacman.radians > 0.75) {
-        pacman.openRate = -pacman.openRate;
-    }
-    pacman.radians += pacman.openRate;
+// Move these collision detection functions OUTSIDE of the move() function
+// Place them after the Block class definition
 
-    // Collision detection between Pacman (circle) and walls (rectangles)
-    function pacmanWallCollision(pacmanX, pacmanY, wall) {
-        // Find the closest point on the rectangle to the circle center
-        let closestX = Math.max(wall.x, Math.min(pacmanX, wall.x + wall.width));
-        let closestY = Math.max(
-            wall.y,
-            Math.min(pacmanY, wall.y + wall.height)
-        );
+// Collision detection between Pacman (circle) and walls (rectangles)
+function pacmanWallCollision(pacmanX, pacmanY, wall) {
+    // Find the closest point on the rectangle to the circle center
+    let closestX = Math.max(wall.x, Math.min(pacmanX, wall.x + wall.width));
+    let closestY = Math.max(wall.y, Math.min(pacmanY, wall.y + wall.height));
 
-        // Calculate distance between circle center and closest point
-        let distanceX = pacmanX - closestX;
-        let distanceY = pacmanY - closestY;
-        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    // Calculate distance between circle center and closest point
+    let distanceX = pacmanX - closestX;
+    let distanceY = pacmanY - closestY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-        // Collision occurs if distance is less than circle radius
-        return distance < pacman.radius;
-    }
+    // Collision occurs if distance is less than circle radius
+    return distance < pacman.radius;
+}
 
-    // Collision detection between Pacman (circle) and ghosts (rectangles)
-    function pacmanGhostCollision(pacman, ghost) {
-        // Find the closest point on the rectangle to the circle center
-        let closestX = Math.max(
-            ghost.x,
-            Math.min(pacman.x, ghost.x + ghost.width)
-        );
-        let closestY = Math.max(
-            ghost.y,
-            Math.min(pacman.y, ghost.y + ghost.height)
-        );
+// Collision detection between Pacman (circle) and ghosts (rectangles)
+function pacmanGhostCollision(pacman, ghost) {
+    // Find the closest point on the rectangle to the circle center
+    let closestX = Math.max(
+        ghost.x,
+        Math.min(pacman.x, ghost.x + ghost.width)
+    );
+    let closestY = Math.max(
+        ghost.y,
+        Math.min(pacman.y, ghost.y + ghost.height)
+    );
 
-        // Calculate distance between circle center and closest point
-        let distanceX = pacman.x - closestX;
-        let distanceY = pacman.y - closestY;
-        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    // Calculate distance between circle center and closest point
+    let distanceX = pacman.x - closestX;
+    let distanceY = pacman.y - closestY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-        // Collision occurs if distance is less than circle radius
-        return distance < pacman.radius;
-    }
+    // Collision occurs if distance is less than circle radius
+    return distance < pacman.radius;
+}
 
-    // Collision detection between Pacman and pellets/power-ups
-    function pacmanPelletCollision(pacman, pellet) {
-        // Calculate distance between centers
-        let pelletCenterX = pellet.x + pellet.width / 2;
-        let pelletCenterY = pellet.y + pellet.height / 2;
+// Collision detection between Pacman and pellets/power-ups
+function pacmanPelletCollision(pacman, pellet) {
+    // Calculate distance between centers
+    let pelletCenterX = pellet.x + pellet.width / 2;
+    let pelletCenterY = pellet.y + pellet.height / 2;
 
-        let distanceX = pacman.x - pelletCenterX;
-        let distanceY = pacman.y - pelletCenterY;
-        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    let distanceX = pacman.x - pelletCenterX;
+    let distanceY = pacman.y - pelletCenterY;
+    let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-        // Collision occurs if distance is less than pacman radius
-        return distance < pacman.radius;
-    }
+    // Collision occurs if distance is less than pacman radius
+    return distance < pacman.radius;
+}
 
-    // Collision detection between ghosts (rectangles) and walls (rectangles)
-    function ghostWallCollision(ghostX, ghostY, ghostWidth, ghostHeight, wall) {
-        return (
-            ghostX < wall.x + wall.width &&
-            ghostX + ghostWidth > wall.x &&
-            ghostY < wall.y + wall.height &&
-            ghostY + ghostHeight > wall.y
-        );
-    }
+// Collision detection between ghosts (rectangles) and walls (rectangles)
+function ghostWallCollision(ghostX, ghostY, ghostWidth, ghostHeight, wall) {
+    return (
+        ghostX < wall.x + wall.width &&
+        ghostX + ghostWidth > wall.x &&
+        ghostY < wall.y + wall.height &&
+        ghostY + ghostHeight > wall.y
+    );
+}
 
-    function ghostCollision(a, b) {
-        return (
-            a.x < b.x + b.width &&
-            a.x + a.width > b.x &&
-            a.y < b.y + b.height &&
-            a.y + a.height > b.y
-        );
-    }
+function ghostCollision(a, b) {
+    return (
+        a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y
+    );
 }
 
 //reset positions of pacman and ghosts
