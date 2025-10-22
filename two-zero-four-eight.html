@@ -72,19 +72,11 @@
     </header>
     <main>
         <div class="game-wrapper">
-            <!-- Highscore at the top -->
-                <div id="highscore-board" class="scoreboard retro">
-                    <span class="label">Highscore:</span>
-                    <span id="highs">0</span>
-                </div>
-
-            <!-- Score -->
+            <div class="game-container">
                 <div class="scoreboard retro">
                     <span class="label">Score:</span>
                     <span id="score" class="value">0</span>
                 </div>
-
-            <div class="game-container">
                 <!-- Game board in the middle -->
                 <div id="game-board" class="board">
                     <div class="cell" id="cell-0-0"></div>
@@ -107,6 +99,11 @@
                     <div class="cell" id="cell-3-2"></div>
                     <div class="cell" id="cell-3-3"></div>
                 </div>
+                <div id="highscore-board" class="scoreboard retro">
+                    <span class="label">Highscore:</span>
+                    <span id="highs">0</span>
+                </div>
+
             </div>
 
             <!-- D-pad controls for mobile/tablet -->
@@ -158,7 +155,8 @@
                     <ul class="list-unstyled">
                         <li><a id="toggle-background-btn" class=" text-decoration-none retro ">Background
                                 Toggle: On</a></li>
-                        <li><a href="#accessibility" id="accessibility" class=" text-decoration-none retro ">Accessibility Statement</a>
+                        <li><a href="#accessibility" id="accessibility"
+                                class=" text-decoration-none retro ">Accessibility Statement</a>
                         </li>
 
                     </ul>
