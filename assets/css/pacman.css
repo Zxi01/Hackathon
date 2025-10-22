@@ -94,6 +94,7 @@
     text-align: center;
     width: 50%;
     min-width: 300px;
+    margin-top: 50px;
 }
 
 .modal-content button {
@@ -112,6 +113,20 @@
     border-color: #ff6b35;
     color: #ff6b35;
     transform: translateY(-2px);
+}
+
+.pacman-icon {
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 1em;
+}
+
+#how-to-pacman {
+    cursor: pointer;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
 }
 
 .hidden {

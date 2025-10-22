@@ -40,7 +40,6 @@
                 <button id="dpad-right" aria-label="Move Right">▶</button>
                 <button id="dpad-down" aria-label="Move Down">▼</button>
             </div>
-            <a href="index.html" class="back-button">Main Menu</a>
         </div>
 
         <!-- Start playing modal -->
@@ -48,12 +47,12 @@
             <div class="modal-content">
                 <h2>Welcome to Pacman!</h2>
                 <details>
-                    <summary>How to Play</summary>
-                        <p>Use arrow keys or on-screen D-pad to navigate Pac-man around the maze</p>
-                        <p>You have 3 lives</p>
-                        <p>Avoid the ghosts to stay alive</p>
-                        <p>Eat power pellets to turn the ghosts blue for 5 seconds and eat them for extra points</p>
-                        <p>Eat all the dots to win the game</p>
+                    <summary id="how-to-pacman">How to Play</summary>
+                        <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">Use arrow keys or on-screen D-pad to navigate Pac-man around the maze</p>
+                        <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">You have 3 lives</p>
+                        <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">Avoid the ghosts to stay alive</p>
+                        <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">Eat power pellets to turn the ghosts blue for 5 seconds and eat them for extra points</p>
+                        <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">Eat all the dots to win the game</p>
                 </details>
                 <button id="start-btn">Start Game</button>
                 <button class="home-btn">Main Menu</button>
@@ -90,38 +89,29 @@
         <div id="mobile-menu-dropdown" class="mobile-menu-dropdown hidden">
             <button id="mobile-toggle-background-btn" class="mobile-menu-item">Toggle Background</button>
         </div>
-
-        <!-- Top right buttons -->
-        <div class="top-right-buttons">
-            <button id="toggle-background-btn" class="info-button">Toggle Background</button>
-            <button id="music-toggle" aria-label="Toggle background music">
-                <img src="assets/images/pixel-mute.jpg" alt="music icon" class="music-icon">
-                <span class="music-label"></span>
-            </button>
-        </div>
     </main>
 
-<footer class="mt-auto">
-    <div class="container-fluid">
-        <div class="row mt-3">
-            <!-- Column 1: Page Links -->
-            <div class="col-12 col-md-6 mb-3 mb-md-0 text-md-start">
-                <ul class="list-unstyled">
-                    <li><a href="#privacy" class=" text-decoration-none">Background Toggle: On</a></li>
-                    <li><a href="#accessibility" class=" text-decoration-none">Accessibility Statement</a></li>
-                </ul>
-            </div>
+    <footer class="mt-auto">
+        <div class="container-fluid">
+            <div class="row mt-3">
+                <!-- Column 1: Page Links -->
+                <div class="col-12 col-md-6 mb-3 mb-md-0 text-md-start">
+                    <ul class="list-unstyled">
+                        <li><a href="#privacy" class=" text-decoration-none">Background Toggle: On</a></li>
+                        <li><a href="#accessibility" class=" text-decoration-none">Accessibility Statement</a></li>
+                    </ul>
+                </div>
 
-            <!-- Column 2: Legal / Policy -->
-            <div class="col-12 col-md-6 text-md-end">
-                <ul class="list-unstyled">
-                    <li> <a class=" text-decoration-none" href="index.html">Contact us</a></li>
-                    <li> &copy; 2025 RETRO ARCADE. </li>
-                </ul>
+                <!-- Column 2: Legal / Policy -->
+                <div class="col-12 col-md-6 text-md-end">
+                    <ul class="list-unstyled">
+                        <li> <a class=" text-decoration-none" href="index.html">Contact us</a></li>
+                        <li> &copy; 2025 RETRO ARCADE. </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
     <script src="js/script.js" defer></script>
     <script src="js/pacman.js" defer></script>
