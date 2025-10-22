@@ -136,12 +136,29 @@ main {
     background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
 .header-bar {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     position: relative;
     padding: 1rem 2rem;
+}
+
+.icon {
+    height: 1.8em; /* inherit font height */
+    width: auto; /* preserve aspect ratio */
+    margin-right: 0.25em;
+    vertical-align: middle; /* centers icon with text */
+    transform: translateY(-10%);
+}
+
+.icon .music-icon {
+    height: 1.9em;
 }
 
 .retro {
@@ -177,7 +194,8 @@ main {
     color: #fff;
 }
 .navbar-brand:hover {
-    color: #ffffff83;
+    color: #fff;
+    opacity: 50%;
     text-decoration: none;
 }
 
@@ -210,11 +228,6 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-}
-
-.music-icon {
-    width: 24px;
-    height: 24px;
 }
 
 .games-section {
@@ -316,8 +329,8 @@ main {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* Music button styling */
-#music-toggle {
+/* Music button styling - now positioned within top-right-buttons container */
+/* #music-toggle {
     padding: 0;
     background: transparent;
     cursor: pointer;
@@ -331,8 +344,6 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
     -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    width: 35px;
-    height: 35px;
     overflow: hidden;
 }
 
@@ -343,20 +354,7 @@ main {
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     border-color: #7df9ff;
-}
-
-.music-icon {
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-    display: block;
-}
-
-/* .music-label {
-    display: none;
 } */
-
 /* Force centering for main page container and game cards */
 .page-container {
     display: -webkit-box;
@@ -397,7 +395,6 @@ main {
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     text-decoration: none;
     font-size: 0.8rem;
-}
 
 #highscore-board {
     width: 90vw;
@@ -405,8 +402,8 @@ main {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
     letter-spacing: 2px;
+    background: #222;
 }
-
 /* Wrapper alignment */
 .game-wrapper {
     display: -webkit-box;
@@ -456,7 +453,7 @@ main {
 }
 
 /* High score board - full width above game info */
-#highscore-board {
+/* #highscore-board {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -468,7 +465,7 @@ main {
     border: 3px dashed #7df9ff;
     border-radius: 10px;
     font-size: 0.9rem;
-}
+} */
 
 /* Mobile burger menu - hidden by default */
 .mobile-menu-btn {
@@ -794,10 +791,10 @@ footer a:hover {
         letter-spacing: 1.5px;
     }
 
-    #toggle-background-btn, #accessibility {
+    #toggle-background-btn,
+    #accessibility {
         display: none;
     }
-
 }
 
 @media screen and (max-width: 480px) {
@@ -858,8 +855,6 @@ footer a:hover {
     #music-toggle {
         top: 1rem;
         right: 1rem;
-        width: 48px;
-        height: 48px;
     }
 }
 
@@ -901,8 +896,6 @@ footer a:hover {
     }
 
     #music-toggle {
-        width: 40px;
-        height: 40px;
         top: 0.5rem;
         right: 0.5rem;
     }
