@@ -571,12 +571,15 @@ main {
 }
 
 .modal-content {
-    background: #222;
+    background: #000000;
     color: #ffee00;
     padding: 20px;
     border: 2px solid #7df9ff;
     font-family: monospace;
     text-align: center;
+    width: 25%;
+    min-width: 300px;
+    margin-top: 50px;
 }
 
 .modal-content button {
