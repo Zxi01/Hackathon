@@ -34,7 +34,7 @@ let gameOverHandled = false;
 
 // score
 let score = 0;
-let highscore = localStorage.getItem("highscore") || 0;
+let highscore = localStorage.getItem("snake-highscore") || 0;
 
 function updateScore() {
     const el = document.getElementById("score");
@@ -272,7 +272,7 @@ window.onload = function () {
     function handleGameOver() {
         if (score > highscore) {
             highscore = score;
-            localStorage.setItem("highscore", highscore);
+            localStorage.setItem("snake-highscore", highscore);
             updateHighscore();
         }
         const modal = document.getElementById("game-over-modal");
