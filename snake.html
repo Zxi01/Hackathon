@@ -59,16 +59,20 @@
         </div>
 
         <!-- How To Play Modal -->
-        <div id="how-to-play-modal" class="modal hidden">
+        <div id="start-game-modal" class="modal hidden">
             <div class="modal-content">
-                <h2>How to Play</h2>
-                <ul class="instructions">
-                    <p>Use arrow keys or D-pad to move the snake.</p>
-                    <p>Eat red squares to grow and earn points.</p>
-                    <p>Avoid walls and your own tail.</p>
-                    <p>Game ends on collision—try to beat your high score!</p>
-                </ul>
-                <button id="close-how-to-play">Close</button>
+                <h2>Welcome to Snake!</h2>
+                <details>
+                    <summary id="how-to-2048">How to Play</summary>
+                    <ul class="instructions">
+                        <p>Use arrow keys or D-pad to move the snake.</p>
+                        <p>Eat red squares to grow and earn points.</p>
+                        <p>Avoid walls and your own tail.</p>
+                        <p>Game ends on collision—try to beat your high score!</p>
+                    </ul>
+                </details>
+                <button id="start-btn">Start Game</button>
+                <button class="home-btn">Main Menu</button>
             </div>
         </div>
 
@@ -84,7 +88,7 @@
             <button id="mobile-how-to-play-btn" class="mobile-menu-item">How to Play</button>
             <button id="mobile-toggle-background-btn" class="mobile-menu-item">Toggle Background</button>
         </div>
-        </main>
+    </main>
 
     <footer class="mt-auto">
         <div class="container-fluid">

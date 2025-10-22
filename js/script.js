@@ -1,4 +1,3 @@
-    
 const musicToggleBtn = document.getElementById("music-toggle");
 const musicIcon = document.querySelector(".music-icon");
 let isMusicPlaying = false; // Initially set to false since the music will not play until user interaction
@@ -20,6 +19,26 @@ musicToggleBtn.addEventListener("click", () => {
         musicIcon.src = "assets/images/pixel-unmuted.jpg";
     }
     isMusicPlaying = !isMusicPlaying;
+});
+//how to play modal
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("start-game-modal");
+    const startBtn = document.getElementById("start-btn");
+    const homeBtn = document.querySelector(".home-btn");
+
+    // Show modal when page loads
+    modal.style.display = "flex";
+
+    // Close modal and start game
+    startBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        // You can call your game start function here if needed
+    });
+
+    // Go to main menu
+    homeBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
 });
 
 // Background toggle logic for all pages
