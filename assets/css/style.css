@@ -894,9 +894,9 @@ footer a:hover {
         letter-spacing: 1.5px;
     }
 
-     /* #accessibility {
+    #accessibility {
         display: none;
-    } */
+    }
 }
 
 @media screen and (max-width: 480px) {
