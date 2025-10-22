@@ -150,6 +150,7 @@ window.onload = function () {
         "mobile-toggle-background-btn"
     );
     function toggleBackground() {
+        const body = document.body;
         applyBackgroundFromStorage();
         if (body.classList.contains("scrolling-bg")) {
             body.classList.remove("scrolling-bg");
