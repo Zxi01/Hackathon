@@ -44,7 +44,7 @@
     min-width: 0;
 }
 
-/* High score board - full width above game info */
+/* High score board - full width above game info
 #highscore-board {
     display: inline-flex;
     align-items: center;
@@ -64,7 +64,7 @@
     letter-spacing: 2px;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     font-size: 0.9rem;
-}
+} */
 
 /* Wrapper alignment */
 .game-wrapper {
@@ -217,7 +217,7 @@
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .scoreboard {
         font-size: 0.7rem;
         padding: 0.4rem 0.6rem;
@@ -246,4 +246,4 @@
     .game-info {
         gap: 0.5rem;
     }
-}
+} */

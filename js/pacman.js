@@ -1375,11 +1375,6 @@ function handleGameOver() {
     highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
 
-    // const modal = document.getElementById("game-over-modal");
-    // const scoreEl = document.getElementById("final-score");
-    // scoreEl.textContent = score;
-    // modal.classList.remove("hidden");
-
     // Target buttons specifically within the game-over modal
     const restartBtn = modal.querySelector(".restart-btn");
     const homeBtn = modal.querySelector(".home-btn");
@@ -1412,11 +1407,6 @@ function handleWinGame() {
     scoreEl.textContent = score;
     highscoreEl.textContent = highscore;
     modal.classList.remove("hidden");
-
-    // const modal = document.getElementById("win-game-modal");
-    // const scoreEl = document.getElementById("win-score");
-    // scoreEl.textContent = score;
-    // modal.classList.remove("hidden");
 
     // Target buttons specifically within the win-game modal
     const restartBtn = modal.querySelector(".restart-btn");
