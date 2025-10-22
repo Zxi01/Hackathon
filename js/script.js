@@ -8,15 +8,15 @@ backgroundMusic.loop = true;
 backgroundMusic.volume = 0.3;
 
 // Set initial icon to muted since music is not playing
-musicIcon.src = "assets/images/pixel-mute.jpg";
+musicIcon.src = "assets/images/soundOfIcon.png";
 
 musicToggleBtn.addEventListener("click", () => {
     if (isMusicPlaying) {
         backgroundMusic.pause();
-        musicIcon.src = "assets/images/pixel-mute.jpg";
+        musicIcon.src = "assets/images/soundOfIcon.png";
     } else {
         backgroundMusic.play();
-        musicIcon.src = "assets/images/pixel-unmuted.jpg";
+        musicIcon.src = "assets/images/soundOnIcon.png";
     }
     isMusicPlaying = !isMusicPlaying;
 });
