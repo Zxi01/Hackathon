@@ -698,7 +698,7 @@ footer a:hover {
 }
 
 /* Show D-pad only on tablet/mobile */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023.9px) {
     .dpad-container {
         display: -ms-grid;
         display: grid;
@@ -756,7 +756,7 @@ footer a:hover {
         display: block;
     }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1023.9px) {
     #dpad-up {
         -ms-grid-row: 1;
         grid-row: 1;
