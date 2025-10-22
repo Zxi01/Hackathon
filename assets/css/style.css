@@ -105,7 +105,10 @@ body.static-bg {
     }
 }
 
-/* heading */
+/* -------------------------------------------------
+----------------------------------------------------
+header and off canvas --------------------------- */
+
 header {
     --header-height: 100px;
     height: var(--header-height);
@@ -153,6 +156,39 @@ main {
     color: #ffffff83;
     text-decoration: none;
 }
+
+.offcanvas {
+    background-color: #000; /* solid black background */
+    color: #fff; /* white text */
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+/* Make sure links are readable */
+.offcanvas a {
+    color: #fff; /* white links */
+    text-decoration: none;
+}
+
+.offcanvas a:hover {
+    color: #39ff14; /* neon green hover (optional) */
+}
+
+/* Optional: close button visible on dark background */
+.offcanvas .btn-close {
+    filter: invert(1);
+}
+
+.offcanvas h5 {
+    font-family: "Press Start 2P", cursive;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* ----------------------------------
+-------------------------------------
+---------------------------------- */
 
 #music-toggle {
     background: none;
@@ -451,7 +487,6 @@ main {
 /* Mobile burger menu - hidden by default */
 .mobile-menu-btn {
     display: none;
-    position: fixed;
     top: 1.5rem;
     left: 0.5rem;
     z-index: 60;
@@ -480,12 +515,13 @@ main {
     -o-transition: transform 0.3s, border-color 0.3s;
     transition: transform 0.3s, border-color 0.3s;
     transition: transform 0.3s, border-color 0.3s, -webkit-transform 0.3s;
+    transform: translateY(-40%);
 }
 
 .mobile-menu-btn:hover {
     -webkit-transform: translateY(-2px);
     -ms-transform: translateY(-2px);
-    transform: translateY(-2px);
+    transform: translateY(calc(-40%-2px));
     border-color: #ff6b35;
 }
 
@@ -493,18 +529,17 @@ main {
     width: 100%;
     height: 3px;
     background: #ffee00;
-    border-radius: 2px;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
     -webkit-box-shadow: 0 0 5px #ffee00;
     box-shadow: 0 0 5px #ffee00;
+    z-index: 100;
 }
 
 /* Dropdown menu */
 .mobile-menu-dropdown {
     display: none;
-    position: fixed;
     top: 5rem;
     left: 1.5rem;
     z-index: 55;
