@@ -156,4 +156,65 @@ function setupMobileBurgerMenu() {
 document.addEventListener("DOMContentLoaded", () => {
     setupBackgroundToggle();
     setupMobileBurgerMenu();
+
+    // Offcanvas sound toggle link functionality
+    try {
+        const desktopToggle = document.getElementById("music-toggle");
+        const offcanvas = document.getElementById("offcanvasExample");
+        if (desktopToggle && offcanvas) {
+            const candidates = offcanvas.querySelectorAll("a, button");
+            candidates.forEach((el) => {
+                const txt = (el.textContent || "").trim().toLowerCase();
+                if (txt.includes("sound toggle")) {
+                    el.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        desktopToggle.click();
+                    });
+                    el.addEventListener(
+                        "touchstart",
+                        (e) => {
+                            e.preventDefault();
+                            desktopToggle.click();
+                        },
+                        { passive: false }
+                    );
+                }
+            });
+        }
+    } catch (err) {
+        // defensive: ignore
+    }
+
+    // Also delegate offcanvas 'Background Toggle' entries to the desktop background toggle
+    try {
+        const desktopBgToggle = document.getElementById(
+            "toggle-background-btn"
+        );
+        const offcanvas = document.getElementById("offcanvasExample");
+        if (desktopBgToggle && offcanvas) {
+            const candidates = offcanvas.querySelectorAll("a, button");
+            candidates.forEach((el) => {
+                const txt = (el.textContent || "").trim().toLowerCase();
+                if (
+                    txt.includes("background toggle") ||
+                    txt.includes("background")
+                ) {
+                    el.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        desktopBgToggle.click();
+                    });
+                    el.addEventListener(
+                        "touchstart",
+                        (e) => {
+                            e.preventDefault();
+                            desktopBgToggle.click();
+                        },
+                        { passive: false }
+                    );
+                }
+            });
+        }
+    } catch (err) {
+        // ignore
+    }
 });
