@@ -208,8 +208,8 @@ Deployed via GitHub Pages. Resolved broken links to ensure all external links op
 ### Icons:
 
 <div allign="start">
-  <img src="assets/images/SoundOfIcon.PNG" height="150" width="200"/>
-  <img src="assets/images/SoundOnIcon.PNG" height="150" width="200"/>
+  <img src="assets/images/soundOfIcon.PNG" height="150" width="200"/>
+  <img src="assets/images/soundOnIcon.PNG" height="150" width="200"/>
 </div>
 
 ### External Resources:
