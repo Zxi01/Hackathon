@@ -214,10 +214,10 @@ main {
 .offcanvas h5 {
     font-family: "Press Start 2P", cursive;
     text-transform: uppercase;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 1rem;
     color: #fff; /* white links */
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 /* ----------------------------------

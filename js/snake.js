@@ -34,7 +34,12 @@ let gameOverHandled = false;
 
 // score
 let score = 0;
-let highscore = localStorage.getItem("snake-highscore") || 0;
+// parse stored snake highscore as a number, default 0
+let highscoreS = Number.parseInt(localStorage.getItem("snake-highscore"), 10);
+if (Number.isNaN(highscoreS)) {
+    highscoreS = 0;
+    localStorage.setItem("snake-highscore", "0");
+}
 
 function updateScore() {
     const el = document.getElementById("score");
@@ -43,7 +48,7 @@ function updateScore() {
 
 function updateHighscore() {
     const el = document.getElementById("highscore");
-    if (el) el.textContent = String(highscore);
+    if (el) el.textContent = String(highscoreS);
 }
 
 // Drawing functions
@@ -270,16 +275,17 @@ window.onload = function () {
     }
 
     function handleGameOver() {
-        if (score > highscore) {
-            highscore = score;
-            localStorage.setItem("snake-highscore", highscore);
+        if (score > highscoreS) {
+            highscoreS = score;
+            // store the numeric highscore (as a string) — don't use the DOM id name
+            localStorage.setItem("snake-highscore", String(highscoreS));
             updateHighscore();
         }
         const modal = document.getElementById("game-over-modal");
         const scoreEl = document.getElementById("final-score");
         const highscoreEl = document.getElementById("highscore-final");
         scoreEl.textContent = score;
-        highscoreEl.textContent = highscore;
+        highscoreEl.textContent = highscoreS;
         modal.classList.remove("hidden");
 
         document.getElementById("restart-btn").onclick = () => {
