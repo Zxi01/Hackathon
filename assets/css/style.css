@@ -10,7 +10,7 @@
 
 /* variables */
 :root {
-    --header-height: 200px;
+    --header-height: 170px;
 }
 
 body.scrolling-bg {
@@ -439,7 +439,7 @@ a.retro:hover {
     align-items: center;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     gap: 1rem;
     padding: 0rem 1rem 5rem 1rem;
 }
@@ -657,7 +657,7 @@ footer {
             "left . right"
             ". down .";
         gap: 0.5rem;
-        margin: -2rem 0;
+        margin: 2rem 0;
     }
 
     .dpad-container button {
