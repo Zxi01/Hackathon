@@ -226,7 +226,7 @@ The website utilises the Bootstrap framework for responsive design and styling c
 <div allign="start">
   <img src="assets/images/ReadmeSoundOff.png" height="150" width="200"/>
   <img src="assets/images/ReadmeSoundOn.png" height="150" width="200"/>
-  <img src="assets/images/ReadmeHomeIcon.png" height="150" width="200"/>
+  <img src="assets/images/ReadmeHomeIcon.PNG" height="150" width="200"/>
 </div>
 
 ### External Resources:
