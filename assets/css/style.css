@@ -231,9 +231,13 @@ a.retro:hover {
     text-decoration: none;
 }
 
-/* Optional: close button visible on dark background */
-.offcanvas .btn-close {
-    filter: invert(1);
+/* Offcanvas close icon (16-bit cross) */
+.offcanvas .offcanvas-close-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    pointer-events: none;
 }
 
 .offcanvas h5 {
@@ -248,6 +252,16 @@ a.retro:hover {
 .offcanvas .offcanvas-title a {
     text-decoration: none !important;
     color: inherit;
+}
+
+.offcanvas-title a:hover {
+    color: #fff;
+    opacity: 50%;
+    text-decoration: none;
+}
+
+.offcanvas .btn-close {
+    opacity: 1;
 }
 
 /* ----------------------------------
@@ -514,6 +528,12 @@ a.retro:hover {
     padding: 0;
 }
 
+#mobile-menu-toggle:hover {
+    -webkit-transform: translateY(-3px);
+    -ms-transform: translateY(-3px);
+    transform: translateY(-3px);
+}
+
 /* Make sure header-bar is positioned relative */
 .header-bar {
     position: relative;
@@ -646,9 +666,6 @@ footer {
 
     .game-card .game-image {
         height: 250px;
-    }
-
-    header {
     }
 }
 
