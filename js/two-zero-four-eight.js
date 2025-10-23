@@ -51,7 +51,7 @@ let highscoreT = parseInt(localStorage.getItem("2048-highscore") || "0", 10);
 
 function updateScore() {
     const el = document.getElementById("score");
-    if (el) el.textContent = String(score);
+    if (el) el.textContent = formatScore(score);
 
     // update highscore if surpassed
     if (score > highscoreT) {
@@ -62,8 +62,8 @@ function updateScore() {
 }
 
 function updateHighscore() {
-    const el = document.getElementById("highs"); // target the number span
-    if (el) el.textContent = String(highscoreT);
+    const el = document.getElementById("highs");
+    if (el) el.textContent = formatScore(highscoreT);
 }
 
 // FUNCTION setupGame
@@ -73,6 +73,10 @@ function updateHighscore() {
 //     DISPLAY grid on screen
 //     SET score = 0
 // END FUNCTION
+function formatScore(num) {
+    return String(num).padStart(6, "0");
+}
+
 function setupGame() {
     grid = [
         [0, 0, 0, 0],
