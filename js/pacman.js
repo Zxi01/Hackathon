@@ -35,7 +35,7 @@ const ghosts = new Set();
 const eatenGhosts = new Set(); // Track eaten ghosts for respawning
 let score = 0;
 let lives = 3;
-let highscore = localStorage.getItem("highscore") || 0;
+let highscore = localStorage.getItem("pacman-highscore") || 0;
 let gameOver = false;
 let gameStarted = false;
 let ghostsScared = false;
@@ -1186,9 +1186,6 @@ function move() {
     updateScaredGhosts();
 }
 
-// Move these collision detection functions OUTSIDE of the move() function
-// Place them after the Block class definition
-
 // Collision detection between Pacman (circle) and walls (rectangles)
 function pacmanWallCollision(pacmanX, pacmanY, wall) {
     // Find the closest point on the rectangle to the circle center
@@ -1293,7 +1290,7 @@ function resetPositions() {
 function handleGameOver() {
     if (score > highscore) {
         highscore = score;
-        localStorage.setItem("highscore", highscore);
+        localStorage.setItem("pacman-highscore", highscore);
         updateHighscore();
     }
 
@@ -1326,7 +1323,7 @@ function handleGameOver() {
 function handleWinGame() {
     if (score > highscore) {
         highscore = score;
-        localStorage.setItem("highscore", highscore);
+        localStorage.setItem("pacman-highscore", highscore);
         updateHighscore();
     }
 
