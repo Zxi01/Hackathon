@@ -190,7 +190,7 @@ main {
 .navbar-brand {
     font-family: "Press Start 2P", cursive;
     transform: translateY(-40%);
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #fff;
 }
 .navbar-brand:hover {
@@ -641,6 +641,10 @@ footer a:hover {
 
 /* Show D-pad only on tablet/mobile */
 @media screen and (max-width: 1023.9px) {
+    footer {
+        margin-top: 20px;
+    }
+
     .dpad-container {
         display: -ms-grid;
         display: grid;
