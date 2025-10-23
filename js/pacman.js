@@ -98,10 +98,13 @@ function loadImages() {
     scaredGhostImg = new Image();
     scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
+function formatScore(num) {
+    return String(num).padStart(4, "0");
+}
 
 function updateHighscore() {
     const el = document.getElementById("highscore");
-    if (el) el.textContent = String(highscore);
+    if (el) el.textContent = formatScore(highscore);
 }
 
 //load images and initialize game
@@ -518,7 +521,7 @@ function eatGhost(ghost) {
     eatenGhosts.add(ghost);
     score += 100;
     const scoreEl = document.getElementById("scoreEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(score);
 
     // Play eatGhost sound when eating a scared ghost
     if (eatGhostSound && areSoundsEnabled()) {
@@ -766,7 +769,7 @@ function move() {
             if (pacmanPelletCollision(pacman, pellet)) {
                 pellets.delete(pellet);
                 score += 10;
-                scoreEl.innerHTML = score;
+                scoreEl.innerHTML = formatScore(score);
 
                 if (eatPelletSound && areSoundsEnabled()) {
                     eatPelletSound.currentTime = 0;
@@ -784,7 +787,7 @@ function move() {
                 makeGhostsScared();
                 score += 50;
                 const scoreEl = document.getElementById("scoreEl");
-                scoreEl.innerHTML = score;
+                scoreEl.innerHTML = formatScore(score);
 
                 if (powerUpSound && areSoundsEnabled()) {
                     powerUpSound.currentTime = 0;
@@ -833,10 +836,7 @@ function pacmanWallCollision(pacmanX, pacmanY, wall) {
 // Collision detection between Pacman (circle) and ghosts (rectangles)
 function pacmanGhostCollision(pacman, ghost) {
     // Find the closest point on the rectangle to the circle center
-    let closestX = Math.max(
-        ghost.x,
-        Math.min(pacman.x, ghost.x + ghost.width)
-    );
+    let closestX = Math.max(ghost.x, Math.min(pacman.x, ghost.x + ghost.width));
     let closestY = Math.max(
         ghost.y,
         Math.min(pacman.y, ghost.y + ghost.height)
@@ -995,7 +995,7 @@ function resetGame() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(score);
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
@@ -1051,7 +1051,7 @@ function resetToMenu() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(score);
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state

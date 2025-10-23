@@ -41,14 +41,25 @@ if (Number.isNaN(highscoreS)) {
     localStorage.setItem("snake-highscore", "0");
 }
 
+function formatScore(num) {
+    return String(num).padStart(4, "0");
+}
+
 function updateScore() {
     const el = document.getElementById("score");
-    if (el) el.textContent = String(score);
+    if (el) el.textContent = formatScore(score);
+
+    // update highscore if surpassed
+    if (score > highscoreS) {
+        highscoreS = score;
+        localStorage.setItem("2048-highscore", String(highscoreS));
+        updateHighscore();
+    }
 }
 
 function updateHighscore() {
     const el = document.getElementById("highscore");
-    if (el) el.textContent = String(highscoreS);
+    if (el) el.textContent = formatScore(highscoreS);
 }
 
 // Drawing functions
