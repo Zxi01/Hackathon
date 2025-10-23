@@ -74,6 +74,10 @@
     user-select: none;
 }
 
+.pacman-icon {
+    margin-right: 10px;
+}
+
 /* Mobile responsive adjustments */
 @media screen and (max-width: 480px) {
     .sound-toggle-container h4 {
