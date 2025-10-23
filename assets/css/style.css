@@ -150,10 +150,6 @@ header {
     z-index: 1000;
 }
 
-.navbar {
-    background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
-}
-
 .header-bar {
     display: flex;
     align-items: flex-start;
@@ -202,6 +198,10 @@ header {
 
 a.retro:hover {
     color: #7df9ff;
+}
+
+.navbar {
+    background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
 }
 
 .navbar-brand {
@@ -540,13 +540,6 @@ a.retro:hover {
     position: relative;
 } */
 
-/* Hide burger on md and up (Bootstrap handles this, but for safety) */
-@media (min-width: 768px) {
-    #mobile-menu-toggle {
-        display: none !important;
-    }
-}
-
 .burger-line {
     width: 100%;
     height: 3px;
@@ -624,7 +617,6 @@ a.retro:hover {
     display: none; /* Hidden by default on desktop */
 }
 
-/* footer */
 html,
 body {
     height: 100%; /* Ensure body takes full viewport height */
@@ -697,19 +689,6 @@ footer {
         cursor: pointer;
     }
 
-    #dpad-up {
-        grid-area: up;
-    }
-    #dpad-down {
-        grid-area: down;
-    }
-    #dpad-left {
-        grid-area: left;
-    }
-    #dpad-right {
-        grid-area: right;
-    }
-
     /* Show mobile burger menu on mobile */
     .mobile-menu-btn {
         display: -webkit-box;
@@ -720,27 +699,32 @@ footer {
     .mobile-menu-dropdown {
         display: block;
     }
-}
-@media screen and (max-width: 1023.9px) {
+
+
+    /* @media screen and (max-width: 1023.9px) { */
     #dpad-up {
+        grid-area: up;
         -ms-grid-row: 1;
         grid-row: 1;
         -ms-grid-column: 3;
         grid-column: 3;
     }
     #dpad-down {
+        grid-area: down;
         -ms-grid-row: 5;
         grid-row: 5;
         -ms-grid-column: 3;
         grid-column: 3;
     }
     #dpad-left {
+        grid-area: left;
         -ms-grid-row: 3;
         grid-row: 3;
         -ms-grid-column: 1;
         grid-column: 1;
     }
     #dpad-right {
+        grid-area: right;
         -ms-grid-row: 3;
         grid-row: 3;
         -ms-grid-column: 5;
@@ -836,6 +820,13 @@ footer {
     #toggle-background-btn,
     #accessibility {
         display: none;
+    }
+}
+
+/* Hide burger on md and up (Bootstrap handles this, but for safety) */
+@media (min-width: 768px) {
+    #mobile-menu-toggle {
+        display: none !important;
     }
 }
 
@@ -976,7 +967,7 @@ body {
 }
 
 header {
-    /* position: fixed; */
+    position: fixed;
     top: 0;
     height: var(--header-height);
     width: 100%;
