@@ -130,19 +130,28 @@ Tested across multiple devices with Chrome DevTools for responsiveness. I used t
 
 ### Lighthouse
 
-![Lighthouse Performance Report](assets/images/HomepageLighthouse.PNG)
+<div align="center">
+  <img src="assets/images/HomepageLighthouse.PNG" width="400"/>
+  <img src="assets/images/PacmanLighthouse.PNG" width="400"/>
+</div>
 
-![Lighthouse Performance Report](assets/images/PacmanLighthouse.PNG)
+<div align="center">
+  <img src="assets/images/SnakeLighthouse.PNG" width="400"/>
+  <img src="assets/images/2048Lighthouse.PNG" width="400"/>
+</div>
 
-![Lighthouse Performance Report](assets/images/SnakeLighthouse.PNG)
-
-![Lighthouse Performance Report](assets/images/2048Lighthouse.PNG)
-
-![Lighthouse Performance Report](assets/images/ContactLighthouse.PNG)
+<div align="center">
+  <img src="assets/images/ContactLighthouse.PNG" width="400"/>
+  </div>
 
 ### Validation
 
 HTML and CSS passed W3C validation with no errors:
+
+<div align="center">
+  <img src="assets/images/HTMLValidation.PNG" width="400"/>
+  <img src="assets/images/CSSValidation.PNG" width="400"/>
+</div>
 
 ![HTML Validation Results](assets/images/HTMLValidation.PNG)
 
