@@ -143,7 +143,6 @@ header and off canvas --------------------------- */
 header {
     height: var(--header-height);
     background: linear-gradient(to bottom, black 50%, transparent 100%);
-    /* position: fixed; */
     top: 0;
     left: 0;
     width: 100%;
@@ -534,11 +533,6 @@ a.retro:hover {
     -ms-transform: translateY(-3px);
     transform: translateY(-3px);
 }
-
-/* Make sure header-bar is positioned relative */
-/* .header-bar {
-    position: relative;
-} */
 
 .burger-line {
     width: 100%;
@@ -967,7 +961,6 @@ body {
 }
 
 header {
-    position: fixed;
     top: 0;
     height: var(--header-height);
     width: 100%;
