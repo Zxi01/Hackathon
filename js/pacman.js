@@ -26,7 +26,10 @@ let powerUpSound;
 
 // Pacman object
 let pacman;
-
+//score formatting
+function formatScore(num) {
+    return String(num).padStart(4, "0");
+}
 //game variables
 const walls = new Set();
 const pellets = new Set();
@@ -478,9 +481,6 @@ function loadImages() {
     scaredGhostImg = new Image();
     scaredGhostImg.src = "assets/images/scaredGhost.png";
 }
-function formatScore(num) {
-    return String(num).padStart(4, "0");
-}
 
 function updateHighscore() {
     const el = document.getElementById("highscore");
@@ -904,7 +904,7 @@ function eatGhost(ghost) {
     scoreEl.innerHTML = formatScore(score);
 
     // Play eatGhost sound when eating a scared ghost
-    if (eatGhostSound) {
+    if (eatGhostSound && areSoundsEnabled()) {
         eatGhostSound.currentTime = 0; // Reset sound to beginning for rapid playback
         eatGhostSound.play().catch((e) => {
             // Handle any audio play errors silently
@@ -1099,7 +1099,7 @@ function move() {
                     livesEl.innerHTML = lives;
 
                     // Play game over sound when losing a life
-                    if (gameOverSound) {
+                    if (gameOverSound && areSoundsEnabled()) {
                         gameOverSound.currentTime = 0;
                         gameOverSound.play().catch((e) => {
                             console.log("Game over sound play failed:", e);
@@ -1151,7 +1151,7 @@ function move() {
                 score += 10;
                 scoreEl.innerHTML = formatScore(score);
 
-                if (eatPelletSound) {
+                if (eatPelletSound && areSoundsEnabled()) {
                     eatPelletSound.currentTime = 0;
                     eatPelletSound.play().catch((e) => {
                         console.log("Audio play failed:", e);
@@ -1169,11 +1169,19 @@ function move() {
                 const scoreEl = document.getElementById("scoreEl");
                 scoreEl.innerHTML = formatScore(score);
 
-                if (powerUpSound) {
+                if (powerUpSound && areSoundsEnabled()) {
                     powerUpSound.currentTime = 0;
+                    powerUpSound.loop = true;
                     powerUpSound.play().catch((e) => {
                         console.log("Audio play failed:", e);
                     });
+                    // Stop the sound after 5 seconds
+                    setTimeout(() => {
+                        if (powerUpSound) {
+                            powerUpSound.pause();
+                            powerUpSound.loop = false;
+                        }
+                    }, SCARED_DURATION);
                 }
             }
         }
@@ -1354,7 +1362,7 @@ function handleWinGame() {
 
 //reset game
 function resetGame() {
-    score = 0;
+    score = formatScore(0);
     lives = 3;
     gameOver = false;
     gameStarted = false; // Set to false initially to prevent movement
@@ -1366,7 +1374,7 @@ function resetGame() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = formatScore(score);
+    scoreEl.innerHTML = score;
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
@@ -1386,7 +1394,7 @@ function resetGame() {
     draw();
 
     // Play start game sound and wait for it to finish before starting
-    if (startGameSound) {
+    if (startGameSound && areSoundsEnabled()) {
         startGameSound.currentTime = 0;
         startGameSound.play().catch((e) => {
             console.log("Start game sound play failed:", e);
@@ -1422,7 +1430,7 @@ function resetToMenu() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = formatScore(score);
+    scoreEl.innerHTML = score;
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
@@ -1513,7 +1521,7 @@ function showStartGameModal() {
 // Add this function to start the game
 function startGame() {
     // Play start game sound
-    if (startGameSound) {
+    if (startGameSound && areSoundsEnabled()) {
         startGameSound.currentTime = 0;
         startGameSound.play().catch((e) => {
             console.log("Start game sound play failed:", e);
@@ -1533,4 +1541,31 @@ function startGame() {
         gameStarted = true;
         update(); // Start the game loop
     }
+}
+
+// Add sound toggle functionality to the start modal
+function setupSoundToggle() {
+    const soundsToggle = document.getElementById("game-sounds-toggle");
+
+    // Load saved preference or default to enabled
+    const soundsEnabled =
+        localStorage.getItem("pacman-sounds-enabled") !== "false";
+
+    // Set checkbox state based on saved preference
+    if (soundsToggle) {
+        soundsToggle.checked = soundsEnabled;
+
+        // Add event listener to save preference
+        soundsToggle.addEventListener("change", () => {
+            localStorage.setItem("pacman-sounds-enabled", soundsToggle.checked);
+        });
+    }
+}
+
+// Call the setup function
+setupSoundToggle();
+
+// Function to check if sounds are enabled
+function areSoundsEnabled() {
+    return localStorage.getItem("pacman-sounds-enabled") !== "false";
 }
