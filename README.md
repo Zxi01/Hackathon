@@ -138,15 +138,19 @@ The design features:
 
 Tested across multiple devices with Chrome DevTools for responsiveness. I used the Am I Responsive website:
 
-![Am I Responsive - Desktop View]
+<div allign="center">
+  <img src="assets/images/AmIResponsive1.PNG" width="400"/>
+  <img src="assets/images/AmIResponsive2.PNG" width="400"/>
+</div>
 
-![Am I Responsive - Tablet View]
+<div allign="center">
+  <img src="assets/images/AmIResponsive3.PNG" width="400"/>
+  <img src="assets/images/AmIResponsive4.PNG" width="400"/>
+</div>
 
-![Am I Responsive - Mobile View]
-
-![Am I Responsive - Multiple Device View]
-
-![Am I Responsive - Responsive Layout]
+  <div allign="center">
+  <img src="assets/images/AmIResponsive5.PNG" width="400"/>
+  </div>
 
 ### Lighthouse
 
@@ -197,19 +201,32 @@ Deployed via GitHub Pages. Resolved broken links to ensure all external links op
 
 ### Challenges
 
+Ensuring all toggles/buttons worked across desktop and mobile/laptop layouts
+
+Ensuring all music/sound effects worked as intended
+
+Ensuring the score/highscores worked for each individual game with no overlap
+
 ### Final Thoughts
 
 ## Future Improvements
 
+-   **Global Leaderboards:** A leaderboard for users to compete with each other
+-   **Community Area:** An area for users to talk or share their personal game scores
+-   **Achievements:** An achievement system to make the games more engaging
+
 ## Code Attribution
 
 ### Bootstrap Framework:
+
+The website utilises the Bootstrap framework for responsive design and styling components like the navigation bar, cards, and the form in the contact section.
 
 ### Icons:
 
 <div allign="start">
   <img src="assets/images/ReadmeSoundOff.png" height="150" width="200"/>
   <img src="assets/images/ReadmeSoundOn.png" height="150" width="200"/>
+  <img src="assets/images/ReadmeHomeIcon.png" height="150" width="200"/>
 </div>
 
 ### External Resources:
