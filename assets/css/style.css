@@ -183,7 +183,7 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
 }
 
-.retro:hover {
+a.retro:hover {
     color: #7df9ff;
 }
 
@@ -394,14 +394,13 @@ main {
     letter-spacing: 1px;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 #highscore-board {
     width: 90vw;
     max-width: 500px;
     padding: 0.6rem 1rem;
-    font-size: 0.9rem;
     letter-spacing: 2px;
     background: #222;
 }
@@ -611,14 +610,6 @@ footer {
     font-size: 0.75rem;
     /* padding: 0.5rem 0rem 2rem 0rem; */
     margin-top: 40px;
-}
-
-footer a {
-    color: #fff;
-    text-decoration: none;
-}
-footer a:hover {
-    color: #ffffff83;
 }
 /* Responsive adjustments for different screen sizes */
 
