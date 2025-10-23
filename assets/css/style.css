@@ -10,7 +10,7 @@
 
 /* variables */
 :root {
-    --header-height: 100px;
+    --header-height: 200px;
 }
 
 body.scrolling-bg {
@@ -67,7 +67,7 @@ body.static-bg {
     position: absolute;
     align-items: flex-end; /* being overidden by bootstrap */
     left: 50%;
-    transform: translateX(-50%) translateY(40%);
+    transform: translateX(-50%) translateY(90%);
     margin: 0;
     font-family: "Press Start 2P", cursive;
     text-transform: uppercase;
@@ -80,6 +80,28 @@ body.static-bg {
     }
     to {
         text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 25px #ffee00, 0px 0px 35px #ffee00, 0px 0px 50px #ffee00;
+    }
+}
+
+@keyframes titleGlow {
+    from {
+        title-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
+    }
+    to {
+        title-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 25px #ffee00, 0px 0px 35px #ffee00, 0px 0px 50px #ffee00;
+    }
+}
+
+@-webkit-keyframes boxGlow {
+    from {
+        box-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+            0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
+    }
+    to {
+        box-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
             0px 0px 25px #ffee00, 0px 0px 35px #ffee00, 0px 0px 50px #ffee00;
     }
 }
@@ -118,7 +140,6 @@ body.static-bg {
 header and off canvas --------------------------- */
 
 header {
-    --header-height: 100px;
     height: var(--header-height);
     background: linear-gradient(to bottom, black 50%, transparent 100%);
     position: fixed;
@@ -129,7 +150,7 @@ header {
 }
 
 main {
-    padding-top: var(--header-height);
+    padding-top: calc(var(--header-height) + 50px);
 }
 
 .navbar {
@@ -164,7 +185,7 @@ main {
 .burger {
     height: 1.8em;
     width: 1.8em;
-    transform: translateY(1%);
+    transform: translateY(75%);
 }
 
 .retro {
@@ -417,7 +438,6 @@ a.retro:hover {
     letter-spacing: 1px;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     text-decoration: none;
-    font-size: 0.9rem;
 }
 
 #highscore-board {
@@ -766,6 +786,7 @@ footer {
         font-size: 2rem;
         letter-spacing: 2px;
         margin-bottom: 1.2rem;
+        transform: translateX(-50%) translateY(70%);
     }
 
     .games-section {
@@ -794,6 +815,17 @@ footer {
 
 /* Responsive adjustments */
 @media screen and (max-width: 767px) {
+    header {
+        height: 100px;
+    }
+    .burger {
+        transform: translateY(45%);
+    }
+
+    #mobile-menu-toggle {
+        height: 1.8rem;
+        width: 1.8rem;
+    }
     .scoreboard {
         font-size: 0.7rem;
         padding: 0.4rem 0.6rem;
@@ -832,10 +864,22 @@ footer {
 
 /* Mobile phones (480px and below) */
 @media (max-width: 480px) {
+    header {
+        height: 100px;
+    }
+
+    .burger {
+        transform: translateY(30%);
+    }
+    #mobile-menu-toggle {
+        height: 1.4rem;
+        width: 1.4rem;
+    }
     .retro-title {
         font-size: 1.5rem;
         letter-spacing: 1px;
         margin-bottom: 1rem;
+        transform: translateX(-50%) translateY(60%);
     }
 
     .games-section {
@@ -875,6 +919,14 @@ footer {
 
 /* Extra small phones (360px and below) */
 @media (max-width: 360px) {
+    #mobile-menu-toggle {
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .burger {
+        transform: translateY(25%);
+    }
     .retro-title {
         font-size: 1.2rem;
         letter-spacing: 1px;
