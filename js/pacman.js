@@ -1364,7 +1364,7 @@ function handleWinGame() {
 
 //reset game
 function resetGame() {
-    score = formatScore(0);
+    score = 0;
     lives = 3;
     gameOver = false;
     gameStarted = false; // Set to false initially to prevent movement
@@ -1376,7 +1376,7 @@ function resetGame() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(score);
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
@@ -1432,7 +1432,7 @@ function resetToMenu() {
 
     const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(0);
     livesEl.innerHTML = lives;
 
     // Reset Pacman to original state
