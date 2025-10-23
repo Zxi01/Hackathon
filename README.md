@@ -88,9 +88,14 @@ The design features:
 ![Restart Modal]()
 
 **Footer**
-- The footer enhances usability and inclusivity with a set of interactive features designed for accessibility and user engagement. It includes a background toggle button that allows users to switch between neon and dark modes for visual comfort, an accessibility statement outlining our commitment to inclusive design, and a feedback form where players can share suggestions or report issues. Styled to match the site's retro aesthetic, the footer remains consistent across all pages, offering easy access to support and customization options.
+- The footer enhances usability and inclusivity with a set of interactive features designed for accessibility and user engagement. It includes a background toggle button that allows users to switch between neon and dark modes for visual comfort, an accessibility statement outlining our commitment to inclusive design, and a contact form where players can share suggestions or report issues. Styled to match the site's retro aesthetic, the footer remains consistent across all pages, offering easy access to support.
 
 ![Footer]()
+
+**Contact Page**
+- The site includes a styled contact form that matches the overall visual identity and user experience. Visitors can use it to share feedback, report issues, or reach out with questions and suggestions.
+
+![Contact Page]()
 
 ## AI Tools Usage
 
