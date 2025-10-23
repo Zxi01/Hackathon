@@ -93,7 +93,7 @@ The design features:
 
 -   Each game includes a restart modal that appears when gameplay ends, offering a clear prompt to start over while preserving the retro design and ensuring a smooth, user-friendly experience.
 
-![Restart Modal]()
+![Restart Modal](assets/images/restart-modal.png)
 
 **Footer**
 

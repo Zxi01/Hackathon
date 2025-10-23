@@ -537,9 +537,9 @@ a.retro:hover {
 }
 
 /* Make sure header-bar is positioned relative */
-.header-bar {
+/* .header-bar {
     position: relative;
-}
+} */
 
 /* Hide burger on md and up (Bootstrap handles this, but for safety) */
 @media (min-width: 768px) {
@@ -860,9 +860,9 @@ footer {
 
 /* Mobile phones (480px and below) */
 @media (max-width: 480px) {
-    header {
+    /* header {
         height: 100px;
-    }
+    } */
 
     .burger {
         transform: translateY(30%);
