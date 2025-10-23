@@ -84,13 +84,13 @@ body.static-bg {
     }
 }
 
-@keyframes titleGlow {
+@keyframes boxGlow {
     from {
-        text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+        box-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
             0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
     }
     to {
-        text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
+        box-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
             0px 0px 25px #ffee00, 0px 0px 35px #ffee00, 0px 0px 50px #ffee00;
     }
 }
@@ -161,11 +161,15 @@ main {
     height: 1.9em;
 }
 
+.burger {
+    height: 1.8em;
+    width: 1.8em;
+    transform: translateY(1%);
+}
+
 .retro {
     display: inline-block;
     padding: 0.5rem 0.75rem;
-    -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     color: #ffee00;
     font-family: "Press Start 2P", monospace;
     font-size: 0.7rem;
@@ -183,14 +187,14 @@ main {
         -webkit-transform 0.3s, -webkit-box-shadow 0.3s;
 }
 
-.retro:hover {
+a.retro:hover {
     color: #7df9ff;
 }
 
 .navbar-brand {
     font-family: "Press Start 2P", cursive;
-    transform: translateY(-40%);
-    font-size: 1rem;
+    transform: translateY(-20%);
+    font-size: 1.3rem;
     color: #fff;
 }
 .navbar-brand:hover {
@@ -394,14 +398,13 @@ main {
     letter-spacing: 1px;
     text-shadow: 2px 2px 0px #ff6b35, 4px 4px 0px #000000, 0px 0px 10px #ffee00;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 #highscore-board {
     width: 90vw;
     max-width: 500px;
     padding: 0.6rem 1rem;
-    font-size: 0.9rem;
     letter-spacing: 2px;
     background: #222;
 }
@@ -469,44 +472,33 @@ main {
 } */
 
 /* Mobile burger menu - hidden by default */
-.mobile-menu-btn {
-    display: none;
-    top: 1.5rem;
-    left: 0.5rem;
-    z-index: 60;
-    width: 50px;
-    height: 50px;
-    background: #1a1a1a;
-    border: 3px solid #7df9ff;
-    border-radius: 8px;
-    cursor: pointer;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
+
+/* --- Mobile Burger Icon --- */
+#mobile-menu-toggle {
+    position: absolute;
+    top: 0.75rem; /* Adjust for vertical alignment */
+    right: 1rem; /* Stay on far right */
+    z-index: 1100; /* Above everything in header */
+    display: flex;
     flex-direction: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    gap: 5px;
-    padding: 8px;
-    -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    -webkit-transition: border-color 0.3s, -webkit-transform 0.3s;
-    transition: border-color 0.3s, -webkit-transform 0.3s;
-    -o-transition: transform 0.3s, border-color 0.3s;
-    transition: transform 0.3s, border-color 0.3s;
-    transition: transform 0.3s, border-color 0.3s, -webkit-transform 0.3s;
-    transform: translateY(-40%);
+    justify-content: space-between;
+    width: 1.8em;
+    height: 1.8em;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
-.mobile-menu-btn:hover {
-    -webkit-transform: translateY(-2px);
-    -ms-transform: translateY(-2px);
-    transform: translateY(calc(-40%-2px));
-    border-color: #ff6b35;
+/* Make sure header-bar is positioned relative */
+.header-bar {
+    position: relative;
+}
+
+/* Hide burger on md and up (Bootstrap handles this, but for safety) */
+@media (min-width: 768px) {
+    #mobile-menu-toggle {
+        display: none !important;
+    }
 }
 
 .burger-line {
@@ -516,8 +508,9 @@ main {
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
-    -webkit-box-shadow: 0 0 5px #ffee00;
-    box-shadow: 0 0 5px #ffee00;
+    box-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000, 0px 0px 15px #ffee00;
+    -webkit-animation: boxGlow 3s ease-in-out infinite alternate;
+    animation: boxGlow 3s ease-in-out infinite alternate;
     z-index: 100;
 }
 
@@ -612,14 +605,6 @@ footer {
     /* padding: 0.5rem 0rem 2rem 0rem; */
     margin-top: 40px;
 }
-
-footer a {
-    color: #fff;
-    text-decoration: none;
-}
-footer a:hover {
-    color: #ffffff83;
-}
 /* Responsive adjustments for different screen sizes */
 
 /* Large screens (1200px and up) */
@@ -641,6 +626,10 @@ footer a:hover {
 
 /* Show D-pad only on tablet/mobile */
 @media screen and (max-width: 1023.9px) {
+    footer {
+        margin-top: 20px;
+    }
+
     .dpad-container {
         display: -ms-grid;
         display: grid;
