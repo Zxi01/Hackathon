@@ -47,23 +47,23 @@ document.addEventListener("DOMContentLoaded", () => {
 let grid = null;
 let score = 0;
 // parse stored highscore to number (was a string) and default to 0
-let highscore = parseInt(localStorage.getItem("2048-highscore") || "0", 10);
+let highscoreT = parseInt(localStorage.getItem("2048-highscore") || "0", 10);
 
 function updateScore() {
     const el = document.getElementById("score");
     if (el) el.textContent = String(score);
 
     // update highscore if surpassed
-    if (score > highscore) {
-        highscore = score;
-        localStorage.setItem("2048-highscore", String(highscore));
+    if (score > highscoreT) {
+        highscoreT = score;
+        localStorage.setItem("2048-highscore", String(highscoreT));
         updateHighscore();
     }
 }
 
 function updateHighscore() {
     const el = document.getElementById("highs"); // target the number span
-    if (el) el.textContent = String(highscore);
+    if (el) el.textContent = String(highscoreT);
 }
 
 // FUNCTION setupGame
@@ -308,9 +308,9 @@ function checkGameOver() {
 }
 
 function displayGameOver() {
-    if (score > highscore) {
-        highscore = score;
-        localStorage.setItem("2048-highscore", highscore);
+    if (score > highscoreT) {
+        highscoreT = score;
+        localStorage.setItem("2048-highscore", highscoreT);
         updateHighscore();
     }
     const modal = document.getElementById("game-over-modal");
