@@ -65,22 +65,25 @@ The design features:
 **Homepage**
 - The homepage features a clean, retro-inspired layout designed for easy navigation and instant engagement. At its core are three vibrant game cards—Pac-Man, Snake, and 2048—each styled with bold neon accents that evoke classic arcade aesthetics. These cards serve as interactive gateways, inviting users to dive into their game of choice with a single click. The overall design balances nostalgic flair with modern simplicity, using a dark background, glowing highlights, and intuitive spacing to create a visually striking yet user-friendly experience that works seamlessly across devices.
 
-![Homepage]()
+![Homepage-desktop](assets/images/homepage-desktop.png)
+![Homepage-tablet](assets/images/homepage-tablet.png)
 
 **Navbar**
 - The site features a consistent black navigation bar across all pages, styled with a white retro pixel font and anchored by a bold title, a Home icon for quick access, and a burger menu for streamlined navigation.
 
-![Navbar]()
+![Navbar-lg](assets/images/navbar-lg.png)
+![Navbar-sm](assets/images/navbar-sm.png)
 
 **Game Page Design**
 - Each game page follows a unified design to ensure a smooth and consistent user experience. The layout includes a prominent game title, a high score tracker, lives counter (where applicable), and a current score display, all styled in a clean retro font. A "How to Play" button offers quick instructions for new users, keeping gameplay accessible. The games are rendered using HTML canvas elements, each set to the same dimensions for visual consistency and responsive performance across devices. This cohesive structure makes it easy to switch between games while maintaining a familiar interface.
 
-![Game Pages]()
+![Game Pages -lg](assets/images/game-lg.png)
+![Game Pages -sm](assets/images/game-sm.png)
 
 **How To Play Modal**
 - Each game includes a "How to Play" modal that provides clear, concise instructions in a pop-up window, helping users quickly understand the rules and controls before diving into gameplay.
 
-![How To Play]()
+![How To Play](assets/images/how-to.png)
 
 **Restart Modal**
 - Each game includes a restart modal that appears when gameplay ends, offering a clear prompt to start over while preserving the retro design and ensuring a smooth, user-friendly experience.
@@ -90,12 +93,13 @@ The design features:
 **Footer**
 - The footer enhances usability and inclusivity with a set of interactive features designed for accessibility and user engagement. It includes a background toggle button that allows users to switch between neon and dark modes for visual comfort, an accessibility statement outlining our commitment to inclusive design, and a contact form where players can share suggestions or report issues. Styled to match the site's retro aesthetic, the footer remains consistent across all pages, offering easy access to support.
 
-![Footer]()
+![Footer-lg](assets/images/footer-lg.png)
+![Footer-sm](assets/images/footer-sm.png)
 
 **Contact Page**
 - The site includes a styled contact form that matches the overall visual identity and user experience. Visitors can use it to share feedback, report issues, or reach out with questions and suggestions.
 
-![Contact Page]()
+![Contact Page](assets/images/contact.png)
 
 ## AI Tools Usage
 
