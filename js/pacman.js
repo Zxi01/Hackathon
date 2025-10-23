@@ -26,7 +26,10 @@ let powerUpSound;
 
 // Pacman object
 let pacman;
-
+//score formatting
+function formatScore(num) {
+    return String(num).padStart(4, "0");
+}
 //game variables
 const walls = new Set();
 const pellets = new Set();
@@ -481,7 +484,7 @@ function loadImages() {
 
 function updateHighscore() {
     const el = document.getElementById("highscore");
-    if (el) el.textContent = String(highscore);
+    if (el) el.textContent = formatScore(highscore);
 }
 
 //load images and initialize game
@@ -898,7 +901,7 @@ function eatGhost(ghost) {
     eatenGhosts.add(ghost);
     score += 100;
     const scoreEl = document.getElementById("scoreEl");
-    scoreEl.innerHTML = score;
+    scoreEl.innerHTML = formatScore(score);
 
     // Play eatGhost sound when eating a scared ghost
     if (eatGhostSound && areSoundsEnabled()) {
@@ -1146,7 +1149,7 @@ function move() {
             if (pacmanPelletCollision(pacman, pellet)) {
                 pellets.delete(pellet);
                 score += 10;
-                scoreEl.innerHTML = score;
+                scoreEl.innerHTML = formatScore(score);
 
                 if (eatPelletSound && areSoundsEnabled()) {
                     eatPelletSound.currentTime = 0;
@@ -1164,7 +1167,7 @@ function move() {
                 makeGhostsScared();
                 score += 50;
                 const scoreEl = document.getElementById("scoreEl");
-                scoreEl.innerHTML = score;
+                scoreEl.innerHTML = formatScore(score);
 
                 if (powerUpSound && areSoundsEnabled()) {
                     powerUpSound.currentTime = 0;
@@ -1359,7 +1362,7 @@ function handleWinGame() {
 
 //reset game
 function resetGame() {
-    score = 0;
+    score = formatScore(0);
     lives = 3;
     gameOver = false;
     gameStarted = false; // Set to false initially to prevent movement
