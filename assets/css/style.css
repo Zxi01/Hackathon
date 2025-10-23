@@ -700,7 +700,6 @@ footer {
         display: block;
     }
 
-
     /* @media screen and (max-width: 1023.9px) { */
     #dpad-up {
         grid-area: up;
@@ -967,7 +966,6 @@ body {
 }
 
 header {
-    position: fixed;
     top: 0;
     height: var(--header-height);
     width: 100%;

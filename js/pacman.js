@@ -36,7 +36,7 @@ const pellets = new Set();
 const powerUps = new Set();
 const ghosts = new Set();
 const eatenGhosts = new Set(); // Track eaten ghosts for respawning
-let score = formatScore(0);
+let score = 0;
 let lives = 3;
 let highscore = localStorage.getItem("pacman-highscore") || 0;
 let gameOver = false;
@@ -531,6 +531,8 @@ function initializeGame() {
     loadSounds();
     loadMap(); // Load the map with walls, pellets, etc.
     updateHighscore();
+    const scoreEl = document.getElementById("scoreEl");
+    scoreEl.innerHTML = formatScore(0);
     // Initialize Pacman at position [1][1]
     pacman = {
         x: 1 * tileSize + tileSize / 2, // Center in tile
