@@ -73,7 +73,7 @@ body.static-bg {
     text-transform: uppercase;
 }
 
-@-webkit-keyframes titleGlow {
+@keyframes titleGlow {
     from {
         text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
             0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
@@ -221,7 +221,12 @@ a.retro:hover {
     font-size: 1.3rem;
     margin-bottom: 1rem;
     color: #fff; /* white links */
+}
+
+/* Removes the underline in offcanvas */
+.offcanvas .offcanvas-title a {
     text-decoration: none !important;
+    color: inherit;
 }
 
 /* ----------------------------------
