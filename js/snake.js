@@ -121,59 +121,6 @@ window.onload = function () {
     const howToBtn = document.getElementById("how-to-play-btn");
     const closeHowTo = document.getElementById("close-how-to-play");
 
-    // Background toggle logic
-    function applyBackgroundFromStorage() {
-        const body = document.body;
-        const savedMode = localStorage.getItem("bgMode");
-        body.classList.remove("static-bg", "scrolling-bg");
-        if (savedMode === "static") {
-            body.classList.add("static-bg");
-        } else {
-            body.classList.add("scrolling-bg");
-        }
-    }
-    applyBackgroundFromStorage();
-    const toggleBtn = document.getElementById("toggle-background-btn");
-    const mobileToggleBtn = document.getElementById(
-        "mobile-toggle-background-btn"
-    );
-    function toggleBackground() {
-        const body = document.body;
-        applyBackgroundFromStorage();
-        if (body.classList.contains("scrolling-bg")) {
-            body.classList.remove("scrolling-bg");
-            body.classList.add("static-bg");
-            localStorage.setItem("bgMode", "static");
-        } else {
-            body.classList.remove("static-bg");
-            body.classList.add("scrolling-bg");
-            localStorage.setItem("bgMode", "scrolling");
-        }
-        applyBackgroundFromStorage();
-    }
-    if (toggleBtn) {
-        toggleBtn.addEventListener("click", toggleBackground);
-        toggleBtn.addEventListener(
-            "touchstart",
-            function (e) {
-                e.preventDefault();
-                toggleBackground();
-            },
-            { passive: false }
-        );
-    }
-    if (mobileToggleBtn) {
-        mobileToggleBtn.addEventListener("click", toggleBackground);
-        mobileToggleBtn.addEventListener(
-            "touchstart",
-            function (e) {
-                e.preventDefault();
-                toggleBackground();
-            },
-            { passive: false }
-        );
-    }
-
     function update() {
         if (gameOver) {
             if (!gameOverHandled) {

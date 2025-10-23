@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Play the classic Snake game and navigate the snake to eat food while avoiding collisions.">
+    <meta name="keywords"
+        content="Snake game, snake, classic game, retro games, arcade game, fun, beat bordom, mobile game, addictive game, retro arcade, nostalgia">
+    <meta name="author" content="Retro Arcade">
     <title>Snake</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -45,28 +50,23 @@
                     <div class="offcanvas-header">
                         <div class="d-flex align-items-center gap-2">
                             <!-- <img src="assets/images/8bitHouse.png" alt="Home Icon" class="offcanvas-icon"> -->
-                            <a href="index.html">
-                                <h5 class="offcanvas-title m-0" id="menuLabel"><img src="assets/images/homeIcon.png"
-                                        class="icon" alt="home icon">RETRO ARCADE</h5>
-                            </a>
+                            <h5 class="offcanvas-title m-0" id="menuLabel"><a href="index.html"><img
+                                        src="assets/images/homeIcon.png" class="icon" alt="home icon">RETRO ARCADE</a>
+                            </h5>
                         </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                            <img src="assets/images/16bitCross.png" alt="close" class="offcanvas-close-icon">
+                        </button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="justify-content-start list-unstyled">
-                            <li><a id="music-toggle" class=" text-decoration-none retro">Sound Toggle: On</a></li>
-                            <li><a class=" text-decoration-none retro">Background
-                                    Toggle: On</a></li>
-
+                            <li><a id="mobile-music-toggle" class="text-decoration-none retro">Sound: On</a></li>
+                            <li><a id="mobile-background-toggle" class="text-decoration-none retro">Background: On</a></li>
                         </ul>
                         <ul class="mt-auto list-unstyled">
-                            <li> <a class=" text-decoration-none retro" href="contact.html">Contact us</a>
-                            <li><a href="#accessibility" class=" text-decoration-none retro">Accessibility
-                                    Statement</a>
-                            </li>
-
+                            <li><a class="text-decoration-none retro" href="contact.html">Contact us</a></li>
+                            <li><a href="#accessibility" class="text-decoration-none retro">Accessibility Statement</a></li>
                         </ul>
-
                     </div>
                 </div>
             </div>
@@ -140,8 +140,7 @@
                 <!-- Column 1: Page Links -->
                 <div class="col-12 col-md-6 pt-2 mb-md-0 text-md-start d-none d-md-block">
                     <ul class="list-unstyled">
-                        <li><a id="toggle-background-btn" class=" text-decoration-none retro ">Background
-                                Toggle: On</a></li>
+                        <li><a id="toggle-background-btn" class=" text-decoration-none retro ">Background: On</a></li>
                         <li><a href="#accessibility" id="accessibility"
                                 class=" text-decoration-none retro ">Accessibility Statement</a>
                         </li>

@@ -74,7 +74,7 @@ body.static-bg {
     text-transform: uppercase;
 }
 
-@-webkit-keyframes titleGlow {
+@keyframes titleGlow {
     from {
         text-shadow: 3px 3px 0px #ff6b35, 6px 6px 0px #000000,
             0px 0px 15px #ffee00, 0px 0px 25px #ffee00;
@@ -154,11 +154,6 @@ header {
     background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
 }
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-}
-
 .header-bar {
     display: flex;
     align-items: flex-start;
@@ -214,7 +209,10 @@ a.retro:hover {
     transform: translateY(-20%);
     font-size: 1.3rem;
     color: #fff;
+    display: flex;
+    align-items: center;
 }
+
 .navbar-brand:hover {
     color: #fff;
     opacity: 50%;
@@ -228,9 +226,13 @@ a.retro:hover {
     text-decoration: none;
 }
 
-/* Optional: close button visible on dark background */
-.offcanvas .btn-close {
-    filter: invert(1);
+/* Offcanvas close icon (16-bit cross) */
+.offcanvas .offcanvas-close-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    pointer-events: none;
 }
 
 .offcanvas h5 {
@@ -239,7 +241,22 @@ a.retro:hover {
     font-size: 1.3rem;
     margin-bottom: 1rem;
     color: #fff; /* white links */
+}
+
+/* Removes the underline in offcanvas */
+.offcanvas .offcanvas-title a {
     text-decoration: none !important;
+    color: inherit;
+}
+
+.offcanvas-title a:hover {
+    color: #fff;
+    opacity: 50%;
+    text-decoration: none;
+}
+
+.offcanvas .btn-close {
+    opacity: 1;
 }
 
 /* ----------------------------------
@@ -512,10 +529,16 @@ a.retro:hover {
     padding: 0;
 }
 
-/* Make sure header-bar is positioned relative */
-.header-bar {
-    position: relative;
+#mobile-menu-toggle:hover {
+    -webkit-transform: translateY(-3px);
+    -ms-transform: translateY(-3px);
+    transform: translateY(-3px);
 }
+
+/* Make sure header-bar is positioned relative */
+/* .header-bar {
+    position: relative;
+} */
 
 /* Hide burger on md and up (Bootstrap handles this, but for safety) */
 @media (min-width: 768px) {
@@ -638,9 +661,6 @@ footer {
 
     .game-card .game-image {
         height: 250px;
-    }
-
-    header {
     }
 }
 
@@ -839,9 +859,9 @@ footer {
 
 /* Mobile phones (480px and below) */
 @media (max-width: 480px) {
-    header {
+    /* header {
         height: 100px;
-    }
+    } */
 
     .burger {
         transform: translateY(30%);

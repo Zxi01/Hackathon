@@ -53,25 +53,26 @@ function applyBackgroundFromStorage() {
     }
 }
 
+// Enhanced background toggle with proper synchronization
 function setupBackgroundToggle() {
     applyBackgroundFromStorage();
     const body = document.body;
-    const toggleLink = document.getElementById("toggle-background-btn");
-    const mobileToggleLink = document.getElementById(
-        "mobile-toggle-background-btn"
-    );
+    const desktopToggle = document.getElementById("toggle-background-btn");
+    const mobileToggle = document.getElementById("mobile-background-toggle");
 
-    function updateToggleText() {
+    function updateAllBackgroundToggles() {
         const mode = body.classList.contains("static-bg") ? "Off" : "On";
-        if (toggleLink) toggleLink.textContent = `Background Toggle: ${mode}`;
-        if (mobileToggleLink)
-            mobileToggleLink.textContent = `Background Toggle: ${mode}`;
+        if (desktopToggle) desktopToggle.textContent = `Background: ${mode}`;
+        if (mobileToggle) mobileToggle.textContent = `Background: ${mode}`;
     }
 
     function toggleBackground(e) {
-        if (e) e.preventDefault(); // Prevent default link behavior
+        if (e) e.preventDefault();
+        
+        // Apply current state first
         applyBackgroundFromStorage();
 
+        // Toggle the state
         if (body.classList.contains("scrolling-bg")) {
             body.classList.remove("scrolling-bg");
             body.classList.add("static-bg");
@@ -82,36 +83,29 @@ function setupBackgroundToggle() {
             localStorage.setItem("bgMode", "scrolling");
         }
 
-        updateToggleText();
+        // Update both toggles immediately
+        updateAllBackgroundToggles();
         applyBackgroundFromStorage();
     }
 
-    // Initialize text on page load
-    updateToggleText();
+    // Initialize both toggles on page load
+    updateAllBackgroundToggles();
 
-    // Event listeners
-    if (toggleLink) {
-        toggleLink.addEventListener("click", toggleBackground);
-        toggleLink.addEventListener(
-            "touchstart",
-            function (e) {
-                e.preventDefault();
-                toggleBackground();
-            },
-            { passive: false }
-        );
+    // Add event listeners to both desktop and mobile toggles
+    if (desktopToggle) {
+        desktopToggle.addEventListener("click", toggleBackground);
+        desktopToggle.addEventListener("touchstart", function (e) {
+            e.preventDefault();
+            toggleBackground();
+        }, { passive: false });
     }
 
-    if (mobileToggleLink) {
-        mobileToggleLink.addEventListener("click", toggleBackground);
-        mobileToggleLink.addEventListener(
-            "touchstart",
-            function (e) {
-                e.preventDefault();
-                toggleBackground();
-            },
-            { passive: false }
-        );
+    if (mobileToggle) {
+        mobileToggle.addEventListener("click", toggleBackground);
+        mobileToggle.addEventListener("touchstart", function (e) {
+            e.preventDefault();
+            toggleBackground();
+        }, { passive: false });
     }
 }
 
@@ -153,68 +147,76 @@ function setupMobileBurgerMenu() {
     });
 }
 
+// Enhanced music toggle with proper synchronization
+function setupMusicToggle() {
+    const desktopMusicBtn = document.getElementById("music-toggle");
+    const mobileMusicBtn = document.getElementById("mobile-music-toggle");
+    const musicIcon = document.querySelector(".music-icon");
+    
+    // Get initial state from localStorage or default to false (off)
+    let isMusicPlaying = localStorage.getItem("music-playing") === "true";
+    
+    function updateAllMusicToggles() {
+        const mode = isMusicPlaying ? "On" : "Off";
+        if (mobileMusicBtn) {
+            mobileMusicBtn.textContent = `Sound: ${mode}`;
+        }
+        if (musicIcon) {
+            musicIcon.src = isMusicPlaying ? "assets/images/soundOnIcon.png" : "assets/images/soundOfIcon.png";
+        }
+    }
+
+    function toggleMusic(e) {
+        if (e) e.preventDefault();
+        
+        if (isMusicPlaying) {
+            backgroundMusic.pause();
+            isMusicPlaying = false;
+        } else {
+            backgroundMusic.play().catch(err => {
+                console.log("Audio play failed:", err);
+                isMusicPlaying = false; // Reset if play fails
+            });
+            isMusicPlaying = true;
+        }
+        
+        // Save state to localStorage
+        localStorage.setItem("music-playing", isMusicPlaying.toString());
+        
+        // Update both desktop and mobile displays
+        updateAllMusicToggles();
+    }
+
+    // Initialize both toggles on page load
+    updateAllMusicToggles();
+    
+    // Restore music state if it was playing
+    if (isMusicPlaying) {
+        backgroundMusic.play().catch(err => {
+            console.log("Audio auto-play failed:", err);
+            isMusicPlaying = false;
+            localStorage.setItem("music-playing", "false");
+            updateAllMusicToggles();
+        });
+    }
+
+    // Add event listeners to both desktop and mobile toggles
+    if (desktopMusicBtn) {
+        desktopMusicBtn.addEventListener("click", toggleMusic);
+    }
+
+    if (mobileMusicBtn) {
+        mobileMusicBtn.addEventListener("click", toggleMusic);
+        mobileMusicBtn.addEventListener("touchstart", function(e) {
+            e.preventDefault();
+            toggleMusic();
+        }, { passive: false });
+    }
+}
+
+// Initialize both toggles when DOM loads
 document.addEventListener("DOMContentLoaded", () => {
     setupBackgroundToggle();
-    setupMobileBurgerMenu();
-
-    // Offcanvas sound toggle link functionality
-    try {
-        const desktopToggle = document.getElementById("music-toggle");
-        const offcanvas = document.getElementById("offcanvasExample");
-        if (desktopToggle && offcanvas) {
-            const candidates = offcanvas.querySelectorAll("a, button");
-            candidates.forEach((el) => {
-                const txt = (el.textContent || "").trim().toLowerCase();
-                if (txt.includes("sound toggle")) {
-                    el.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        desktopToggle.click();
-                    });
-                    el.addEventListener(
-                        "touchstart",
-                        (e) => {
-                            e.preventDefault();
-                            desktopToggle.click();
-                        },
-                        { passive: false }
-                    );
-                }
-            });
-        }
-    } catch (err) {
-        // defensive: ignore
-    }
-
-    // Also delegate offcanvas 'Background Toggle' entries to the desktop background toggle
-    try {
-        const desktopBgToggle = document.getElementById(
-            "toggle-background-btn"
-        );
-        const offcanvas = document.getElementById("offcanvasExample");
-        if (desktopBgToggle && offcanvas) {
-            const candidates = offcanvas.querySelectorAll("a, button");
-            candidates.forEach((el) => {
-                const txt = (el.textContent || "").trim().toLowerCase();
-                if (
-                    txt.includes("background toggle") ||
-                    txt.includes("background")
-                ) {
-                    el.addEventListener("click", (e) => {
-                        e.preventDefault();
-                        desktopBgToggle.click();
-                    });
-                    el.addEventListener(
-                        "touchstart",
-                        (e) => {
-                            e.preventDefault();
-                            desktopBgToggle.click();
-                        },
-                        { passive: false }
-                    );
-                }
-            });
-        }
-    } catch (err) {
-        // ignore
-    }
+    setupMusicToggle();
+    setupMobileBurgerMenu(); // Keep your existing burger menu setup
 });
