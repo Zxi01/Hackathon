@@ -62,8 +62,8 @@ function setupBackgroundToggle() {
 
     function updateAllBackgroundToggles() {
         const mode = body.classList.contains("static-bg") ? "Off" : "On";
-        if (desktopToggle) desktopToggle.textContent = `Background Toggle: ${mode}`;
-        if (mobileToggle) mobileToggle.textContent = `Background Toggle: ${mode}`;
+        if (desktopToggle) desktopToggle.textContent = `Background: ${mode}`;
+        if (mobileToggle) mobileToggle.textContent = `Background: ${mode}`;
     }
 
     function toggleBackground(e) {
@@ -159,7 +159,7 @@ function setupMusicToggle() {
     function updateAllMusicToggles() {
         const mode = isMusicPlaying ? "On" : "Off";
         if (mobileMusicBtn) {
-            mobileMusicBtn.textContent = `Sound Toggle: ${mode}`;
+            mobileMusicBtn.textContent = `Sound: ${mode}`;
         }
         if (musicIcon) {
             musicIcon.src = isMusicPlaying ? "assets/images/soundOnIcon.png" : "assets/images/soundOfIcon.png";
