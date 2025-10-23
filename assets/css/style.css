@@ -989,3 +989,26 @@ main {
 footer {
     margin-top: auto;
 }
+
+/* ----------------------------------------
+-------------------------------------------
+acessibility styling-------------------------------------- */
+
+.accessibility {
+    width: 90vw;
+    margin: 2rem;
+    padding: 1rem;
+    color: #fff;
+    background-color: #222222ee;
+    border-radius: 10px;
+    text-align: start;
+    line-height: 2rem;
+}
+
+.accessibility h2,
+.accessibility h1 {
+    font-family: "Press Start 2P", monospace;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
