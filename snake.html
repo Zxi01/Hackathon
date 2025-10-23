@@ -32,12 +32,14 @@
                 </a>
 
                 <!-- Burger menu (mobile only) -->
-                <button id="mobile-menu-toggle" class="mobile-menu-btn d-block d-md-none" data-bs-toggle="offcanvas"
-                    href="#offcanvasExample" aria-controls="offcanvasExample" aria-label="Toggle menu">
-                    <span class="burger-line"></span>
-                    <span class="burger-line"></span>
-                    <span class="burger-line"></span>
-                </button>
+                <div class="burger d-block d-md-none">
+                    <a id="mobile-menu-toggle" data-bs-toggle="offcanvas" href="#offcanvasExample"
+                        aria-controls="offcanvasExample" aria-label="Toggle menu">
+                        <div class="burger-line"></div>
+                        <div class="burger-line"></div>
+                        <div class="burger-line"></div>
+                    </a>
+                </div>
 
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="menuLabel">
                     <div class="offcanvas-header">
@@ -136,7 +138,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Column 1: Page Links -->
-                <div class="col-12 col-md-6 pt-2 mb-md-0 text-md-start">
+                <div class="col-12 col-md-6 pt-2 mb-md-0 text-md-start d-none d-md-block">
                     <ul class="list-unstyled">
                         <li><a id="toggle-background-btn" class=" text-decoration-none retro ">Background
                                 Toggle: On</a></li>
@@ -150,7 +152,8 @@
                 <!-- Column 2: Legal / Policy -->
                 <div class="col-12 col-md-6 pt-2 text-md-end">
                     <ul class="list-unstyled">
-                        <li> <a class=" text-decoration-none retro" href="contact.html">Contact us</a></li>
+                        <li class="d-none d-md-block"> <a class=" text-decoration-none retro"
+                                href="contact.html">Contact us</a></li>
                         <li> &copy; 2025 RETRO ARCADE. </li>
                     </ul>
                 </div>
