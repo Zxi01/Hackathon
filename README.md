@@ -88,7 +88,7 @@ The design features:
 **Restart Modal**
 - Each game includes a restart modal that appears when gameplay ends, offering a clear prompt to start over while preserving the retro design and ensuring a smooth, user-friendly experience.
 
-![Restart Modal]()
+![Restart Modal](assets/images/restart-modal.png)
 
 **Footer**
 - The footer enhances usability and inclusivity with a set of interactive features designed for accessibility and user engagement. It includes a background toggle button that allows users to switch between neon and dark modes for visual comfort, an accessibility statement outlining our commitment to inclusive design, and a contact form where players can share suggestions or report issues. Styled to match the site's retro aesthetic, the footer remains consistent across all pages, offering easy access to support.
