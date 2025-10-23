@@ -153,11 +153,6 @@ header {
     background: none !important; /* ensures Bootstrap or other styles don’t override your gradient */
 }
 
-.navbar-brand {
-    display: flex;
-    align-items: center;
-}
-
 .header-bar {
     display: flex;
     align-items: flex-start;
@@ -213,7 +208,10 @@ a.retro:hover {
     transform: translateY(-20%);
     font-size: 1.3rem;
     color: #fff;
+    display: flex;
+    align-items: center;
 }
+
 .navbar-brand:hover {
     color: #fff;
     opacity: 50%;
