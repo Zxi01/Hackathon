@@ -166,7 +166,7 @@
         margin: -2rem 0;
     } */
 
-    /* .dpad-container button {
+/* .dpad-container button {
         width: 60px;
         height: 60px;
         font-size: 1.5rem;
@@ -180,7 +180,7 @@
         cursor: pointer;
     } */
 
-    /* #dpad-up {
+/* #dpad-up {
         grid-area: up;
     }
     #dpad-down {
@@ -227,7 +227,7 @@
 } */
 
 /* Sound toggle container styling */
-.sound-toggle-container {
+/* .sound-toggle-container {
     margin-top: 1rem;
     margin-bottom: 1rem;
     padding: 1rem;
@@ -242,9 +242,9 @@
     font-size: 0.7rem;
     text-align: center;
     text-shadow: 1px 1px 0px #ff6b35;
-}
+} */
 
-.sound-controls {
+/* .sound-controls {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -252,19 +252,18 @@
     align-items: center;
 }
 
-.sound-option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #ffee00;
-    font-family: "Press Start 2P", monospace;
-    font-size: 0.7rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
+
 
 .sound-option:hover {
     color: #7df9ff;
+} */
+
+.sound-option {
+    gap: 0.5rem;
+    color: #ffee00;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .sound-option input[type="checkbox"] {
@@ -272,24 +271,30 @@
     height: 18px;
     accent-color: #7df9ff;
     cursor: pointer;
+    padding: 0 50rem;
 }
 
-.sound-option span {
+.sound-controls span {
     user-select: none;
+    margin-left: 0.5rem;
+}
+
+#start-game-modal .game-sounds-toggle {
+    transform: translateY(10%);
 }
 
 /* Mobile responsive adjustments */
-@media screen and (max-width: 480px) {
+/* @media screen and (max-width: 480px) {
     .sound-toggle-container h4 {
         font-size: 0.6rem;
     }
-    
+
     .sound-option {
         font-size: 0.6rem;
     }
-    
+
     .sound-option input[type="checkbox"] {
         width: 16px;
         height: 16px;
     }
-}
+} */

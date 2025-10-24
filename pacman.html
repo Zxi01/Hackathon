@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Play the classic Pac-Man game and navigate through the maze while avoiding ghosts.">
-    <meta name="keywords" content="Pac-Man, Pacman, arcade game, classic game, maze, ghosts, retro games, fun, mobile game, addictive game, retro arcade, nostalgia, pellet eating, high score, vintage gaming, 80s games, arcade classics">
+    <meta name="description"
+        content="Play the classic Pac-Man game and navigate through the maze while avoiding ghosts.">
+    <meta name="keywords"
+        content="Pac-Man, Pacman, arcade game, classic game, maze, ghosts, retro games, fun, mobile game, addictive game, retro arcade, nostalgia, pellet eating, high score, vintage gaming, 80s games, arcade classics">
     <meta name="author" content="Retro Arcade">
     <title>Pac-man</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -59,11 +61,13 @@
                     <div class="offcanvas-body">
                         <ul class="justify-content-start list-unstyled">
                             <li><a id="mobile-music-toggle" class="text-decoration-none retro">Sound: On</a></li>
-                            <li><a id="mobile-background-toggle" class="text-decoration-none retro">Background: On</a></li>
+                            <li><a id="mobile-background-toggle" class="text-decoration-none retro">Background: On</a>
+                            </li>
                         </ul>
                         <ul class="mt-auto list-unstyled">
                             <li><a class="text-decoration-none retro" href="contact.html">Contact us</a></li>
-                            <li><a href="#accessibility" class="text-decoration-none retro">Accessibility Statement</a></li>
+                            <li><a href="#accessibility" class="text-decoration-none retro">Accessibility Statement</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -83,11 +87,22 @@
             <div class="game-container">
                 <!-- Score at the top -->
                 <div class="game-info">
-                    <div id="lives-board" class="scoreboard retro">
-                        <span>Lives: </span><span id="livesEl">3</span>
+                    <div class="sound-toggle-container">
+                        <!-- <h4>Game Sound Settings</h4> -->
+                        <div class="sound-controls">
+                            <label class="sound-option scoreboard retro">
+                                <input type="checkbox" class="game-sounds-toggle" checked>
+                                <span>SFX</span>
+                            </label>
+                        </div>
                     </div>
-                    <div id="score-board" class="scoreboard retro">
-                        <span>Score: </span><span id="scoreEl">0</span>
+                    <div>
+                        <span id="lives-board" class="scoreboard retro">
+                            <span>Lives: </span><span id="livesEl">3</span>
+                        </span>
+                        <span id="score-board" class="scoreboard retro">
+                            <span>Score: </span><span id="scoreEl">0</span>
+                        </span>
                     </div>
                 </div>
                 <!-- Game board in the middle -->
@@ -124,18 +139,22 @@
                         to turn the ghosts blue for 5 seconds and eat them for extra points</p>
                     <p><img class="pacman-icon" src="assets/images/pacman_icon.png" alt="Pac-man icon">Eat all the dots
                         to win the game</p>
-                    <div class="sound-toggle-container">
-                        <!-- <h4>Game Sound Settings</h4> -->
-                        <div class="sound-controls">
-                            <label class="sound-option">
-                                <input type="checkbox" id="game-sounds-toggle" checked>
-                                <span>Game Sound Effects</span>
-                            </label>
-                        </div>
-                    </div>
+
                 </details>
                 <button id="start-btn">Start Game</button>
                 <button class="home-btn">Main Menu</button>
+                <hr>
+                <div class="sound-toggle-container">
+                    <!-- <h4>Game Sound Settings</h4> -->
+                    <div class="sound-controls">
+                        <label class="sound-option">
+                            <input type="checkbox" class="game-sounds-toggle" checked>
+                            <span>
+                                Sound Effects (SFX)
+                            </span>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
 

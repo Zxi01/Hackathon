@@ -435,6 +435,10 @@ a.retro:hover {
     text-decoration: none;
 }
 
+.retro.sound-option:hover {
+    border: 3px dashed #ff6b35;
+}
+
 #highscore-board {
     width: 90vw;
     max-width: 500px;
