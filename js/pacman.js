@@ -1050,8 +1050,8 @@ function resetToMenu() {
     pacmanDisappearing = false;
     pacmanOpacity = 1.0;
 
-    const scoreEl = document.getElementById("scoreEl");
     const livesEl = document.getElementById("livesEl");
+    const scoreEl = document.getElementById("scoreEl");
     scoreEl.innerHTML = formatScore(0);
     livesEl.innerHTML = lives;
 
@@ -1166,28 +1166,35 @@ function startGame() {
 }
 
 // Add sound toggle functionality to the start modal
-function setupSoundToggle() {
-    const soundsToggle = document.getElementById("game-sounds-toggle");
+function setupSoundToggles() {
+    const toggles = document.querySelectorAll(".game-sounds-toggle");
 
-    // Load saved preference or default to enabled
-    const soundsEnabled =
-        localStorage.getItem("pacman-sounds-enabled") !== "false";
+    if (!toggles.length) return;
 
-    // Set checkbox state based on saved preference
-    if (soundsToggle) {
-        soundsToggle.checked = soundsEnabled;
+    // Load saved preference or default to true
+    const storedValue = localStorage.getItem("pacman-sounds-enabled");
+    const soundsEnabled = storedValue === null ? true : storedValue === "true";
 
-        // Add event listener to save preference
-        soundsToggle.addEventListener("change", () => {
-            localStorage.setItem("pacman-sounds-enabled", soundsToggle.checked);
+    // Apply to all toggles
+    toggles.forEach((toggle) => {
+        toggle.checked = soundsEnabled;
+
+        // Listen for changes
+        toggle.addEventListener("change", (e) => {
+            const newValue = e.target.checked;
+            // Save preference
+            localStorage.setItem("pacman-sounds-enabled", newValue);
+
+            // Sync all checkboxes to the same value
+            toggles.forEach((t) => (t.checked = newValue));
         });
-    }
+    });
 }
 
-// Call the setup function
-setupSoundToggle();
+document.addEventListener("DOMContentLoaded", setupSoundToggles);
 
-// Function to check if sounds are enabled
+// Helper
 function areSoundsEnabled() {
-    return localStorage.getItem("pacman-sounds-enabled") !== "false";
+    const storedValue = localStorage.getItem("pacman-sounds-enabled");
+    return storedValue === null ? true : storedValue === "true";
 }
