@@ -55,10 +55,10 @@ The design features:
 
 ### Accessibility Considerations
 
--   **Color Contrast:**
--   **Alt Text:**
--   **Keyboard Navigation:**
--   **Responsive Design:**
+-   **Color Contrast**
+-   **Alt Text**
+-   **Keyboard Navigation**
+-   **Responsive Design**
 
 ## Features
 
@@ -126,11 +126,9 @@ The design features:
 
 ## AI Tools Usage
 
--   We used AI Copilot both in the web browser and through Visual Studio Code to streamline development and enhance collaboration throughout our project. It was especially helpful for debugging tricky sections of code, suggesting fixes and improvements in real time. When we wanted to add extra features—like modals, score tracking, or canvas interactions—but weren’t sure how to integrate them smoothly, Copilot provided clear, context-aware suggestions that fit our existing structure. It also saved us time on smaller tasks like formatting, refactoring, and writing repetitive logic, allowing us to focus more on design, gameplay, and user experience. Importantly, every piece of AI-generated code was carefully read, tested, and understood before implementation to ensure compatibility with our existing codebase and prevent errors or unintended conflicts.
-
-### Google Gemini
-
 ### GitHub Copilot
+
+-   We used AI Copilot both in the web browser and through Visual Studio Code to streamline development and enhance collaboration throughout our project. It was especially helpful for debugging tricky sections of code, suggesting fixes and improvements in real time. When we wanted to add extra features—like modals, score tracking, or canvas interactions—but weren’t sure how to integrate them smoothly, Copilot provided clear, context-aware suggestions that fit our existing structure. It also saved us time on smaller tasks like formatting, refactoring, and writing repetitive logic, allowing us to focus more on design, gameplay, and user experience. Importantly, every piece of AI-generated code was carefully read, tested, and understood before implementation to ensure compatibility with our existing codebase and prevent errors or unintended conflicts.
 
 ## Testing and Validation
 
@@ -138,15 +136,19 @@ The design features:
 
 Tested across multiple devices with Chrome DevTools for responsiveness. I used the Am I Responsive website:
 
-![Am I Responsive - Desktop View]
+<div allign="center">
+  <img src="assets/images/AmIResponsive1.PNG" width="400"/>
+  <img src="assets/images/AmIResponsive2.PNG" width="400"/>
+</div>
 
-![Am I Responsive - Tablet View]
+<div allign="center">
+  <img src="assets/images/AmIResponsive3.PNG" width="400"/>
+  <img src="assets/images/AmIResponsive4.PNG" width="400"/>
+</div>
 
-![Am I Responsive - Mobile View]
-
-![Am I Responsive - Multiple Device View]
-
-![Am I Responsive - Responsive Layout]
+  <div allign="center">
+  <img src="assets/images/AmIResponsive5.PNG" width="400"/>
+  </div>
 
 ### Lighthouse
 
@@ -197,19 +199,30 @@ Deployed via GitHub Pages. Resolved broken links to ensure all external links op
 
 ### Challenges
 
-### Final Thoughts
+Ensuring all toggles/buttons worked across desktop and mobile/laptop layouts
+
+Ensuring all music/sound effects worked as intended
+
+Ensuring the score/highscores worked for each individual game with no overlap
 
 ## Future Improvements
+
+-   **Global Leaderboards:** A leaderboard for users to compete with each other
+-   **Community Area:** An area for users to talk or share their personal game scores
+-   **Achievements:** An achievement system to make the games more engaging
 
 ## Code Attribution
 
 ### Bootstrap Framework:
+
+The website utilises the Bootstrap framework for responsive design and styling components like the navigation bar, cards, and the form in the contact section.
 
 ### Icons:
 
 <div allign="start">
   <img src="assets/images/ReadmeSoundOff.png" height="150" width="200"/>
   <img src="assets/images/ReadmeSoundOn.png" height="150" width="200"/>
+  <img src="assets/images/ReadmeHomeIcon.PNG" height="150" width="200"/>
 </div>
 
 ### External Resources:
